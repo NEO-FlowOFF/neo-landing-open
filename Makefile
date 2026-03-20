@@ -1,7 +1,7 @@
 SHELL := /bin/zsh
 
 .DEFAULT_GOAL := help
-.PHONY: help env install setup reinstall dev build preview check validate clean nuke
+.PHONY: help env install setup reinstall dev build preview check validate prod clean nuke
 
 PROJECT_NAME := neo-landing-open
 NPM ?= npm
@@ -58,6 +58,9 @@ check: ## Executa validacao do Astro
 	$(NPM) run check
 
 validate: check build ## Executa pipeline minima de validacao
+
+prod: ## Publica em producao via Vercel
+	vercel --prod
 
 clean: ## Remove artefatos de build
 	rm -rf dist .astro

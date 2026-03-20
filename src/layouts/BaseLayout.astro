@@ -1,17 +1,23 @@
 ---
 import { ClientRouter } from "astro:transitions";
+import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/global.css";
 
 interface Props {
   title?: string;
   description?: string;
+  ogImage?: string;
 }
 
 const {
   title = "NEØ FlowOFF | Sites que operam vendas",
   description = "Landing pages, webapps, dashboards e automações para transformar presença digital em aquisição de clientes.",
+  ogImage = "/assets/og-flowoff.png",
 } = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
+const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url).toString();
 ---
 
 <!doctype html>
@@ -21,11 +27,23 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="robots" content="index,follow" />
     <meta name="theme-color" content="#ff1f8f" />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" type="image/png" href="/assets/icon-192.png" />
 
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:alt" content="FlowOFF" />
+    <meta property="og:locale" content="pt_BR" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
 
     <ClientRouter />
 
@@ -40,6 +58,7 @@ const {
     <div class="page-noise"></div>
     <div class="page-glow page-glow-pink"></div>
     <div class="page-glow page-glow-yellow"></div>
+    <Header />
     <slot />
     <Footer />
   </body>

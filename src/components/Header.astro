@@ -1,0 +1,96 @@
+---
+const pathname = Astro.url.pathname;
+const base = pathname === "/" ? "" : "/";
+
+const navItems = [
+  { href: `${base}#solution`, label: "Solução" },
+  { href: "/vejacomo", label: "Veja como" },
+  { href: "/privacidade", label: "Privacidade" },
+];
+---
+
+<header class="site-header" data-site-header>
+  <div class="container site-header-inner">
+    <a href="/" class="site-header-wordmark" aria-label="Voltar para a home">
+      <span class="site-header-word site-header-word-acid">NEØ</span>
+      <span class="site-header-word site-header-word-pink">FLOWOFF</span>
+    </a>
+
+    <nav class="site-header-nav" aria-label="Navegação principal">
+      {navItems.map((item) => (
+        <a href={item.href} class="site-header-link" data-nav-link>{item.label}</a>
+      ))}
+    </nav>
+
+    <div class="site-header-side">
+      <div class="site-header-orbs" aria-hidden="true">
+        <span class="site-header-orb orb-aqua">◎</span>
+        <span class="site-header-orb orb-cyan">✦</span>
+        <span class="site-header-orb orb-soft">◌</span>
+      </div>
+
+      <a href={`${base}#contato`} class="btn btn-primary site-header-cta">
+        Solicitar análise
+      </a>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  const header = document.querySelector("[data-site-header]");
+  const navLinks = Array.from(document.querySelectorAll("[data-nav-link]"));
+
+  const syncHeaderState = () => {
+    if (!header) return;
+    header.classList.toggle("is-scrolled", window.scrollY > 24);
+  };
+
+  const syncActiveState = () => {
+    if (!navLinks.length) return;
+
+    const path = window.location.pathname;
+    const hashSections = ["solution"];
+    let activeHref = navLinks.find((link) => {
+      const href = link.getAttribute("href") || "";
+      return href === path;
+    })?.getAttribute("href");
+
+    if (path === "/") {
+      let currentSection = "";
+
+      for (const id of hashSections) {
+        const section = document.getElementById(id);
+        if (!section) continue;
+
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= 180 && rect.bottom >= 180) {
+          currentSection = `#${id}`;
+        }
+      }
+
+      if (!currentSection && window.scrollY < 120) {
+        activeHref = "/";
+      } else if (currentSection) {
+        activeHref = currentSection;
+      }
+    }
+
+    navLinks.forEach((link) => {
+      const href = link.getAttribute("href") || "";
+      const normalizedHref =
+        href.startsWith("/#") && path === "/" ? href.slice(1) : href;
+      const isActive =
+        normalizedHref === activeHref ||
+        href === activeHref ||
+        (path !== "/" && href === path);
+
+      link.classList.toggle("is-active", Boolean(isActive));
+    });
+  };
+
+  syncHeaderState();
+  syncActiveState();
+  window.addEventListener("scroll", syncHeaderState, { passive: true });
+  window.addEventListener("scroll", syncActiveState, { passive: true });
+  window.addEventListener("hashchange", syncActiveState);
+</script>
