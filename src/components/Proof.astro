@@ -1,27 +1,260 @@
-<section class="section">
-  <div class="container proof-box proof-shell">
-    <div class="proof-copy bento-pane">
-      <p class="section-label">Para quem faz sentido</p>
-      <h2>
-        Mais aderente para empresas com operação real, equipe e meta de
-        crescimento.
-      </h2>
-      <p>
-        Essa estrutura tende a gerar mais resultado quando a empresa já possui
-        processo comercial, equipe ativa e necessidade de previsibilidade. Em
-        especial para negócios com
-        <strong> mais de 7 funcionários</strong> e atuação na <strong
-          >Grande Goiânia</strong
-        >, com foco estratégico em <strong>Aparecida de Goiânia</strong>.
-      </p>
-    </div>
+---
+const pills = [
+  "Empresas em expansão",
+  "Equipe comercial ativa",
+  "Necessidade de leads qualificados",
+  "Presença digital subutilizada",
+  "Busca por previsibilidade",
+];
+---
 
-    <div class="proof-pills">
-      <span>Empresas em expansão</span>
-      <span>Equipe comercial ativa</span>
-      <span>Necessidade de leads qualificados</span>
-      <span>Presença digital subutilizada</span>
-      <span>Busca por previsibilidade</span>
+<section class="section proof-section" id="proof-section">
+  <div class="container">
+    <div class="proof-card">
+
+      <div class="proof-header">
+        <p class="section-label proof-label" id="proof-label" data-state="checking" aria-label="Para quem faz sentido">
+          <span class="pf-checking" aria-hidden="true">verificando perfil<span class="pf-dots"><span>.</span><span>.</span><span>.</span></span></span>
+          <span class="pf-match" aria-hidden="true">para quem faz sentido</span>
+        </p>
+        <span class="pf-count">{pills.length} perfis</span>
+      </div>
+
+      <div class="proof-copy">
+        <h2>Mais aderente para empresas com operação real, equipe e meta de crescimento.</h2>
+        <p>
+          Essa estrutura tende a gerar mais resultado quando a empresa já possui
+          processo comercial, equipe ativa e necessidade de previsibilidade. Em
+          especial para negócios com
+          <strong>mais de 7 funcionários</strong> e atuação na
+          <strong>Grande Goiânia</strong>, com foco estratégico em
+          <strong>Aparecida de Goiânia</strong>.
+        </p>
+      </div>
+
+      <div class="proof-divider">
+        <span class="proof-divider-label">perfis compatíveis</span>
+      </div>
+
+      <ul class="pf-pills" id="pf-pills">
+        {pills.map((text, i) => (
+          <li class="pf-pill" style={`--i:${i}`}>
+            <svg class="pf-check" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            {text}
+          </li>
+        ))}
+      </ul>
+
     </div>
   </div>
 </section>
+
+<script is:inline>
+  (function () {
+    var section = document.getElementById("proof-section");
+    var label   = document.getElementById("proof-label");
+    var pills   = document.getElementById("pf-pills");
+    if (!section || !label || !pills) return;
+
+    var ran = false;
+
+    function activate() {
+      if (ran) return;
+      ran = true;
+
+      /* 1 — label: checking → match after short pause */
+      setTimeout(function () {
+        label.dataset.state = "match";
+      }, 480);
+
+      /* 2 — pills: staggered reveal */
+      var items = pills.querySelectorAll(".pf-pill");
+      items.forEach(function (item, idx) {
+        setTimeout(function () {
+          item.classList.add("is-visible");
+        }, 300 + idx * 110);
+      });
+    }
+
+    var observer = new IntersectionObserver(
+      function (entries) {
+        if (entries[0].isIntersecting) {
+          activate();
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    observer.observe(section);
+  })();
+</script>
+
+<style>
+  /* ── Card unificado ── */
+  .proof-card {
+    position: relative;
+    border-radius: var(--radius-lg);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%),
+      rgba(6, 10, 18, 0.9);
+    border: 1px solid rgba(255, 31, 143, 0.1);
+    backdrop-filter: blur(24px) saturate(1.18);
+    box-shadow:
+      0 24px 56px rgba(0, 0, 0, 0.28),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.02),
+      0 0 48px rgba(255, 31, 143, 0.04);
+    overflow: hidden;
+  }
+
+  /* ── Header ── */
+  .proof-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 1.15rem 0.8rem;
+    border-bottom: 1px solid rgba(255, 31, 143, 0.06);
+  }
+
+  .pf-count {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: rgba(255, 31, 143, 0.45);
+    font-family: monospace;
+  }
+
+  /* ── Copy ── */
+  .proof-copy {
+    padding: 1.1rem 1.15rem 1rem;
+    border-bottom: 1px solid rgba(255, 31, 143, 0.05);
+  }
+
+  .proof-copy h2 { margin-bottom: 0.55rem; }
+
+  .proof-copy p {
+    margin: 0;
+    color: var(--text-3);
+    font-size: 0.9rem;
+    line-height: 1.64;
+  }
+
+  .proof-copy strong { color: var(--text-2); font-weight: 700; }
+
+  /* ── Divider row ── */
+  .proof-divider {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 1.15rem;
+    border-bottom: 1px solid rgba(255, 31, 143, 0.05);
+  }
+
+  .proof-divider::before,
+  .proof-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 31, 143, 0.18), transparent);
+  }
+
+  .proof-divider-label {
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255, 31, 143, 0.35);
+    white-space: nowrap;
+  }
+
+  /* ── Badges aqua glassmorphism ── */
+  .pf-pills {
+    list-style: none;
+    padding: 0.9rem 1.15rem;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .pf-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.42rem;
+    padding: 0.42rem 0.85rem 0.42rem 0.68rem;
+    border-radius: 999px;
+    background: rgba(255, 31, 143, 0.07);
+    border: 1px solid rgba(255, 31, 143, 0.18);
+    backdrop-filter: blur(12px) saturate(1.3);
+    box-shadow:
+      0 2px 12px rgba(255, 31, 143, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    color: #ff8fce;
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1;
+    opacity: 0;
+    transform: scale(0.88);
+    transition:
+      opacity 320ms var(--ease-out),
+      transform 380ms var(--spring);
+  }
+
+  .pf-pill.is-visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .pf-pill:active { transform: scale(0.95); opacity: 0.8; }
+
+  .pf-check {
+    flex: 0 0 auto;
+    color: #ff60b5;
+  }
+
+  /* ── Label states ── */
+  .proof-label[data-state="checking"]::before {
+    animation: proof-dot-pulse 0.65s ease-in-out infinite;
+  }
+
+  @keyframes proof-dot-pulse {
+    0%, 100% { opacity: 1;   box-shadow: 0 0 7px currentColor; }
+    50%       { opacity: 0.2; box-shadow: none; }
+  }
+
+  .pf-checking { display: inline; }
+  .pf-match    { display: none; }
+
+  .proof-label[data-state="match"] .pf-checking { display: none; }
+  .proof-label[data-state="match"] .pf-match {
+    display: inline;
+    animation: pf-resolve 320ms var(--spring) forwards;
+  }
+
+  @keyframes pf-resolve {
+    from { opacity: 0; transform: scale(0.9); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  .pf-dots span {
+    display: inline-block;
+    animation: pf-blink 1.2s ease-in-out infinite;
+  }
+  .pf-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .pf-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes pf-blink {
+    0%, 80%, 100% { opacity: 1; }
+    40%            { opacity: 0.15; }
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 640px) {
+    .proof-header { padding: 0.72rem 0.9rem; }
+    .proof-copy   { padding: 0.9rem 0.9rem 0.8rem; }
+    .proof-divider { padding: 0.5rem 0.9rem; }
+    .pf-pills     { padding: 0.75rem 0.9rem; gap: 0.42rem; }
+    .pf-pill      { font-size: 0.76rem; padding: 0.38rem 0.75rem 0.38rem 0.6rem; }
+  }
+</style>

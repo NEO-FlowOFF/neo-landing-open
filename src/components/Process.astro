@@ -1,36 +1,237 @@
-<section id="processo" class="section">
-  <div class="container process-shell">
-    <div class="process-head bento-pane">
-      <p class="section-label">Como trabalhamos</p>
-      <h2>Arquitetura antes de estética. Conversão antes de volume.</h2>
-    </div>
+---
+const steps = [
+  { n: "01", title: "Diagnóstico", text: "Analisamos site, proposta, jornada, gargalos e pontos de perda." },
+  { n: "02", title: "Estrutura",   text: "Definimos páginas, fluxos, eventos, formulários, CTAs e leitura de dados." },
+  { n: "03", title: "Construção",  text: "Desenvolvemos landing page, site, webapp ou dashboard conforme a necessidade real." },
+  { n: "04", title: "Operação",    text: "Conectamos automações e organizamos o digital para apoiar o comercial de forma contínua." },
+];
+---
 
-    <div class="timeline process-grid">
-      <div class="timeline-item">
-        <strong>1. Diagnóstico</strong>
-        <p>Analisamos site, proposta, jornada, gargalos e pontos de perda.</p>
+<section id="processo" class="section">
+  <div class="container">
+    <div class="proc-card">
+
+      <div class="proc-header">
+        <p class="section-label">Como trabalhamos</p>
+        <span class="proc-loop-badge">
+          <span class="proc-loop-dot" aria-hidden="true"></span>
+          em loop
+        </span>
       </div>
-      <div class="timeline-item">
-        <strong>2. Estrutura</strong>
-        <p>
-          Definimos páginas, fluxos, eventos, formulários, CTAs e leitura de
-          dados.
-        </p>
+
+      <div class="proc-title">
+        <h2>Arquitetura antes de estética. Conversão antes de volume.</h2>
       </div>
-      <div class="timeline-item">
-        <strong>3. Construção</strong>
-        <p>
-          Desenvolvemos landing page, site, webapp ou dashboard conforme a
-          necessidade real.
-        </p>
+
+      <div class="proc-track" aria-label="Roadmap de trabalho">
+        <!-- line + traveling orb -->
+        <div class="proc-line" aria-hidden="true">
+          <div class="proc-orb"></div>
+        </div>
+
+        {steps.map((step, i) => (
+          <div class="proc-step" style={`--i:${i}`}>
+            <div class="proc-node" aria-hidden="true">
+              <span class="proc-num">{step.n}</span>
+            </div>
+            <div class="proc-content">
+              <strong class="proc-step-title">{step.title}</strong>
+              <p class="proc-step-text">{step.text}</p>
+            </div>
+          </div>
+        ))}
       </div>
-      <div class="timeline-item">
-        <strong>4. Operação</strong>
-        <p>
-          Conectamos automações e organizamos o digital para apoiar o comercial
-          de forma contínua.
-        </p>
-      </div>
+
     </div>
   </div>
 </section>
+
+<style>
+  /* ── Card ── */
+  .proc-card {
+    position: relative;
+    border-radius: var(--radius-lg);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%),
+      rgba(6, 10, 18, 0.9);
+    border: 1px solid rgba(255, 31, 143, 0.1);
+    backdrop-filter: blur(24px) saturate(1.18);
+    box-shadow:
+      0 24px 56px rgba(0, 0, 0, 0.28),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.02),
+      0 0 48px rgba(255, 31, 143, 0.04);
+    overflow: hidden;
+  }
+
+  /* ── Header ── */
+  .proc-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 1.15rem 0.8rem;
+    border-bottom: 1px solid rgba(255, 31, 143, 0.06);
+  }
+
+  .proc-loop-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.38rem;
+    padding: 0.22rem 0.6rem;
+    border-radius: 999px;
+    background: rgba(255, 31, 143, 0.07);
+    border: 1px solid rgba(255, 31, 143, 0.14);
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 31, 143, 0.55);
+  }
+
+  .proc-loop-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 999px;
+    background: #ff1f8f;
+    box-shadow: 0 0 6px rgba(255, 31, 143, 0.8);
+    animation: loop-dot 4s linear infinite;
+  }
+
+  @keyframes loop-dot {
+    0%, 100% { opacity: 1; }
+    25%       { opacity: 0.3; }
+    50%       { opacity: 1; }
+    75%       { opacity: 0.3; }
+  }
+
+  /* ── Title ── */
+  .proc-title {
+    padding: 1rem 1.15rem 0.85rem;
+    border-bottom: 1px solid rgba(255, 31, 143, 0.05);
+  }
+
+  .proc-title h2 { margin: 0; }
+
+  /* ── Track ── */
+  .proc-track {
+    position: relative;
+    padding: 0.9rem 1.15rem 0.6rem;
+  }
+
+  /* vertical pipeline */
+  .proc-line {
+    position: absolute;
+    left: calc(1.15rem + 18px); /* padding + half node */
+    top: calc(0.9rem + 18px);   /* top pad + half node */
+    bottom: calc(0.6rem + 18px);
+    width: 2px;
+    background: rgba(255, 31, 143, 0.1);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  /* traveling orb — synced with node activation (4s cycle) */
+  .proc-orb {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 52px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, transparent 0%, #ff1f8f 50%, transparent 100%);
+    box-shadow: 0 0 12px 2px rgba(255, 31, 143, 0.55);
+    animation: orb-travel 4s linear infinite;
+  }
+
+  @keyframes orb-travel {
+    0%   { top: -13px; opacity: 1; }
+    75%  { top: calc(100% + 13px); opacity: 1; }
+    76%  { top: -13px; opacity: 0; }
+    95%  { top: -13px; opacity: 0; }
+    100% { top: -13px; opacity: 1; }
+  }
+
+  /* ── Steps ── */
+  .proc-step {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 0.85rem;
+    align-items: start;
+    padding: 0.6rem 0;
+  }
+
+  .proc-step:not(:last-child) {
+    padding-bottom: 0.85rem;
+  }
+
+  /* node — activates as orb passes (negative delay = phase offset) */
+  .proc-node {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    background: rgba(255, 31, 143, 0.07);
+    border: 1px solid rgba(255, 31, 143, 0.15);
+    animation: node-activate 4s linear calc(var(--i) * -1s) infinite;
+  }
+
+  @keyframes node-activate {
+    0%         { background: rgba(255,31,143,0.42); border-color: rgba(255,31,143,0.85); box-shadow: 0 0 20px rgba(255,31,143,0.55), inset 0 0 8px rgba(255,31,143,0.2); }
+    12%        { background: rgba(255,31,143,0.18); border-color: rgba(255,31,143,0.38); box-shadow: 0 0 10px rgba(255,31,143,0.22); }
+    25%, 100%  { background: rgba(255,31,143,0.06); border-color: rgba(255,31,143,0.12); box-shadow: none; }
+  }
+
+  .proc-num {
+    font-size: 0.68rem;
+    font-weight: 800;
+    font-family: monospace;
+    letter-spacing: 0.04em;
+    animation: num-activate 4s linear calc(var(--i) * -1s) infinite;
+  }
+
+  @keyframes num-activate {
+    0%        { color: #ffb3de; }
+    12%       { color: #ff60b5; }
+    25%, 100% { color: rgba(255,31,143,0.4); }
+  }
+
+  .proc-content { padding-top: 0.45rem; }
+
+  .proc-step-title {
+    display: block;
+    margin-bottom: 0.28rem;
+    font-size: 0.92rem;
+    font-weight: 700;
+    animation: title-activate 4s linear calc(var(--i) * -1s) infinite;
+  }
+
+  @keyframes title-activate {
+    0%        { color: #e8f8ff; }
+    12%       { color: var(--text-2); }
+    25%, 100% { color: var(--text-3); }
+  }
+
+  .proc-step-text {
+    margin: 0;
+    font-size: 0.84rem;
+    color: var(--text-4);
+    line-height: 1.55;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 640px) {
+    .proc-header { padding: 0.72rem 0.9rem; }
+    .proc-title  { padding: 0.9rem 0.9rem 0.75rem; }
+    .proc-track  { padding: 0.75rem 0.9rem 0.5rem; }
+
+    .proc-line {
+      left: calc(0.9rem + 18px);
+      top: calc(0.75rem + 18px);
+      bottom: calc(0.5rem + 18px);
+    }
+
+    .proc-step-text { font-size: 0.8rem; }
+  }
+</style>

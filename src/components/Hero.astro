@@ -1,6 +1,21 @@
 ---
 import { Image } from "astro:assets";
-import heroLogo from "../assets/neoflowoff_logo.png";
+import heroLogo    from "../assets/neoflowoff_logo.png";
+import imgFitness  from "../assets/provas/fitness.png";
+import imgPunk     from "../assets/provas/punk-blvck.png";
+import imgFlowpay  from "../assets/provas/flowpay.png";
+import imgFactory  from "../assets/provas/nsfactory.png";
+
+const slides = [
+  { type: "img",  src: imgFitness,  alt: "Fitness webapp" },
+  { type: "text", tag: "Landing Page",  body: "Landing pages orientadas à conversão" },
+  { type: "img",  src: imgPunk,     alt: "Punk BLVCK webapp" },
+  { type: "text", tag: "WebApp",        body: "WebApps e dashboards comerciais" },
+  { type: "img",  src: imgFlowpay,  alt: "Flowpay dashboard" },
+  { type: "text", tag: "Captação",      body: "Captação, leitura e gestão de leads" },
+  { type: "img",  src: imgFactory,  alt: "NS Factory webapp" },
+  { type: "text", tag: "Automação",     body: "Automações conectadas ao processo de vendas" },
+];
 ---
 
 <section class="section hero">
@@ -22,31 +37,266 @@ import heroLogo from "../assets/neoflowoff_logo.png";
       </p>
 
       <div class="hero-actions">
-        <a href="#form" class="btn btn-primary">Solicitar análise gratuita</a>
-        <a href="#solution" class="btn btn-secondary">Ver como funciona</a>
+        <a href="#form" class="btn btn-primary hero-btn-primary">
+          Solicitar análise gratuita
+          <svg class="hero-btn-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+        <a href="#solution" class="btn btn-secondary hero-btn-secondary">
+          <svg class="hero-btn-icon-left" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
+          </svg>
+          Ver como funciona
+        </a>
       </div>
 
-      <div class="hero-detail-row">
-        <ul class="hero-points">
-          <li>Landing pages orientadas à conversão</li>
-          <li>WebApps e dashboards comerciais</li>
-          <li>Captação, leitura e gestão de leads</li>
-          <li>Automações conectadas ao processo de vendas</li>
+      <!-- gondola carousel -->
+      <div class="gondola-wrap">
+        <div class="gondola-shell">
+        <ul class="gondola" id="gondola" aria-label="Serviços em destaque">
+          {slides.map((slide, i) => (
+            <li class="gondola-card" data-index={i}>
+              {slide.type === "img" ? (
+                <Image
+                  class="gondola-img"
+                  src={slide.src}
+                  alt={slide.alt}
+                  widths={[320, 480]}
+                  sizes="280px"
+                  loading={i < 2 ? "eager" : "lazy"}
+                />
+              ) : (
+                <div class="gondola-text-card">
+                  <span class="gondola-tag">{slide.tag}</span>
+                  <p class="gondola-body">{slide.body}</p>
+                  <svg class="gondola-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M7 17L17 7M17 7H7M17 7v10"/>
+                  </svg>
+                </div>
+              )}
+            </li>
+          ))}
         </ul>
+        </div>
 
-        <div class="hero-card-wrap">
-          <div class="hero-logo-slot">
-            <Image
-              class="hero-logo-image"
-              src={heroLogo}
-              alt="NEØ FlowOFF"
-              loading="eager"
-              widths={[220, 320, 440]}
-              sizes="(max-width: 640px) 42vw, 320px"
-            />
-          </div>
+        <div class="gondola-dots" aria-hidden="true">
+          {slides.map((_, i) => (
+            <span class="gondola-dot" data-dot={i}></span>
+          ))}
         </div>
       </div>
+
+      <div class="hero-logo-wrap">
+        <Image
+          class="hero-logo-image"
+          src={heroLogo}
+          alt="NEØ FlowOFF"
+          loading="eager"
+          widths={[220, 320, 440]}
+          sizes="(max-width: 640px) 50vw, 320px"
+        />
+      </div>
+
     </div>
   </div>
 </section>
+
+<script is:inline>
+  (function () {
+    var track  = document.getElementById("gondola");
+    var dots   = document.querySelectorAll("[data-dot]");
+    if (!track) return;
+
+    var cards    = track.querySelectorAll(".gondola-card");
+    var total    = cards.length;
+    var current  = 0;
+    var timer    = null;
+    var paused   = false;
+
+    function cardWidth() {
+      return cards[0] ? cards[0].offsetWidth + 12 : 292; /* gap */
+    }
+
+    function goTo(idx) {
+      current = (idx + total) % total;
+      track.scrollTo({ left: current * cardWidth(), behavior: "smooth" });
+      dots.forEach(function (d, i) {
+        d.classList.toggle("is-active", i === current);
+      });
+    }
+
+    function next() { if (!paused) goTo(current + 1); }
+
+    function startLoop() {
+      clearInterval(timer);
+      timer = setInterval(next, 2800);
+    }
+
+    /* pause on touch, resume after lift */
+    track.addEventListener("touchstart", function () {
+      paused = true;
+      clearInterval(timer);
+    }, { passive: true });
+
+    track.addEventListener("touchend", function () {
+      /* sync current index from scroll position */
+      setTimeout(function () {
+        var idx = Math.round(track.scrollLeft / cardWidth());
+        current = (idx + total) % total;
+        dots.forEach(function (d, i) { d.classList.toggle("is-active", i === current); });
+        paused = false;
+        startLoop();
+      }, 400);
+    }, { passive: true });
+
+    goTo(0);
+    startLoop();
+  })();
+</script>
+
+<style>
+  /* ── Gondola wrapper ── */
+  .gondola-wrap {
+    margin-top: 1.35rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .gondola-shell {
+    border-radius: var(--radius);
+    border: 1px solid rgba(51, 214, 255, 0.1);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)),
+      rgba(6, 10, 18, 0.85);
+    backdrop-filter: blur(20px) saturate(1.15);
+    box-shadow:
+      0 12px 32px rgba(0,0,0,0.24),
+      inset 0 0 0 1px rgba(255,255,255,0.02);
+    overflow: hidden;
+    padding: 0.65rem 0.65rem 0.55rem;
+  }
+
+  .gondola {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 0.6rem;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .gondola::-webkit-scrollbar { display: none; }
+
+  /* ── Cards ── */
+  .gondola-card {
+    flex: 0 0 calc(58% - 0.3rem);
+    aspect-ratio: 4 / 5;
+    scroll-snap-align: start;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* image card */
+  .gondola-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: var(--radius-sm);
+  }
+
+  /* text card */
+  .gondola-text-card {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem 1.05rem;
+    background:
+      linear-gradient(145deg, rgba(51,214,255,0.1) 0%, rgba(255,31,143,0.06) 100%),
+      rgba(6, 10, 18, 0.92);
+    border: 1px solid rgba(51, 214, 255, 0.12);
+    border-radius: var(--radius);
+    backdrop-filter: blur(18px) saturate(1.2);
+    box-shadow:
+      0 12px 32px rgba(0,0,0,0.28),
+      inset 0 1px 0 rgba(255,255,255,0.06);
+  }
+
+  .gondola-tag {
+    display: inline-block;
+    padding: 0.22rem 0.6rem;
+    border-radius: 999px;
+    background: rgba(51,214,255,0.1);
+    border: 1px solid rgba(51,214,255,0.2);
+    color: #7deaff;
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .gondola-body {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #e8f4ff;
+    line-height: 1.38;
+    letter-spacing: -0.02em;
+  }
+
+  .gondola-arrow {
+    align-self: flex-end;
+    color: rgba(51,214,255,0.5);
+  }
+
+  /* ── Dots ── */
+  .gondola-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.38rem;
+    margin-top: 0.65rem;
+  }
+
+  .gondola-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.18);
+    transition: background 200ms ease, width 200ms var(--spring);
+  }
+
+  .gondola-dot.is-active {
+    width: 18px;
+    background: #33d6ff;
+    box-shadow: 0 0 8px rgba(51,214,255,0.55);
+  }
+
+  /* ── Logo below ── */
+  .hero-logo-wrap {
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem 0 0.25rem;
+  }
+
+  .hero-logo-image {
+    display: block;
+    width: min(56%, 220px);
+    object-fit: contain;
+    filter:
+      drop-shadow(0 0 26px rgba(255,31,143,0.22))
+      drop-shadow(0 0 42px rgba(51,214,255,0.16));
+  }
+
+  /* ── Mobile tweaks ── */
+  @media (max-width: 640px) {
+    .gondola-card { flex: 0 0 calc(72% - 0.3rem); }
+    .gondola-body { font-size: 0.84rem; }
+  }
+</style>

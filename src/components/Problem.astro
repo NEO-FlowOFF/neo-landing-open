@@ -1,24 +1,311 @@
-<section id="diagnostico" class="section">
-  <div class="container split-card problem-shell">
-    <div class="problem-copy bento-pane">
-      <p class="section-label">Diagnóstico</p>
-      <h2>O problema raramente é falta de tráfego.</h2>
-      <p>
-        Na maior parte dos casos, o site foi construído para existir, não para
-        operar. Ele até recebe visitas, mas não filtra intenção, não estrutura
-        contexto comercial e não ajuda sua equipe a decidir o que fazer com cada
-        oportunidade.
-      </p>
-    </div>
+---
+const items = [
+  { severity: "CRÍTICO", impact: 92, text: "Não captura dados com inteligência", accent: "#ff1f8f" },
+  { severity: "CRÍTICO", impact: 88, text: "Não organiza o fluxo comercial",      accent: "#ff1f8f" },
+  { severity: "ALERTA",  impact: 74, text: "Não diferencia curiosidade de intenção real", accent: "#f5a623" },
+  { severity: "CRÍTICO", impact: 85, text: "Não conversa com automações e dashboards",    accent: "#ff1f8f" },
+  { severity: "ALERTA",  impact: 71, text: "Não transforma visita em processo",   accent: "#f5a623" },
+];
+---
 
-    <div class="problem-list">
-      <div class="problem-item">Não captura dados com inteligência</div>
-      <div class="problem-item">Não organiza o fluxo comercial</div>
-      <div class="problem-item">
-        Não diferencia curiosidade de intenção real
+<section id="diagnostico" class="section diag-section">
+  <div class="container">
+    <div class="diag-card">
+
+      <div class="diag-header">
+        <div class="diag-live">
+          <span class="diag-dot" aria-hidden="true"></span>
+          DIAGNÓSTICO ATIVO
+        </div>
+        <span class="diag-domain">flowoff.audit</span>
       </div>
-      <div class="problem-item">Não conversa com automações e dashboards</div>
-      <div class="problem-item">Não transforma visita em processo</div>
+
+      <div class="diag-copy">
+        <p class="section-label">Diagnóstico</p>
+        <h2>O problema raramente é falta de tráfego.</h2>
+        <p>
+          Na maior parte dos casos, o site foi construído para existir, não para
+          operar. Ele até recebe visitas, mas não filtra intenção, não estrutura
+          contexto comercial e não ajuda sua equipe a decidir o que fazer com
+          cada oportunidade.
+        </p>
+      </div>
+
+      <ul class="diag-list" id="diag-list">
+        {items.map((item, i) => (
+          <li
+            class="diag-item"
+            style={`--i:${i};--accent:${item.accent}`}
+            data-impact={item.impact}
+          >
+            <div class="diag-row">
+              <span class="diag-badge">{item.severity}</span>
+              <span class="diag-pct"><b class="diag-num">0</b>%</span>
+            </div>
+            <p class="diag-text">{item.text}</p>
+            <div class="diag-track">
+              <div class="diag-fill"></div>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <div class="diag-footer">
+        <span>5 falhas estruturais identificadas</span>
+        <span class="diag-hint">→ solução disponível</span>
+      </div>
+
     </div>
   </div>
 </section>
+
+<script is:inline>
+  (function () {
+    var list = document.getElementById("diag-list");
+    if (!list) return;
+
+    var ran = false;
+
+    function animate() {
+      if (ran) return;
+      ran = true;
+
+      var items = list.querySelectorAll(".diag-item");
+      items.forEach(function (item, idx) {
+        setTimeout(function () {
+          item.classList.add("is-visible");
+
+          var target = parseInt(item.dataset.impact, 10);
+          var fill   = item.querySelector(".diag-fill");
+          var num    = item.querySelector(".diag-num");
+
+          if (fill) fill.style.width = target + "%";
+          if (!num) return;
+
+          var duration  = 900;
+          var startTime = null;
+
+          function step(ts) {
+            if (!startTime) startTime = ts;
+            var p    = Math.min((ts - startTime) / duration, 1);
+            var ease = 1 - Math.pow(1 - p, 3);
+            num.textContent = Math.round(ease * target);
+            if (p < 1) requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+        }, idx * 130);
+      });
+    }
+
+    var observer = new IntersectionObserver(
+      function (entries) {
+        if (entries[0].isIntersecting) {
+          animate();
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 }
+    );
+    observer.observe(list);
+  })();
+</script>
+
+<style>
+  .diag-card {
+    position: relative;
+    border-radius: var(--radius-lg);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%),
+      rgba(6, 10, 18, 0.9);
+    border: 1px solid rgba(159, 241, 255, 0.08);
+    backdrop-filter: blur(24px) saturate(1.18);
+    box-shadow:
+      0 24px 56px rgba(0, 0, 0, 0.3),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+    overflow: hidden;
+  }
+
+  /* scan line */
+  .diag-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(51,214,255,0.55) 50%, transparent 100%);
+    animation: diag-scan 5s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  @keyframes diag-scan {
+    0%   { transform: translateY(0px);   opacity: 0; }
+    4%   { opacity: 1; }
+    90%  { opacity: 0.2; }
+    100% { transform: translateY(700px); opacity: 0; }
+  }
+
+  /* ── Header ── */
+  .diag-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 1.15rem 0.8rem;
+    border-bottom: 1px solid rgba(159, 241, 255, 0.06);
+  }
+
+  .diag-live {
+    display: flex;
+    align-items: center;
+    gap: 0.48rem;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+    color: #33d6ff;
+    text-transform: uppercase;
+  }
+
+  .diag-dot {
+    flex: 0 0 auto;
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: #33d6ff;
+    box-shadow: 0 0 8px rgba(51,214,255,0.85);
+    animation: diag-pulse 1.9s ease-in-out infinite;
+  }
+
+  @keyframes diag-pulse {
+    0%, 100% { opacity: 1;   box-shadow: 0 0 8px  rgba(51,214,255,0.85); }
+    50%       { opacity: 0.35; box-shadow: 0 0 3px  rgba(51,214,255,0.25); }
+  }
+
+  .diag-domain {
+    font-size: 0.68rem;
+    color: rgba(159, 241, 255, 0.3);
+    font-family: monospace;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── Copy ── */
+  .diag-copy {
+    padding: 1.1rem 1.15rem 1rem;
+    border-bottom: 1px solid rgba(159, 241, 255, 0.05);
+  }
+
+  .diag-copy h2 { margin-bottom: 0.55rem; }
+
+  .diag-copy p:last-child {
+    margin: 0;
+    color: var(--text-3);
+    font-size: 0.9rem;
+    line-height: 1.64;
+  }
+
+  /* ── List ── */
+  .diag-list {
+    list-style: none;
+    padding: 0.9rem 1.15rem;
+    margin: 0;
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  /* ── Item ── */
+  .diag-item {
+    padding: 0.85rem 1rem;
+    border-radius: var(--radius-sm);
+    background: rgba(255,255,255,0.022);
+    border: 1px solid rgba(159,241,255,0.05);
+    border-left: 2px solid var(--accent);
+    opacity: 0;
+    transform: translateX(-14px);
+    transition:
+      opacity 380ms var(--ease-out),
+      transform 420ms var(--spring);
+  }
+
+  .diag-item.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .diag-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.4rem;
+  }
+
+  .diag-badge {
+    font-size: 0.64rem;
+    font-weight: 800;
+    letter-spacing: 0.11em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+
+  .diag-pct {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.4);
+    font-variant-numeric: tabular-nums;
+    font-family: monospace;
+  }
+
+  .diag-pct b {
+    font-weight: 800;
+    color: var(--accent);
+  }
+
+  .diag-text {
+    margin: 0 0 0.62rem;
+    font-size: 0.88rem;
+    color: var(--text-2);
+    line-height: 1.45;
+  }
+
+  .diag-track {
+    height: 3px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.07);
+    overflow: hidden;
+  }
+
+  .diag-fill {
+    height: 100%;
+    width: 0;
+    border-radius: 999px;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+    transition: width 900ms cubic-bezier(0.2, 0, 0, 1);
+  }
+
+  /* ── Footer ── */
+  .diag-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.72rem 1.15rem;
+    border-top: 1px solid rgba(159, 241, 255, 0.05);
+    font-size: 0.76rem;
+    color: var(--text-4);
+  }
+
+  .diag-hint {
+    color: var(--acid);
+    font-weight: 700;
+    font-size: 0.74rem;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 640px) {
+    .diag-header { padding: 0.72rem 0.9rem; }
+    .diag-copy   { padding: 0.9rem 0.9rem 0.8rem; }
+    .diag-list   { padding: 0.75rem 0.9rem; gap: 0.5rem; }
+    .diag-footer { padding: 0.62rem 0.9rem; }
+
+    .diag-item  { padding: 0.75rem 0.85rem; }
+    .diag-text  { font-size: 0.84rem; }
+  }
+</style>
