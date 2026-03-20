@@ -61,34 +61,34 @@ const items = [
 
 <script is:inline>
   (function () {
-    var list = document.getElementById("diag-list");
+    const list = document.getElementById("diag-list");
     if (!list) return;
 
-    var ran = false;
+    const items = list.querySelectorAll(".diag-item");
+    let ran = false;
 
     function animate() {
       if (ran) return;
       ran = true;
 
-      var items = list.querySelectorAll(".diag-item");
-      items.forEach(function (item, idx) {
-        setTimeout(function () {
+      items.forEach((item, idx) => {
+        setTimeout(() => {
           item.classList.add("is-visible");
 
-          var target = parseInt(item.dataset.impact, 10);
-          var fill   = item.querySelector(".diag-fill");
-          var num    = item.querySelector(".diag-num");
+          const target = parseInt(item.dataset.impact, 10);
+          const fill = item.querySelector(".diag-fill");
+          const num = item.querySelector(".diag-num");
 
           if (fill) fill.style.width = target + "%";
           if (!num) return;
 
-          var duration  = 900;
-          var startTime = null;
+          const duration = 900;
+          let startTime = null;
 
           function step(ts) {
             if (!startTime) startTime = ts;
-            var p    = Math.min((ts - startTime) / duration, 1);
-            var ease = 1 - Math.pow(1 - p, 3);
+            const p = Math.min((ts - startTime) / duration, 1);
+            const ease = 1 - Math.pow(1 - p, 3);
             num.textContent = Math.round(ease * target);
             if (p < 1) requestAnimationFrame(step);
           }

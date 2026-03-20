@@ -301,7 +301,7 @@ p {
   min-height: 100svh;
   display: flex;
   align-items: center;
-  padding-top: 7.75rem;
+  padding-top: 4.5rem;
 }
 
 .hero-grid {
@@ -395,6 +395,9 @@ p {
     rgba(51, 214, 255, 0.45)
   );
   -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
@@ -811,7 +814,10 @@ p {
   .section { padding: 3rem 0; }
 
   /* Hero */
-  .hero         { padding-top: 9rem; }
+  .hero {
+    padding-top: 4.5rem;
+    align-items: flex-start;
+  }
   .hero-copy    { padding-top: 0; }
 
   .hero-lead {

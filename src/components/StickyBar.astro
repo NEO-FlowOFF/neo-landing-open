@@ -29,34 +29,73 @@ const waHref = number
 
 <script is:inline>
   (function () {
-    var bar  = document.getElementById("sticky-bar");
-    var form = document.getElementById("form");
+    const bar = document.getElementById("sticky-bar");
+    const form = document.getElementById("form");
+    const scrollBtn = document.getElementById("sticky-scroll-cta");
+    
+    let formTop = 0;
+    let formHeight = 0;
+    let isTicking = false;
 
-    function update() {
-      if (!bar) return;
-      var scrolled = window.scrollY > 100;
-      var formVisible = false;
-      if (form) {
-        var rect = form.getBoundingClientRect();
-        formVisible = rect.top < window.innerHeight * 0.8 && rect.bottom > 0;
+    const cacheFormPosition = () => {
+      if (!form) return;
+      let top = 0;
+      let curr = form;
+      while (curr) {
+        top += curr.offsetTop;
+        curr = curr.offsetParent;
       }
+      formTop = top;
+      formHeight = form.offsetHeight;
+    };
+
+    const update = () => {
+      if (!bar) {
+        isTicking = false;
+        return;
+      }
+      const y = window.scrollY;
+      const scrolled = y > 100;
+      let formVisible = false;
+      
+      if (form) {
+        const viewportHeight = window.innerHeight;
+        formVisible = (formTop < y + viewportHeight * 0.8) && (formTop + formHeight > y);
+      }
+      
       bar.classList.toggle("is-visible", scrolled && !formVisible);
-    }
+      isTicking = false;
+    };
 
+    const onScroll = () => {
+      if (!isTicking) {
+        requestAnimationFrame(update);
+        isTicking = true;
+      }
+    };
+
+    cacheFormPosition();
     update();
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update, { passive: true });
 
-    var scrollBtn = document.getElementById("sticky-scroll-cta");
-    if (scrollBtn) {
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", () => {
+      cacheFormPosition();
+      onScroll();
+    }, { passive: true });
+
+    if (scrollBtn && form) {
       scrollBtn.addEventListener("click", function (e) {
-        if (!form) return;
         e.preventDefault();
         form.scrollIntoView({ behavior: "smooth", block: "start" });
-        var first = form.querySelector("input:not([type=hidden])");
-        if (first) setTimeout(function () { first.focus(); }, 400);
+        const first = form.querySelector("input:not([type=hidden])");
+        if (first) setTimeout(() => { first.focus(); }, 400);
       });
     }
+    
+    document.addEventListener("astro:after-swap", () => {
+      cacheFormPosition();
+      update();
+    });
   })();
 </script>
 

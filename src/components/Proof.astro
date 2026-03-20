@@ -53,26 +53,26 @@ const pills = [
 
 <script is:inline>
   (function () {
-    var section = document.getElementById("proof-section");
-    var label   = document.getElementById("proof-label");
-    var pills   = document.getElementById("pf-pills");
+    const section = document.getElementById("proof-section");
+    const label = document.getElementById("proof-label");
+    const pills = document.getElementById("pf-pills");
     if (!section || !label || !pills) return;
 
-    var ran = false;
+    const items = pills.querySelectorAll(".pf-pill");
+    let ran = false;
 
     function activate() {
       if (ran) return;
       ran = true;
 
       /* 1 — label: checking → match after short pause */
-      setTimeout(function () {
+      setTimeout(() => {
         label.dataset.state = "match";
       }, 480);
 
       /* 2 — pills: staggered reveal */
-      var items = pills.querySelectorAll(".pf-pill");
-      items.forEach(function (item, idx) {
-        setTimeout(function () {
+      items.forEach((item, idx) => {
+        setTimeout(() => {
           item.classList.add("is-visible");
         }, 300 + idx * 110);
       });

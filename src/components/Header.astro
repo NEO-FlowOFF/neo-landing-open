@@ -35,57 +35,99 @@ const navItems = [
 </header>
 
 <script is:inline>
-  const header = document.querySelector("[data-site-header]");
-  const navLinks = Array.from(document.querySelectorAll("[data-nav-link]"));
-
-  const syncHeaderState = () => {
-    if (!header) return;
-    const y = window.scrollY;
-    header.classList.toggle("is-scrolled", y > 24);
-    header.classList.toggle("is-faded",   y > 110);
-  };
-
-  const syncActiveState = () => {
-    if (!navLinks.length) return;
-
-    const path = window.location.pathname;
+  (function() {
+    const header = document.querySelector("[data-site-header]");
+    const navLinks = Array.from(document.querySelectorAll("[data-nav-link]"));
     const hashSections = ["solution"];
-    let activeHref = navLinks.find((link) => {
-      const href = link.getAttribute("href") || "";
-      return href === path;
-    })?.getAttribute("href");
+    
+    let sectionPositions = [];
+    let isTicking = false;
 
-    if (path === "/") {
-      let currentSection = "";
-      for (const id of hashSections) {
-        const section = document.getElementById(id);
-        if (!section) continue;
-        const rect = section.getBoundingClientRect();
-        if (rect.top <= 180 && rect.bottom >= 180) currentSection = `#${id}`;
+    const cacheSectionPositions = () => {
+      sectionPositions = hashSections.map(id => {
+        const el = document.getElementById(id);
+        if (!el) return null;
+        // Optimization: Use offsetTop instead of getBoundingClientRect for static sections
+        let top = 0;
+        let curr = el;
+        while (curr) {
+          top += curr.offsetTop;
+          curr = curr.offsetParent;
+        }
+        return { id, top, height: el.offsetHeight };
+      }).filter(Boolean);
+    };
+
+    const syncState = () => {
+      if (!header) return;
+      
+      const y = window.scrollY;
+      
+      // syncHeaderState logic
+      header.classList.toggle("is-scrolled", y > 24);
+      header.classList.toggle("is-faded",   y > 110);
+
+      // syncActiveState logic
+      if (!navLinks.length) {
+        isTicking = false;
+        return;
       }
-      if (!currentSection && window.scrollY < 120) activeHref = "/";
-      else if (currentSection) activeHref = currentSection;
-    }
 
-    navLinks.forEach((link) => {
-      const href = link.getAttribute("href") || "";
-      const normalizedHref =
-        href.startsWith("/#") && path === "/" ? href.slice(1) : href;
-      const isActive =
-        normalizedHref === activeHref ||
-        href === activeHref ||
-        (path !== "/" && href === path);
-      link.classList.toggle("is-active", Boolean(isActive));
+      const path = window.location.pathname;
+      let activeHref = "";
+
+      if (path === "/") {
+        let currentSection = "";
+        const threshold = 180;
+        
+        for (const section of sectionPositions) {
+          if (y + threshold >= section.top && y + threshold <= section.top + section.height) {
+            currentSection = `#${section.id}`;
+            break;
+          }
+        }
+        
+        if (!currentSection && y < 120) activeHref = "/";
+        else if (currentSection) activeHref = currentSection;
+      } else {
+        activeHref = navLinks.find((link) => {
+          return link.getAttribute("href") === path;
+        })?.getAttribute("href") || "";
+      }
+
+      navLinks.forEach((link) => {
+        const href = link.getAttribute("href") || "";
+        const normalizedHref = (href.startsWith("/#") && path === "/") ? href.slice(1) : href;
+        const isActive = normalizedHref === activeHref || href === activeHref || (path !== "/" && href === path);
+        link.classList.toggle("is-active", Boolean(isActive));
+      });
+
+      isTicking = false;
+    };
+
+    const onScroll = () => {
+      if (!isTicking) {
+        requestAnimationFrame(syncState);
+        isTicking = true;
+      }
+    };
+
+    // Initial load
+    cacheSectionPositions();
+    syncState();
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", () => {
+      cacheSectionPositions();
+      onScroll();
+    }, { passive: true });
+    
+    window.addEventListener("hashchange", syncState);
+    document.addEventListener("astro:after-swap", () => {
+      cacheSectionPositions();
+      syncState();
     });
-  };
-
-  syncHeaderState();
-  syncActiveState();
-  window.addEventListener("scroll", syncHeaderState, { passive: true });
-  window.addEventListener("scroll", syncActiveState, { passive: true });
-  window.addEventListener("hashchange", syncActiveState);
-  document.addEventListener("astro:after-swap", syncActiveState);
-  document.addEventListener("astro:after-swap", syncHeaderState);
+  })();
 </script>
 
 <style>

@@ -53,12 +53,55 @@ const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url).toString();
 
     <ClientRouter />
 
+    <!-- Critical path CSS to avoid render blocking (1,480ms savings) -->
+    <style is:inline>
+      :root {
+        --bg: #06070c;
+        --text: #f5f7fb;
+        --pink: #ff1f8f;
+        --cyan: #33d6ff;
+        --acid: #d9ff3f;
+        --ease-out: cubic-bezier(0.2, 0, 0, 1);
+        --spring: cubic-bezier(0.34, 1.2, 0.64, 1);
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: system-ui, sans-serif;
+        overflow-x: hidden;
+      }
+      .page-noise {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.08;
+        background-size: 32px 32px;
+        mask-image: radial-gradient(circle at center, black 45%, transparent 100%);
+      }
+      [data-site-header] { opacity: 0; transform: translateY(-10px); }
+      [data-site-header].is-scrolled, [data-site-header]:not(.is-scrolled) { opacity: 1; transform: translateY(0); transition: opacity 380ms var(--ease-out), transform 380ms var(--ease-out); }
+    </style>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin fetchpriority="high" />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
   </head>
   <body>
     <div class="page-noise"></div>
