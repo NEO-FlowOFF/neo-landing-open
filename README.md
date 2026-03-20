@@ -4,7 +4,7 @@
 
 ## 🔗 Links Úteis
 
-- **Plataforma (PWA)**: [https://www.neoflowoff.agency/desktop](https://www.neoflowoff.agency/desktop)
+- **Plataforma (PWA)**: [https://www.neoflowoff.agency](https://www.neoflowoff.agency)
 - **Instagram**: [@neoflowoff.eth](https://www.instagram.com/neoflowoff.eth)
 
 ---
