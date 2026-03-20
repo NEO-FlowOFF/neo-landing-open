@@ -1,5 +1,6 @@
 ---
 import { ClientRouter } from "astro:transitions";
+import Footer from "../components/Footer.astro";
 import "../styles/global.css";
 
 interface Props {
@@ -40,5 +41,6 @@ const {
     <div class="page-glow page-glow-pink"></div>
     <div class="page-glow page-glow-yellow"></div>
     <slot />
+    <Footer />
   </body>
 </html>
