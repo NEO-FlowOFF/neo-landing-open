@@ -1,0 +1,21 @@
+{
+  "name": "NEØ FlowOFF",
+  "short_name": "FlowOFF",
+  "description": "Landing pages, webapps, dashboards e automações para transformar presença digital em aquisição de clientes.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#04060b",
+  "theme_color": "#ff1f8f",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

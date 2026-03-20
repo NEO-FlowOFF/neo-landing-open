@@ -1,3 +1,8 @@
+---
+import { Image } from "astro:assets";
+import heroLogo from "../assets/neoflowoff_logo.png";
+---
+
 <section class="section hero">
   <div class="container hero-grid">
     <div class="hero-copy">
@@ -21,22 +26,26 @@
         <a href="#solution" class="btn btn-secondary">Ver como funciona</a>
       </div>
 
-      <ul class="hero-points">
-        <li>Landing pages orientadas à conversão</li>
-        <li>WebApps e dashboards comerciais</li>
-        <li>Captação, leitura e gestão de leads</li>
-        <li>Automações conectadas ao processo de vendas</li>
-      </ul>
-    </div>
+      <div class="hero-detail-row">
+        <ul class="hero-points">
+          <li>Landing pages orientadas à conversão</li>
+          <li>WebApps e dashboards comerciais</li>
+          <li>Captação, leitura e gestão de leads</li>
+          <li>Automações conectadas ao processo de vendas</li>
+        </ul>
 
-    <div class="hero-card-wrap">
-      <div class="hero-logo-slot">
-        <img
-          class="hero-logo-image"
-          src="/assets/neoflowoff_logo.png"
-          alt="NEØ FlowOFF"
-          loading="eager"
-        />
+        <div class="hero-card-wrap">
+          <div class="hero-logo-slot">
+            <Image
+              class="hero-logo-image"
+              src={heroLogo}
+              alt="NEØ FlowOFF"
+              loading="eager"
+              widths={[220, 320, 440]}
+              sizes="(max-width: 640px) 42vw, 320px"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </div>

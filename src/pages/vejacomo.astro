@@ -1,5 +1,7 @@
 ---
+import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import heroLogo from "../assets/neoflowoff_logo.png";
 ---
 
 <BaseLayout
@@ -37,11 +39,13 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
           <div class="chart-core">
             <div class="chart-core-ring"></div>
-            <img
+            <Image
               class="chart-logo"
-              src="/assets/neoflowoff_logo.png"
+              src={heroLogo}
               alt="NEØ FlowOFF"
               loading="eager"
+              widths={[240, 360, 520]}
+              sizes="(max-width: 640px) 52vw, 360px"
             />
             <span class="chart-core-label">FlowOFF signal core</span>
           </div>
