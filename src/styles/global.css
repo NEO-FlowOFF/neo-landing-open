@@ -309,6 +309,12 @@ p {
   gap: 2rem;
   grid-template-columns: 1fr;
   align-items: center;
+  min-width: 0;
+}
+
+.hero-copy {
+  min-width: 0;
+  width: 100%;
 }
 
 .hero-lead {

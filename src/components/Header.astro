@@ -5,7 +5,6 @@ const base = pathname === "/" ? "" : "/";
 const navItems = [
   { href: `${base}#solution`, label: "Solução" },
   { href: "/vejacomo", label: "Veja como" },
-  { href: "/privacidade", label: "Privacidade" },
 ];
 ---
 
@@ -20,18 +19,17 @@ const navItems = [
       {navItems.map((item) => (
         <a href={item.href} class="site-header-link" data-nav-link>{item.label}</a>
       ))}
+      <a href={`${base}#contato`} class="btn btn-primary site-header-cta">
+        Solicitar análise
+      </a>
     </nav>
 
-    <div class="site-header-side">
-      <div class="site-header-orbs" aria-hidden="true">
+    <div class="site-header-side" aria-hidden="true">
+      <div class="site-header-orbs">
         <span class="site-header-orb orb-aqua">◎</span>
         <span class="site-header-orb orb-cyan">✦</span>
         <span class="site-header-orb orb-soft">◌</span>
       </div>
-
-      <a href={`${base}#contato`} class="btn btn-primary site-header-cta">
-        Solicitar análise
-      </a>
     </div>
   </div>
 </header>
@@ -42,7 +40,9 @@ const navItems = [
 
   const syncHeaderState = () => {
     if (!header) return;
-    header.classList.toggle("is-scrolled", window.scrollY > 24);
+    const y = window.scrollY;
+    header.classList.toggle("is-scrolled", y > 24);
+    header.classList.toggle("is-faded",   y > 110);
   };
 
   const syncActiveState = () => {
@@ -97,14 +97,32 @@ const navItems = [
     z-index: 40;
     pointer-events: none;
     transition:
-      opacity 220ms var(--ease-out),
-      transform 220ms var(--ease-out),
-      top 220ms var(--ease-out);
+      opacity 380ms var(--ease-out),
+      transform 380ms var(--ease-out),
+      top 380ms var(--ease-out),
+      filter 380ms var(--ease-out);
   }
 
   .site-header.is-scrolled {
-    opacity: 0.8;
+    opacity: 0.82;
     top: 0.45rem;
+  }
+
+  /* ── Quase invisível após scroll profundo ── */
+  .site-header.is-faded {
+    opacity: 0.12;
+    top: 0.25rem;
+    filter: blur(1px);
+    transform: scale(0.97);
+  }
+
+  /* Volta ao normal ao toque/foco */
+  .site-header.is-faded:focus-within,
+  .site-header.is-faded:active {
+    opacity: 0.9;
+    filter: blur(0px);
+    transform: scale(1);
+    transition-duration: 160ms;
   }
 
   .site-header-inner {
@@ -112,7 +130,7 @@ const navItems = [
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
     min-height: 64px;
     padding: 0.72rem 0.85rem;
     border-radius: var(--radius);
@@ -212,20 +230,12 @@ const navItems = [
     padding: 0 1rem;
     border-radius: var(--radius-sm);
     font-size: 0.9rem;
-    color: rgba(241, 247, 255, 0.88);
-    background:
-      linear-gradient(
-        135deg,
-        rgba(108, 232, 255, 0.14),
-        rgba(255, 255, 255, 0.06) 52%,
-        rgba(255, 31, 143, 0.08)
-      ),
-      rgba(10, 18, 30, 0.22);
-    border-color: rgba(125, 234, 255, 0.1);
+    color: rgba(10, 13, 20, 0.82);
+    background: linear-gradient(135deg, rgba(217, 255, 63, 0.55), rgba(195, 255, 43, 0.38));
+    border-color: rgba(217, 255, 63, 0.18);
     box-shadow:
       0 8px 18px rgba(0, 0, 0, 0.14),
-      inset 0 0 0 1px rgba(255, 255, 255, 0.03),
-      0 0 16px rgba(51, 214, 255, 0.06);
+      0 0 16px rgba(217, 255, 63, 0.1);
     transform: scale(0.94);
   }
 
@@ -314,11 +324,10 @@ const navItems = [
       inset 0 0 0 1px rgba(255, 255, 255, 0.34);
   }
 
-  /* Side */
+  /* Side — apenas decoração (orbs), oculto em mobile */
   .site-header-side {
     display: inline-flex;
     align-items: center;
-    gap: 0.75rem;
     position: relative;
     z-index: 1;
   }
@@ -326,12 +335,12 @@ const navItems = [
   .site-header-cta {
     min-height: 42px;
     white-space: nowrap;
-    background: linear-gradient(135deg, #6fe8ff 0%, #b8fbff 100%);
-    color: #07111a;
+    background: linear-gradient(135deg, var(--acid) 0%, #c3ff2b 100%);
+    color: #0a0d14;
     font-size: 0.88rem;
     padding: 0 1rem;
     box-shadow:
-      0 10px 26px rgba(51, 214, 255, 0.18),
+      0 10px 26px rgba(217, 255, 63, 0.22),
       inset 0 0 0 1px rgba(255, 255, 255, 0.25);
     transition:
       transform 180ms var(--spring),
@@ -401,21 +410,19 @@ const navItems = [
   /* ─── Responsive 980px ─── */
   @media (max-width: 980px) {
     .site-header-inner {
-      grid-template-columns: 1fr auto;
-      grid-template-areas:
-        "brand side"
-        "nav nav";
+      grid-template-columns: auto 1fr;
+      grid-template-areas: "brand nav";
       align-items: center;
-      gap: 0.65rem 0.75rem;
-      padding: 0.8rem;
+      gap: 0.6rem;
+      padding: 0.7rem 0.8rem;
     }
 
     .site-header-wordmark { grid-area: brand; justify-self: start; }
-    .site-header-nav      { grid-area: nav; width: 100%; justify-content: flex-start; padding: 0.25rem; border-radius: var(--radius-sm); background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(159, 241, 255, 0.06); }
-    .site-header-side     { grid-area: side; justify-self: end; }
+    .site-header-nav      { grid-area: nav; width: 100%; justify-content: flex-end; }
+    .site-header-side     { display: none; }
   }
 
-  /* ─── Responsive 640px ─── */
+  /* ─── Mobile ≤ 640px — iOS app bar: wordmark + CTA apenas ─── */
   @media (max-width: 640px) {
     .site-header {
       top: calc(0.5rem + env(safe-area-inset-top, 0px) * 0.15);
@@ -423,12 +430,25 @@ const navItems = [
 
     .site-header.is-scrolled {
       top: calc(0.3rem + env(safe-area-inset-top, 0px) * 0.1);
-      opacity: 0.76;
+      opacity: 0.78;
+    }
+
+    .site-header.is-faded {
+      opacity: 0.1;
+      top: 0.15rem;
+      filter: blur(1.5px);
+    }
+
+    .site-header.is-faded:focus-within,
+    .site-header.is-faded:active {
+      opacity: 0.88;
+      filter: blur(0px);
+      transition-duration: 140ms;
     }
 
     .site-header-inner {
       min-height: auto;
-      padding: 0.7rem;
+      padding: 0.62rem 0.75rem;
       border-radius: var(--radius);
       background:
         linear-gradient(
@@ -441,37 +461,30 @@ const navItems = [
       backdrop-filter: blur(26px) saturate(1.4);
     }
 
+    /* oculta links de texto — padrão iOS app bar */
+    .site-header-link { display: none; }
+
+    .site-header-cta {
+      min-height: 40px;
+      padding: 0 1rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
+    }
+
     .site-header.is-scrolled .site-header-inner {
-      min-height: auto;
-      padding: 0.52rem 0.58rem;
+      padding: 0.48rem 0.6rem;
       border-radius: var(--radius-sm);
       backdrop-filter: blur(18px) saturate(1.04);
     }
 
     .site-header.is-scrolled .site-header-cta {
-      min-height: 38px;
-      padding: 0 0.78rem;
-      border-radius: 14px;
-      font-size: 0.8rem;
-      transform: scale(0.92);
-    }
-
-    .site-header-link {
       min-height: 36px;
-      font-size: 0.82rem;
-      padding: 0 0.72rem;
-      background: rgba(255, 255, 255, 0.04);
-    }
-
-    .site-header-word     { font-size: 0.92rem; }
-
-    .site-header-cta {
-      min-height: 40px;
       padding: 0 0.85rem;
-      border-radius: var(--radius-sm);
-      font-size: 0.82rem;
+      font-size: 0.78rem;
+      transform: scale(0.93);
     }
 
-    .site-header-orbs { display: none; }
+    .site-header-word  { font-size: 0.92rem; }
+    .site-header-orbs  { display: none; }
   }
 </style>
