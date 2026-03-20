@@ -17,7 +17,10 @@ const {
   ogImage = "/assets/og-flowoff.png",
 } = Astro.props;
 
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
+const canonicalUrl = new URL(
+  Astro.url.pathname,
+  Astro.site ?? Astro.url,
+).toString();
 const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url).toString();
 ---
 
@@ -26,12 +29,19 @@ const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url).toString();
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="facebook-domain-verification"
+      content="z2xcysmhxt1up1u02q6tdp1nvrd3pw"
+    />
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="robots" content="index,follow" />
     <meta name="theme-color" content="#ff1f8f" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
     <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" href="/favicon-32x32.png" sizes="32x32" />
     <link rel="icon" href="/favicon-16x16.png" sizes="16x16" />
@@ -77,14 +87,33 @@ const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url).toString();
         pointer-events: none;
         opacity: 0.08;
         background-size: 32px 32px;
-        mask-image: radial-gradient(circle at center, black 45%, transparent 100%);
+        mask-image: radial-gradient(
+          circle at center,
+          black 45%,
+          transparent 100%
+        );
       }
-      [data-site-header] { opacity: 0; transform: translateY(-10px); }
-      [data-site-header].is-scrolled, [data-site-header]:not(.is-scrolled) { opacity: 1; transform: translateY(0); transition: opacity 380ms var(--ease-out), transform 380ms var(--ease-out); }
+      [data-site-header] {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      [data-site-header].is-scrolled,
+      [data-site-header]:not(.is-scrolled) {
+        opacity: 1;
+        transform: translateY(0);
+        transition:
+          opacity 380ms var(--ease-out),
+          transform 380ms var(--ease-out);
+      }
     </style>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin fetchpriority="high" />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+      fetchpriority="high"
+    />
     <link
       rel="preload"
       as="style"
@@ -94,7 +123,7 @@ const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url).toString();
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
       rel="stylesheet"
       media="print"
-      onload="this.media='all'"
+      onload="this.setAttribute('media', 'all')"
     />
     <noscript>
       <link
