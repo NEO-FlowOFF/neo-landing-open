@@ -184,11 +184,11 @@ const items = [
     const locEl = document.getElementById("user-loc");
     if (locEl) {
       locEl.innerText = "LOCALIZANDO...";
-      fetch("https://ipapi.co/json/")
+      fetch("https://freeipapi.com/api/json")
         .then((res) => res.json())
         .then((data) => {
-          if (data && data.city && data.country_name) {
-            locEl.innerText = `${data.city.toUpperCase()}, ${data.country_name.toUpperCase()}`;
+          if (data && data.cityName && data.countryName) {
+            locEl.innerText = `${data.cityName.toUpperCase()}, ${data.countryName.toUpperCase()}`;
           } else {
             locEl.innerText = "GYN, BRASIL"; // Fallback
           }

@@ -4,7 +4,7 @@ SHELL := /bin/zsh
 .PHONY: help env install setup reinstall dev build preview check validate prod clean nuke
 
 PROJECT_NAME := neo-landing-open
-NPM ?= npm
+NPM ?= pnpm
 ENV_FILE := .env
 ENV_EXAMPLE := .env.example
 NODE_MODULES := node_modules

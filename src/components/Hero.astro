@@ -7,19 +7,26 @@ import Gondola from "./Gondola.astro";
 <section class="section hero">
   <div class="container hero-grid">
     <div class="hero-copy">
-      <Image
-        class="hero-logo-sm"
-        src={heroLogo}
-        alt="NEØ FlowOFF"
-        width={88}
-        height={88}
-        loading="eager"
-        fetchpriority="high"
-        widths={[120, 200]}
-        sizes="96px"
-      />
+      <div class="hero-brand-block">
+        <Image
+          class="hero-logo-sm"
+          src={heroLogo}
+          alt="NEØ FlowOFF"
+          width={88}
+          height={88}
+          loading="eager"
+          fetchpriority="high"
+          widths={[120, 200]}
+          sizes="96px"
+        />
+        <div class="hero-brand-divider"></div>
+        <a href="/" class="hero-brand-tag">
+          <span class="hero-brand-neo">NEØ</span>
+          <span class="hero-brand-flow">FlowOFF</span>
+        </a>
+      </div>
 
-      <div class="acid">
+      <div class="hero-badge-clean">
         <span class="tech-bracket">[</span> EXPERIMENTE UM WEBAPP <span
           class="tech-bracket">]</span
         >
@@ -87,7 +94,6 @@ import Gondola from "./Gondola.astro";
   </div>
 </section>
 
-
 <style>
   /* ── Logo small ── */
   /*
@@ -105,6 +111,53 @@ import Gondola from "./Gondola.astro";
     font-weight: 700;
     color: var(--text-4);
     letter-spacing: 0.1em;
+  }
+
+  .hero-brand-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    text-decoration: none;
+    margin-bottom: 1.5rem;
+    line-height: 1;
+  }
+
+  .hero-brand-neo {
+    font-size: 1.7rem;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+  }
+
+  .hero-brand-flow {
+    font-size: 1.7rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #d9ff3f; /* Brand Acid Green - Strong & Technical */
+  }
+
+  .hero-badge-clean {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.75rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+  }
+
+  .hero-badge-clean:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.8);
   }
 
   .hud-item {
@@ -128,14 +181,27 @@ import Gondola from "./Gondola.astro";
     font-weight: 400;
   }
 
+  .hero-brand-block {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-brand-divider {
+    width: 1px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 1px 0 0 rgba(0, 0, 0, 0.4);
+  }
+
   .hero-logo-sm {
     display: block;
     width: 88px;
     height: auto;
     aspect-ratio: 1 / 1;
     object-fit: contain;
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
+    margin: 0;
     filter: drop-shadow(0 0 14px rgba(255, 31, 143, 0.22))
       drop-shadow(0 0 24px rgba(51, 214, 255, 0.14));
   }
@@ -216,5 +282,4 @@ import Gondola from "./Gondola.astro";
     position: relative;
     z-index: 1;
   }
-
 </style>

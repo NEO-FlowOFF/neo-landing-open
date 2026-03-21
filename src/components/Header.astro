@@ -7,62 +7,55 @@ const navItems = [
 
 <header class="site-header" data-site-header transition:persist>
   <div class="container site-header-inner">
-    <a href="/" class="site-header-wordmark" aria-label="Voltar para a home">
-      <span class="site-header-word site-header-word-acid">NEØ</span>
-      <span class="site-header-word site-header-word-pink">FLOWOFF</span>
-    </a>
-
     <nav class="site-header-nav" aria-label="Navegação principal">
-      {navItems.map((item) => (
-        <a href={item.href} class="site-header-link" data-nav-link>{item.label}</a>
-      ))}
+      {
+        navItems.map((item) => (
+          <a href={item.href} class="site-header-link" data-nav-link>
+            {item.label}
+          </a>
+        ))
+      }
       <a href="/#contato" class="btn btn-primary site-header-cta btn-glow">
         Solicitar análise
       </a>
     </nav>
-
-    <div class="site-header-side" aria-hidden="true">
-      <div class="site-header-orbs">
-        <span class="site-header-orb orb-aqua">◎</span>
-        <span class="site-header-orb orb-cyan">✦</span>
-        <span class="site-header-orb orb-soft">◌</span>
-      </div>
-    </div>
   </div>
 </header>
 
 <script is:inline>
-  (function() {
+  (function () {
     const header = document.querySelector("[data-site-header]");
     const navLinks = Array.from(document.querySelectorAll("[data-nav-link]"));
     const hashSections = ["solution"];
-    
+
     let sectionPositions = [];
     let isTicking = false;
 
     const cacheSectionPositions = () => {
-      sectionPositions = hashSections.map(id => {
-        const el = document.getElementById(id);
-        if (!el) return null;
-        // Optimization: Use offsetTop instead of getBoundingClientRect for static sections
-        let top = 0;
-        let curr = el;
-        while (curr) {
-          top += curr.offsetTop;
-          curr = curr.offsetParent;
-        }
-        return { id, top, height: el.offsetHeight };
-      }).filter(Boolean);
+      sectionPositions = hashSections
+        .map((id) => {
+          const el = document.getElementById(id);
+          if (!el) return null;
+          // Optimization: Use offsetTop instead of getBoundingClientRect for static sections
+          let top = 0;
+          let curr = el;
+          while (curr) {
+            top += curr.offsetTop;
+            curr = curr.offsetParent;
+          }
+          return { id, top, height: el.offsetHeight };
+        })
+        .filter(Boolean);
     };
 
     const syncState = () => {
       if (!header) return;
-      
+
       const y = window.scrollY;
-      
+
       // syncHeaderState logic
       header.classList.toggle("is-scrolled", y > 24);
-      header.classList.toggle("is-faded",   y > 110);
+      header.classList.toggle("is-faded", y > 110);
 
       // syncActiveState logic
       if (!navLinks.length) {
@@ -76,26 +69,36 @@ const navItems = [
       if (path === "/") {
         let currentSection = "";
         const threshold = 180;
-        
+
         for (const section of sectionPositions) {
-          if (y + threshold >= section.top && y + threshold <= section.top + section.height) {
+          if (
+            y + threshold >= section.top &&
+            y + threshold <= section.top + section.height
+          ) {
             currentSection = `#${section.id}`;
             break;
           }
         }
-        
+
         if (!currentSection && y < 120) activeHref = "/";
         else if (currentSection) activeHref = currentSection;
       } else {
-        activeHref = navLinks.find((link) => {
-          return link.getAttribute("href") === path;
-        })?.getAttribute("href") || "";
+        activeHref =
+          navLinks
+            .find((link) => {
+              return link.getAttribute("href") === path;
+            })
+            ?.getAttribute("href") || "";
       }
 
       navLinks.forEach((link) => {
         const href = link.getAttribute("href") || "";
-        const normalizedHref = (href.startsWith("/#") && path === "/") ? href.slice(1) : href;
-        const isActive = normalizedHref === activeHref || href === activeHref || (path !== "/" && href === path);
+        const normalizedHref =
+          href.startsWith("/#") && path === "/" ? href.slice(1) : href;
+        const isActive =
+          normalizedHref === activeHref ||
+          href === activeHref ||
+          (path !== "/" && href === path);
         link.classList.toggle("is-active", Boolean(isActive));
       });
 
@@ -114,11 +117,15 @@ const navItems = [
     syncState();
 
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", () => {
-      cacheSectionPositions();
-      onScroll();
-    }, { passive: true });
-    
+    window.addEventListener(
+      "resize",
+      () => {
+        cacheSectionPositions();
+        onScroll();
+      },
+      { passive: true },
+    );
+
     window.addEventListener("hashchange", syncState);
     document.addEventListener("astro:after-swap", () => {
       cacheSectionPositions();
@@ -255,9 +262,15 @@ const navItems = [
     transform: scale(0.97);
   }
 
-  .site-header.is-scrolled .site-header-inner::before { opacity: 0.42; }
-  .site-header.is-scrolled .site-header-inner::after  { opacity: 0.46; }
-  .site-header.is-scrolled .site-header-word          { opacity: 0.86; }
+  .site-header.is-scrolled .site-header-inner::before {
+    opacity: 0.42;
+  }
+  .site-header.is-scrolled .site-header-inner::after {
+    opacity: 0.46;
+  }
+  .site-header.is-scrolled .site-header-word {
+    opacity: 0.86;
+  }
 
   .site-header.is-scrolled .site-header-link {
     background: rgba(255, 255, 255, 0.03);
@@ -270,7 +283,11 @@ const navItems = [
     border-radius: var(--radius-sm);
     font-size: 0.9rem;
     color: rgba(10, 13, 20, 0.82);
-    background: linear-gradient(135deg, rgba(217, 255, 63, 0.55), rgba(195, 255, 43, 0.38));
+    background: linear-gradient(
+      135deg,
+      rgba(217, 255, 63, 0.55),
+      rgba(195, 255, 43, 0.38)
+    );
     border-color: rgba(217, 255, 63, 0.18);
     box-shadow:
       0 8px 18px rgba(0, 0, 0, 0.14),
@@ -278,7 +295,9 @@ const navItems = [
     transform: scale(0.94);
   }
 
-  .site-header.is-scrolled .site-header-orbs { opacity: 0.62; }
+  .site-header.is-scrolled .site-header-orbs {
+    opacity: 0.62;
+  }
 
   /* Wordmark */
   .site-header-wordmark {
@@ -323,7 +342,9 @@ const navItems = [
     z-index: 1;
   }
 
-  .site-header-nav::-webkit-scrollbar { display: none; }
+  .site-header-nav::-webkit-scrollbar {
+    display: none;
+  }
 
   .site-header-link {
     flex: 0 0 auto;
@@ -344,7 +365,10 @@ const navItems = [
       transform 180ms var(--ease-out);
   }
 
-  .site-header-link:active { transform: scale(0.95); opacity: 0.8; }
+  .site-header-link:active {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
 
   @media (hover: hover) and (pointer: fine) {
     .site-header-link:hover {
@@ -456,9 +480,18 @@ const navItems = [
       padding: 0.7rem 0.8rem;
     }
 
-    .site-header-wordmark { grid-area: brand; justify-self: start; }
-    .site-header-nav      { grid-area: nav; width: 100%; justify-content: flex-end; }
-    .site-header-side     { display: none; }
+    .site-header-wordmark {
+      grid-area: brand;
+      justify-self: start;
+    }
+    .site-header-nav {
+      grid-area: nav;
+      width: 100%;
+      justify-content: flex-end;
+    }
+    .site-header-side {
+      display: none;
+    }
   }
 
   /* ─── Mobile ≤ 640px — iOS app bar: wordmark + CTA apenas ─── */
@@ -501,7 +534,7 @@ const navItems = [
     }
 
     /* Mostra links no mobile — scroll lateral suave */
-    .site-header-link { 
+    .site-header-link {
       display: inline-flex;
       font-size: 0.75rem;
       padding: 0 0.6rem;
@@ -534,7 +567,11 @@ const navItems = [
       background: rgba(217, 255, 63, 0.75);
     }
 
-    .site-header-word  { font-size: 0.92rem; }
-    .site-header-orbs  { display: none; }
+    .site-header-word {
+      font-size: 0.92rem;
+    }
+    .site-header-orbs {
+      display: none;
+    }
   }
 </style>
