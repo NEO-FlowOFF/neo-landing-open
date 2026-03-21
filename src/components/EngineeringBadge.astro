@@ -1,0 +1,135 @@
+---
+---
+<div class="eng-badge-container">
+  <div class="eng-badge-header">
+    <span class="eng-label">ENGINEERING AUDIT</span>
+    <div class="eng-status-dot"></div>
+  </div>
+  
+  <div class="eng-scores">
+    <div class="score-item" title="Performance">
+      <span class="score-num perf">91</span>
+      <span class="score-tag">PERF</span>
+    </div>
+    <div class="score-divider"></div>
+    <div class="score-item" title="Accessibility">
+      <span class="score-num acc">91</span>
+      <span class="score-tag">ACC</span>
+    </div>
+    <div class="score-divider"></div>
+    <div class="score-item" title="Best Practices">
+      <span class="score-num bp">96</span>
+      <span class="score-tag">BP</span>
+    </div>
+    <div class="score-divider"></div>
+    <div class="score-item" title="SEO">
+      <span class="score-num seo">100</span>
+      <span class="score-tag">SEO</span>
+    </div>
+  </div>
+
+  <div class="eng-footer">
+    <span class="eng-node">v13.0.2</span>
+    <span class="eng-ms">FCP: 1.4s | LCP: 2.2s</span>
+  </div>
+</div>
+
+<style>
+  .eng-badge-container {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-family: var(--font-mono, monospace);
+    backdrop-filter: blur(10px);
+    transition: all 400ms ease;
+    cursor: default;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  }
+
+  .eng-badge-container:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(51, 214, 255, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .eng-badge-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 0.35rem;
+  }
+
+  .eng-label {
+    font-size: 0.6rem;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.15em;
+  }
+
+  .eng-status-dot {
+    width: 6px;
+    height: 6px;
+    background: #d9ff3f;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #d9ff3f;
+    animation: eng-pulse 2s infinite;
+  }
+
+  .eng-scores {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .score-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .score-num {
+    font-size: 0.9rem;
+    font-weight: 900;
+  }
+
+  .score-num.perf, .score-num.acc { color: #d9ff3f; }
+  .score-num.bp, .score-num.seo { color: #d9ff3f; }
+
+  .score-tag {
+    font-size: 0.5rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.3);
+    margin-top: -0.1rem;
+  }
+
+  .score-divider {
+    width: 1px;
+    height: 16px;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .eng-footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.5rem;
+    color: rgba(255, 255, 255, 0.2);
+    letter-spacing: 0.05em;
+  }
+
+  @keyframes eng-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.2); }
+  }
+
+  @media (max-width: 640px) {
+    .eng-badge-container {
+      width: 100%;
+      box-sizing: border-box;
+    }
+  }
+</style>

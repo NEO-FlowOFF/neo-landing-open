@@ -1,0 +1,29 @@
+---
+interface Props {
+  description: string;
+}
+
+const { description } = Astro.props;
+
+const schemaData = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "NEØ FlowOFF",
+  "operatingSystem": "Web",
+  "applicationCategory": "BusinessApplication",
+  "description": description,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "BRL"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "NEØ FlowOFF",
+    "url": "https://www.neoflowoff.agency",
+    "logo": "https://www.neoflowoff.agency/assets/neoflowoff_logo.png"
+  }
+};
+---
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(schemaData)} />

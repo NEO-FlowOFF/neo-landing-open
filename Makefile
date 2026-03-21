@@ -1,7 +1,7 @@
 SHELL := /bin/zsh
 
 .DEFAULT_GOAL := help
-.PHONY: help env install setup reinstall dev build preview check validate prod clean nuke
+.PHONY: help env install setup reinstall dev build preview check audit validate prod clean nuke
 
 PROJECT_NAME := neo-landing-open
 NPM ?= pnpm
@@ -56,6 +56,10 @@ preview: ## Serve o build localmente
 check: ## Executa validacao do Astro
 	$(ensure_deps)
 	$(NPM) run check
+
+audit: ## Verifica vulnerabilidades de seguranca
+	$(ensure_deps)
+	$(NPM) audit
 
 validate: check build ## Executa pipeline minima de validacao
 

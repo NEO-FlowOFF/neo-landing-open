@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import logo from "../assets/neoflowoff_logo.png";
+import EngineeringBadge from "./EngineeringBadge.astro";
 const year = new Date().getFullYear();
 ---
 
@@ -74,6 +75,9 @@ const year = new Date().getFullYear();
 
   <!-- ── Legal bottom ── -->
   <div class="ft-bottom container">
+    <div class="ft-engineering">
+      <EngineeringBadge />
+    </div>
     <div class="ft-rule-thin" aria-hidden="true"></div>
     <div class="ft-legal">
       <span class="ft-legal-name">Flowoff Marketing e Assessoria Digital LTDA</span>
@@ -255,7 +259,13 @@ const year = new Date().getFullYear();
   .ft-bottom {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.2rem;
+  }
+
+  .ft-engineering {
+    display: flex;
+    justify-content: flex-start;
+    padding-bottom: 0.4rem;
   }
 
   .ft-legal {

@@ -4,6 +4,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import StickyBar from "../components/StickyBar.astro";
 import AnalysisModal from "../components/AnalysisModal.astro";
+import Schema from "../components/Schema.astro";
 import "../styles/global.css";
 
 interface Props {
@@ -44,6 +45,8 @@ const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url).toString();
       content="black-translucent"
     />
     <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang="pt-br" href={canonicalUrl} />
+    <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
     <link rel="icon" href="/favicon-32x32.png" sizes="32x32" />
     <link rel="icon" href="/favicon-16x16.png" sizes="16x16" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -63,6 +66,7 @@ const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url).toString();
     <meta name="twitter:image" content={ogImageUrl} />
 
     <ClientRouter />
+    <Schema description={description} />
     
     <!-- Meta Pixel Code -->
     <script is:inline>
