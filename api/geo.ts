@@ -28,6 +28,47 @@ function preferredLanguage(header: string | null) {
   return first?.trim() || null;
 }
 
+function normalizeClientIp(value: string | null) {
+  if (!value) return null;
+
+  const first = value.split(",")[0]?.trim();
+  if (!first) return null;
+
+  const bracketedIpv6 = first.match(/^\[([^\]]+)\](?::\d+)?$/);
+  if (bracketedIpv6?.[1]) return bracketedIpv6[1];
+
+  if (first.includes(".") && first.includes(":")) {
+    return first.replace(/:\d+$/, "");
+  }
+
+  return first;
+}
+
+function isLoopbackOrPrivateIp(ip: string | null) {
+  if (!ip) return true;
+
+  const normalized = ip.toLowerCase();
+
+  return (
+    normalized === "::1" ||
+    normalized === "127.0.0.1" ||
+    normalized.startsWith("10.") ||
+    normalized.startsWith("192.168.") ||
+    normalized.startsWith("169.254.") ||
+    /^172\.(1[6-9]|2\d|3[0-1])\./.test(normalized) ||
+    normalized.startsWith("fc") ||
+    normalized.startsWith("fd")
+  );
+}
+
+function clientIpFromHeaders(headers: Headers) {
+  return (
+    normalizeClientIp(headers.get("cf-connecting-ip")) ||
+    normalizeClientIp(headers.get("x-forwarded-for")) ||
+    normalizeClientIp(headers.get("x-real-ip"))
+  );
+}
+
 export async function GET(request: Request) {
   const headers = request.headers;
   const language = preferredLanguage(headers.get("accept-language"));
@@ -76,16 +117,25 @@ export async function GET(request: Request) {
     });
   }
 
+  const clientIp = clientIpFromHeaders(headers);
+
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 2500);
 
   try {
-    const response = await fetch("https://free.freeipapi.com/api/json", {
-      signal: controller.signal,
-      headers: {
-        accept: "application/json",
+    if (!clientIp || isLoopbackOrPrivateIp(clientIp)) {
+      throw new Error("No public client IP available for fallback lookup");
+    }
+
+    const response = await fetch(
+      `https://free.freeipapi.com/api/json/${encodeURIComponent(clientIp)}`,
+      {
+        signal: controller.signal,
+        headers: {
+          accept: "application/json",
+        },
       },
-    });
+    );
 
     if (!response.ok) {
       throw new Error(`Geo fallback failed with ${response.status}`);
@@ -98,16 +148,16 @@ export async function GET(request: Request) {
       country: data?.countryName ?? null,
       timezone: data?.timeZones?.[0] ?? null,
       language,
-      source: "fallback.freeipapi",
+      source: "fallback.freeipapi.ip",
       mode: "same-origin",
     });
   } catch {
     return json({
-      city: "GYN",
-      country: "BRASIL",
+      city: null,
+      country: null,
       timezone: null,
       language,
-      source: "fallback.local",
+      source: "fallback.default",
       mode: "same-origin",
     });
   } finally {

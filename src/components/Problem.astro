@@ -243,8 +243,9 @@ const items = [
         "edge.cloudflare": "EDGE CLOUDFLARE",
         "edge.vercel": "EDGE VERCEL",
         "edge.partial": "EDGE PARCIAL",
-        "fallback.freeipapi": "FALLBACK FREEIPAPI",
-        "fallback.local": "FAILSAFE LOCAL",
+        "fallback.freeipapi.ip": "FALLBACK IP EXPLICITO",
+        "fallback.default": "PADRAO LOCAL",
+        "dev.browser": "DEV DIRETO",
       };
 
       return sourceMap[source] || "SINAL INDEFINIDO";
@@ -292,6 +293,55 @@ const items = [
       clockTimer = setInterval(render, 30000);
     }
 
+    function isLocalDevHost() {
+      return (
+        window.location.hostname === "localhost" ||
+        window.location.hostname === "127.0.0.1" ||
+        window.location.hostname === "[::1]"
+      );
+    }
+
+    async function fetchLocalDevGeo(signal) {
+      const res = await fetch("https://free.freeipapi.com/api/json", {
+        signal,
+        headers: {
+          accept: "application/json",
+        },
+      });
+
+      if (!res.ok) {
+        throw new Error(`Direct dev lookup failed: ${res.status}`);
+      }
+
+      const data = await res.json();
+
+      return {
+        city: data?.cityName ?? null,
+        country: data?.countryName ?? null,
+        timezone: data?.timeZones?.[0] ?? null,
+        language: navigator.language,
+        source: "dev.browser",
+        mode: "direct-browser",
+      };
+    }
+
+    async function fetchGeoContext(signal) {
+      try {
+        const res = await fetch("/api/geo", {
+          signal,
+        });
+
+        if (res.ok) return res.json();
+        if (!isLocalDevHost()) {
+          throw new Error(`IP lookup failed: ${res.status}`);
+        }
+      } catch (error) {
+        if (!isLocalDevHost()) throw error;
+      }
+
+      return fetchLocalDevGeo(signal);
+    }
+
     if (locEl) {
       locEl.innerText = "LOCALIZANDO...";
       if (ctxLocationEl) ctxLocationEl.innerText = "LOCALIZANDO...";
@@ -300,13 +350,7 @@ const items = [
       const timeoutId = setTimeout(() => controller.abort(), 4000);
       const start = performance.now();
 
-      fetch("/api/geo", {
-        signal: controller.signal,
-      })
-        .then((res) => {
-          if (!res.ok) throw new Error(`IP lookup failed: ${res.status}`);
-          return res.json();
-        })
+      fetchGeoContext(controller.signal)
         .then((data) => {
           clearTimeout(timeoutId);
           const latency = Math.max(1, Math.round(performance.now() - start));
