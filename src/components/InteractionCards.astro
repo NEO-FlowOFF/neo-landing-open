@@ -14,7 +14,7 @@ import ProcessContent from "./ProcessContent.astro";
         </div>
         <div class="card-body">
           <p class="section-label">Como trabalhamos</p>
-          <h2 class="card-title">
+          <h2 class="card-title" aria-label="Arquitetura de Conversão">
             Arquitetura de <span class="text-pink">Conversão</span>
           </h2>
           <div class="card-footer">
@@ -32,7 +32,7 @@ import ProcessContent from "./ProcessContent.astro";
         </div>
         <div class="card-body">
           <p class="section-label">Solicite análise</p>
-          <h2 class="card-title">
+          <h2 class="card-title" aria-label="Check-up de Performance">
             Check-up de <span class="text-pink">Performance</span>
           </h2>
           <div class="card-footer">
@@ -47,8 +47,11 @@ import ProcessContent from "./ProcessContent.astro";
   <dialog id="modal-process" class="high-tech-modal">
     <div class="modal-backdrop"></div>
     <div class="modal-window">
-      <div class="modal-handle"></div> <!-- iOS Sheet Handle -->
-      <button class="modal-close" data-close-all aria-label="Fechar modal">&times;</button>
+      <div class="modal-handle"></div>
+      <!-- iOS Sheet Handle -->
+      <button class="modal-close" data-close-all aria-label="Fechar modal"
+        >&times;</button
+      >
       <div class="modal-header">
         <span class="modal-label">NΞØ PROTOCOLO // OPERAÇÃO</span>
         <h3>Como trabalhamos</h3>
@@ -95,7 +98,7 @@ import ProcessContent from "./ProcessContent.astro";
       if (btn && btn.closest("dialog") === processModal) {
         closeModal(processModal);
       }
-      
+
       // Backdrop click
       if (e.target.tagName === "DIALOG" && e.target === processModal) {
         closeModal(processModal);
@@ -199,7 +202,7 @@ import ProcessContent from "./ProcessContent.astro";
   .card-badge {
     font-size: 0.65rem;
     font-family: var(--font-mono, monospace);
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(255, 255, 255, 0.68);
     border: 1px solid rgba(255, 255, 255, 0.1);
     padding: 0.2rem 0.5rem;
     border-radius: 4px;
@@ -209,7 +212,7 @@ import ProcessContent from "./ProcessContent.astro";
   .card-status {
     font-size: 0.6rem;
     font-weight: 800;
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.74);
     display: flex;
     align-items: center;
     gap: 0.4rem;
@@ -289,8 +292,8 @@ import ProcessContent from "./ProcessContent.astro";
     border-radius: 32px;
     padding: 3rem;
     position: relative;
-    box-shadow: 
-      0 30px 100px rgba(0,0,0,0.8), 
+    box-shadow:
+      0 30px 100px rgba(0, 0, 0, 0.8),
       0 0 50px rgba(255, 31, 143, 0.05);
     max-height: 85vh;
     display: flex;
@@ -312,13 +315,23 @@ import ProcessContent from "./ProcessContent.astro";
   }
 
   @keyframes modal-zoom {
-    from { transform: scale(0.95) translateY(20px); opacity: 0; }
-    to { transform: scale(1) translateY(0); opacity: 1; }
+    from {
+      transform: scale(0.95) translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+    }
   }
 
   @keyframes fade-in {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 
   .modal-close {
@@ -362,11 +375,17 @@ import ProcessContent from "./ProcessContent.astro";
       animation: modal-sheet-up 0.5s cubic-bezier(0.32, 0.72, 0, 1);
     }
 
-    .modal-handle { display: block; }
+    .modal-handle {
+      display: block;
+    }
 
     @keyframes modal-sheet-up {
-      from { transform: translateY(100%); }
-      to { transform: translateY(0); }
+      from {
+        transform: translateY(100%);
+      }
+      to {
+        transform: translateY(0);
+      }
     }
 
     .modal-close {
@@ -403,7 +422,7 @@ import ProcessContent from "./ProcessContent.astro";
 
   .modal-body-meta {
     margin-bottom: 2rem;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--text-3);
     font-size: 1.1rem;
     line-height: 1.5;
   }

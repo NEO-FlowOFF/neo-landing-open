@@ -20,7 +20,11 @@ import Gondola from "./Gondola.astro";
           sizes="96px"
         />
         <div class="hero-brand-divider"></div>
-        <a href="/" class="hero-brand-tag">
+        <a
+          href="/"
+          class="hero-brand-tag"
+          aria-label="NEØ FlowOFF, voltar para a página inicial"
+        >
           <span class="hero-brand-neo">NEØ</span>
           <span class="hero-brand-flow">FlowOFF</span>
         </a>
@@ -32,7 +36,7 @@ import Gondola from "./Gondola.astro";
         >
       </div>
 
-      <h1>
+      <h1 aria-label="A maioria dos sites informa. Poucos operam vendas.">
         A maioria dos sites
         <span class="pink-script">informa.</span>
         Poucos
@@ -40,9 +44,13 @@ import Gondola from "./Gondola.astro";
       </h1>
 
       <p class="hero-lead">
-        Sua empresa não precisa de mais uma vitrine digital. Precisa de uma
-        estrutura que capture demanda, organize dados e converta intenção em
-        lucro real.
+        <span class="hero-lead-core">
+          Sua empresa não precisa de mais uma vitrine digital.
+        </span>
+        <span class="hero-lead-tail">
+          Precisa de uma estrutura que capture demanda, organize dados e
+          converta intenção em lucro real.
+        </span>
       </p>
 
       <div class="hero-actions">
@@ -52,7 +60,8 @@ import Gondola from "./Gondola.astro";
             análise gratuita
           </div>
           <a href="#contato" class="btn btn-primary hero-btn-primary btn-glow">
-            Solicitar análise
+            <span class="desktop-copy">Solicitar análise</span>
+            <span class="mobile-copy">Receber análise</span>
             <svg
               class="hero-btn-icon"
               width="18"
@@ -85,7 +94,8 @@ import Gondola from "./Gondola.astro";
             <circle cx="12" cy="12" r="10"></circle><path d="M12 8v4l3 3"
             ></path>
           </svg>
-          Ver como funciona
+          <span class="desktop-copy">Ver como funciona</span>
+          <span class="mobile-copy">Ver provas</span>
         </a>
       </div>
 
@@ -149,9 +159,17 @@ import Gondola from "./Gondola.astro";
     font-size: 0.62rem;
     font-weight: 700;
     letter-spacing: 0.12em;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.72);
     margin-bottom: 2rem;
     transition: all 0.3s ease;
+  }
+
+  .mobile-copy {
+    display: none;
+  }
+
+  .desktop-copy {
+    display: inline;
   }
 
   .hero-badge-clean:hover {
@@ -281,5 +299,76 @@ import Gondola from "./Gondola.astro";
   .cta-acid-shell .btn {
     position: relative;
     z-index: 1;
+  }
+
+  @media (max-width: 640px) {
+    .desktop-copy {
+      display: none;
+    }
+
+    .mobile-copy {
+      display: inline;
+    }
+
+    .hero-brand-block {
+      gap: 0.7rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero-logo-sm {
+      width: 72px;
+    }
+
+    .hero-brand-neo,
+    .hero-brand-flow {
+      font-size: 1.45rem;
+    }
+
+    .hero-badge-clean {
+      display: none;
+    }
+
+    .hero-lead-core,
+    .hero-lead-tail {
+      display: block;
+    }
+
+    .hero-lead-tail {
+      margin-top: 0.35rem;
+      color: var(--text-3);
+    }
+
+    .hero-actions {
+      gap: 0.4rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .hero-btn-primary {
+      min-height: 58px;
+      font-size: 1rem;
+    }
+
+    .hero-btn-secondary {
+      min-height: 42px;
+      justify-content: flex-start;
+      padding: 0 0.1rem;
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      color: var(--text-2);
+      font-size: 0.84rem;
+      opacity: 1;
+    }
+
+    .hero-btn-icon-left {
+      opacity: 0.9;
+    }
+
+    .cta-acid-shell {
+      box-shadow:
+        0 0 18px rgba(217, 255, 63, 0.16),
+        0 0 28px rgba(217, 255, 63, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
   }
 </style>

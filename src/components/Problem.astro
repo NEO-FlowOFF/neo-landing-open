@@ -37,7 +37,10 @@ const items = [
   <div class="container">
     <div class="diag-header-outer">
       <p class="section-label">Diagnóstico do seu sistema</p>
-      <h2 class="tech-title">
+      <h2
+        class="tech-title"
+        aria-label="A arquitetura atual do seu sistema atrapalha a eficiência operacional e o crescimento."
+      >
         A arquitetura atual do seu sistema <span class="technical-tag"
           >atrapalha</span
         >
@@ -71,6 +74,50 @@ const items = [
           SCANEANDO SEU SISTEMA... TRACKEANDO CONVERSAS PERDIDAS...
           INICIANDO_NΞØ_PROTOCOL_08... UPLOADING_PERFORMANCE_METRICS...
           CORE_TEMP_STABLE... NODE_ACTIVE_01... BUSCANDO VULNERABILIDADES...
+        </div>
+      </div>
+
+      <div
+        class="proof-panel"
+        aria-label="Prova viva de contexto em tempo real"
+      >
+        <div class="proof-head">
+          <span class="proof-kicker">PROVA VIVA</span>
+          <p class="proof-copy">
+            Esta interface não simula contexto. Ela lê a borda, interpreta o
+            sinal e mantém fallback operacional.
+          </p>
+        </div>
+
+        <div class="proof-grid">
+          <div class="proof-card">
+            <span class="proof-label">CONTEXTO DETECTADO</span>
+            <strong class="proof-value" id="ctx-location">GYN, BRASIL</strong>
+          </div>
+          <div class="proof-card">
+            <span class="proof-label">ORIGEM DO SINAL</span>
+            <strong class="proof-value" id="ctx-source">EDGE</strong>
+          </div>
+          <div class="proof-card">
+            <span class="proof-label">LATÊNCIA PERCEBIDA</span>
+            <strong class="proof-value" id="ctx-latency">-- ms</strong>
+          </div>
+          <div class="proof-card">
+            <span class="proof-label">MODO DE ENTREGA</span>
+            <strong class="proof-value" id="ctx-mode">SAME ORIGIN</strong>
+          </div>
+          <div class="proof-card">
+            <span class="proof-label">HORA LOCAL</span>
+            <strong class="proof-value" id="ctx-time">--:--</strong>
+          </div>
+          <div class="proof-card">
+            <span class="proof-label">IDIOMA DA SESSÃO</span>
+            <strong class="proof-value" id="ctx-language">PT-BR</strong>
+          </div>
+          <div class="proof-card">
+            <span class="proof-label">ENTRADA DA SESSÃO</span>
+            <strong class="proof-value" id="ctx-entry">ACESSO DIRETO</strong>
+          </div>
         </div>
       </div>
 
@@ -182,19 +229,122 @@ const items = [
     );
     // Dynamic Geolocation via IP (Silent)
     const locEl = document.getElementById("user-loc");
+    const ctxLocationEl = document.getElementById("ctx-location");
+    const ctxSourceEl = document.getElementById("ctx-source");
+    const ctxLatencyEl = document.getElementById("ctx-latency");
+    const ctxModeEl = document.getElementById("ctx-mode");
+    const ctxTimeEl = document.getElementById("ctx-time");
+    const ctxLanguageEl = document.getElementById("ctx-language");
+    const ctxEntryEl = document.getElementById("ctx-entry");
+    let clockTimer;
+
+    function toLabel(source) {
+      const sourceMap = {
+        "edge.cloudflare": "EDGE CLOUDFLARE",
+        "edge.vercel": "EDGE VERCEL",
+        "edge.partial": "EDGE PARCIAL",
+        "fallback.freeipapi": "FALLBACK FREEIPAPI",
+        "fallback.local": "FAILSAFE LOCAL",
+      };
+
+      return sourceMap[source] || "SINAL INDEFINIDO";
+    }
+
+    function toLanguageLabel(code) {
+      if (!code) return "PT-BR";
+      return code.replace("_", "-").toUpperCase();
+    }
+
+    function detectEntry() {
+      const params = new URLSearchParams(window.location.search);
+      const utmSource = params.get("utm_source");
+      if (utmSource) return `UTM ${utmSource}`.toUpperCase();
+
+      if (!document.referrer) return "ACESSO DIRETO";
+
+      try {
+        const host = new URL(document.referrer).hostname.replace(/^www\./, "");
+        return host.toUpperCase();
+      } catch {
+        return "REFERÊNCIA EXTERNA";
+      }
+    }
+
+    function startClock(timeZone) {
+      if (!ctxTimeEl) return;
+      if (clockTimer) clearInterval(clockTimer);
+
+      const render = () => {
+        try {
+          const formatter = new Intl.DateTimeFormat("pt-BR", {
+            hour: "2-digit",
+            minute: "2-digit",
+            timeZone:
+              timeZone || Intl.DateTimeFormat().resolvedOptions().timeZone,
+          });
+          ctxTimeEl.innerText = formatter.format(new Date());
+        } catch {
+          ctxTimeEl.innerText = "--:--";
+        }
+      };
+
+      render();
+      clockTimer = setInterval(render, 30000);
+    }
+
     if (locEl) {
       locEl.innerText = "LOCALIZANDO...";
-      fetch("https://freeipapi.com/api/json")
-        .then((res) => res.json())
+      if (ctxLocationEl) ctxLocationEl.innerText = "LOCALIZANDO...";
+      if (ctxEntryEl) ctxEntryEl.innerText = detectEntry();
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 4000);
+      const start = performance.now();
+
+      fetch("/api/geo", {
+        signal: controller.signal,
+      })
+        .then((res) => {
+          if (!res.ok) throw new Error(`IP lookup failed: ${res.status}`);
+          return res.json();
+        })
         .then((data) => {
-          if (data && data.cityName && data.countryName) {
-            locEl.innerText = `${data.cityName.toUpperCase()}, ${data.countryName.toUpperCase()}`;
+          clearTimeout(timeoutId);
+          const latency = Math.max(1, Math.round(performance.now() - start));
+          if (ctxLatencyEl) ctxLatencyEl.innerText = `${latency} ms`;
+          if (ctxSourceEl) ctxSourceEl.innerText = toLabel(data?.source);
+          if (ctxModeEl) {
+            ctxModeEl.innerText = data?.mode
+              ? data.mode.toUpperCase().replace("-", " ")
+              : "SAME ORIGIN";
+          }
+          if (ctxLanguageEl) {
+            ctxLanguageEl.innerText = toLanguageLabel(
+              data?.language || navigator.language,
+            );
+          }
+          startClock(data?.timezone);
+
+          if (data && data.city && data.country) {
+            const location = `${data.city.toUpperCase()}, ${data.country.toUpperCase()}`;
+            locEl.innerText = location;
+            if (ctxLocationEl) ctxLocationEl.innerText = location;
           } else {
             locEl.innerText = "GYN, BRASIL"; // Fallback
+            if (ctxLocationEl) ctxLocationEl.innerText = "GYN, BRASIL";
           }
         })
         .catch(() => {
+          clearTimeout(timeoutId);
+          const latency = Math.max(1, Math.round(performance.now() - start));
           locEl.innerText = "GYN, BRASIL"; // Fallback on block/error
+          if (ctxLocationEl) ctxLocationEl.innerText = "GYN, BRASIL";
+          if (ctxSourceEl) ctxSourceEl.innerText = "FAILSAFE LOCAL";
+          if (ctxLatencyEl) ctxLatencyEl.innerText = `${latency} ms`;
+          if (ctxModeEl) ctxModeEl.innerText = "SAME ORIGIN";
+          if (ctxLanguageEl) {
+            ctxLanguageEl.innerText = toLanguageLabel(navigator.language);
+          }
+          startClock();
         });
     }
 
@@ -319,7 +469,7 @@ const items = [
     background: rgba(0, 0, 0, 0.4);
     border: 1px solid rgba(51, 214, 255, 0.1);
     padding: 0.6rem 0;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.35rem;
     overflow: hidden;
   }
 
@@ -327,7 +477,7 @@ const items = [
     white-space: nowrap;
     font-family: var(--font-mono, monospace);
     font-size: 0.6rem;
-    color: rgba(51, 214, 255, 0.4);
+    color: rgba(51, 214, 255, 0.62);
     letter-spacing: 0.2em;
     animation: log-scroll 40s linear infinite;
   }
@@ -337,6 +487,77 @@ const items = [
     gap: 1.25rem;
     position: relative;
     z-index: 2;
+  }
+
+  .proof-panel {
+    margin-bottom: 2rem;
+    padding: 1.2rem;
+    border: 1px solid rgba(51, 214, 255, 0.14);
+    background:
+      linear-gradient(135deg, rgba(51, 214, 255, 0.07), transparent 58%),
+      rgba(255, 255, 255, 0.025);
+    border-radius: 14px;
+  }
+
+  .proof-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+
+  .proof-kicker {
+    flex: 0 0 auto;
+    padding: 0.3rem 0.6rem;
+    border-radius: 999px;
+    border: 1px solid rgba(217, 255, 63, 0.3);
+    color: var(--acid);
+    font-size: 0.65rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    font-family: var(--font-mono, monospace);
+  }
+
+  .proof-copy {
+    margin: 0;
+    max-width: 56ch;
+    color: var(--text-3);
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+
+  .proof-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.9rem;
+  }
+
+  .proof-card {
+    min-width: 0;
+    padding: 1rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(4, 8, 14, 0.72);
+  }
+
+  .proof-label {
+    display: block;
+    margin-bottom: 0.55rem;
+    color: var(--text-4);
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    font-family: var(--font-mono, monospace);
+  }
+
+  .proof-value {
+    display: block;
+    color: #f4fbff;
+    font-size: 1rem;
+    line-height: 1.25;
+    letter-spacing: 0.03em;
+    font-family: var(--font-mono, monospace);
   }
 
   .diag-item-box {
@@ -611,6 +832,12 @@ const items = [
       gap: 1rem;
       align-items: flex-start;
     }
+    .proof-head {
+      flex-direction: column;
+    }
+    .proof-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
     .terminal-footer {
       flex-direction: column;
       gap: 1.25rem;
@@ -621,6 +848,9 @@ const items = [
   @media (max-width: 640px) {
     .diagnostic-terminal {
       padding: 1.5rem;
+    }
+    .proof-grid {
+      grid-template-columns: 1fr;
     }
     .item-stats {
       display: none;

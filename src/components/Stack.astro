@@ -80,13 +80,21 @@ const techItems = [
 
   <!-- Background Reveal Logo -->
   <div class="bento-bg-logo">
-    <Image src={logo} alt="NEO-FlowOFF" class="reveal-logo" />
+    <Image
+      src={logo}
+      alt="NEO-FlowOFF"
+      class="reveal-logo"
+      loading="eager"
+      fetchpriority="high"
+    />
   </div>
 
   <div class="container stack-container">
     <div class="bento-header">
       <span class="ios-badge">NESTA PÁGINA CONTÉM:::</span>
-      <h2>Tecnologia usada <span class="pink-txt">para crescimento.</span></h2>
+      <h2 aria-label="Tecnologia usada para crescimento.">
+        Tecnologia usada <span class="pink-txt">para crescimento.</span>
+      </h2>
     </div>
 
     <!-- Ticket Card Display -->
@@ -168,7 +176,7 @@ const techItems = [
   bentoTabs.forEach(tab => {
     tab.addEventListener('click', () => {
       const techId = tab.getAttribute('data-bento-tech');
-      
+
       bentoTabs.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
 
@@ -549,7 +557,7 @@ const techItems = [
     border-radius: 100px;
     letter-spacing: 0.05em;
     box-shadow: 0 4px 12px rgba(255, 31, 143, 0.4);
-    animation: 
+    animation:
       bounce 2s infinite,
       badge-fade 6s forwards; /* 6s for a smooth window around the 5s mark */
     z-index: 10;
@@ -589,7 +597,7 @@ const techItems = [
     background: rgba(255, 255, 255, 0.003);
     backdrop-filter: blur(30px) saturate(100%);
     border: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow: 
+    box-shadow:
       0 12px 32px rgba(0,0,0,0.08),
       inset 0 0 0 1px rgba(255,255,255,0.3);
     position: relative;
@@ -622,7 +630,7 @@ const techItems = [
   .tab-item.active {
     background: #fd009c;
     opacity: 1;
-    box-shadow: 
+    box-shadow:
       0 4px 12px rgba(0,0,0,0.2),
       inset 0 1px 1px rgba(255,255,255,0.2); /* Acqua/Glass subtle highlight */
   }

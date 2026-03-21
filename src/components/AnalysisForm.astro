@@ -16,11 +16,11 @@ const web3formsAccessKey = import.meta.env.WEB3FORMS_ACCESS_KEY ?? "";
     <!-- anti-spam -->
     <input type="checkbox" name="botcheck" style="display: none;" />
 
-    <input type="hidden" name="utm_source"   id="m-utm_source" />
+    <input type="hidden" name="utm_source" id="m-utm_source" />
     <input type="hidden" name="utm_campaign" id="m-utm_campaign" />
-    <input type="hidden" name="utm_content"  id="m-utm_content" />
-    <input type="hidden" name="referrer"     id="m-referrer" />
-    <input type="hidden" name="timestamp"    id="m-timestamp" />
+    <input type="hidden" name="utm_content" id="m-utm_content" />
+    <input type="hidden" name="referrer" id="m-referrer" />
+    <input type="hidden" name="timestamp" id="m-timestamp" />
 
     <div class="field">
       <label for="m-nome">Nome</label>
@@ -50,12 +50,20 @@ const web3formsAccessKey = import.meta.env.WEB3FORMS_ACCESS_KEY ?? "";
 
     <div class="field">
       <label for="m-whatsapp">WhatsApp</label>
-      <input id="m-whatsapp" name="whatsapp" required placeholder="(00) 00000-0000" />
+      <input
+        id="m-whatsapp"
+        name="whatsapp"
+        required
+        placeholder="(00) 00000-0000"
+      />
     </div>
 
     <div class="field field-full">
       <label for="m-objetivo">Objetivo</label>
-      <textarea id="m-objetivo" name="objetivo" placeholder="Como podemos ajudar?"></textarea>
+      <textarea
+        id="m-objetivo"
+        name="objetivo"
+        placeholder="Como podemos ajudar?"></textarea>
     </div>
 
     <button type="submit" class="btn btn-primary btn-full btn-glow">
@@ -65,23 +73,23 @@ const web3formsAccessKey = import.meta.env.WEB3FORMS_ACCESS_KEY ?? "";
 </div>
 
 <script is:inline>
-  (function() {
+  (function () {
     const form = document.getElementById("modal-form");
     if (!form) return;
 
     const params = new URLSearchParams(window.location.search);
     const sourceEl = document.getElementById("m-utm_source");
     if (sourceEl) sourceEl.value = params.get("utm_source") || "";
-    
+
     const campEl = document.getElementById("m-utm_campaign");
     if (campEl) campEl.value = params.get("utm_campaign") || "";
-    
+
     const contEl = document.getElementById("m-utm_content");
     if (contEl) contEl.value = params.get("utm_content") || "";
-    
+
     const refEl = document.getElementById("m-referrer");
     if (refEl) refEl.value = document.referrer;
-    
+
     const timeEl = document.getElementById("m-timestamp");
     if (timeEl) timeEl.value = new Date().toISOString();
 
@@ -92,13 +100,17 @@ const web3formsAccessKey = import.meta.env.WEB3FORMS_ACCESS_KEY ?? "";
 
       const data = new FormData(form);
       try {
-        const response = await fetch(form.action, { method: "POST", body: data });
+        const response = await fetch(form.action, {
+          method: "POST",
+          body: data,
+        });
         if (response.ok) {
           // Track conversion in Meta
-          if (typeof fbq === 'function') {
-            fbq('track', 'Lead');
+          if (typeof fbq === "function") {
+            fbq("track", "Lead");
           }
-          form.innerHTML = "<div class='form-success'><p>Recebido. Nossa IA e time técnico já estão analisando seu ecossistema.</p></div>";
+          form.innerHTML =
+            "<div class='form-success'><p>Recebido. Nossa IA e time técnico já estão analisando seu ecossistema.</p></div>";
         } else {
           throw new Error();
         }
@@ -130,7 +142,7 @@ const web3formsAccessKey = import.meta.env.WEB3FORMS_ACCESS_KEY ?? "";
 
   label {
     font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--text-3);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -167,6 +179,8 @@ const web3formsAccessKey = import.meta.env.WEB3FORMS_ACCESS_KEY ?? "";
   }
 
   @media (max-width: 640px) {
-    .lead-form { grid-template-columns: 1fr; }
+    .lead-form {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

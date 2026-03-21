@@ -2,9 +2,17 @@
   <div class="container solution-shell">
     <div class="solution-head">
       <p class="section-label">O que entregamos</p>
-      <h2 class="tech-title">Transformamos ativos digitais em <span class="cyan-txt">máquinas de lucro.</span></h2>
+      <h2
+        class="tech-title"
+        aria-label="Transformamos ativos digitais em máquinas de lucro."
+      >
+        Transformamos ativos digitais em <span class="cyan-txt"
+          >máquinas de lucro.</span
+        >
+      </h2>
       <p class="section-lead">
-         Seu site não deve apenas existir. Ele deve operar o seu comercial 24/7 sem falhas.
+        Seu site não deve apenas existir. Ele deve operar o seu comercial 24/7
+        sem falhas.
       </p>
     </div>
 
@@ -15,8 +23,14 @@
         <div class="card-badge sale-badge">DIRECT-RESPONSE</div>
         <h3>Landing Pages</h3>
         <p>
-          Arquitetura de persuasão desenhada para reduzir fricção, antecipar objeções 
-          e transformar curiosidade em intenção real de compra.
+          <span class="desktop-copy">
+            Arquitetura de persuasão desenhada para reduzir fricção, antecipar
+            objeções e transformar curiosidade em intenção real de compra.
+          </span>
+          <span class="mobile-copy">
+            Páginas desenhadas para reduzir fricção e transformar curiosidade em
+            intenção real.
+          </span>
         </p>
       </article>
 
@@ -26,8 +40,14 @@
         <span class="card-badge tech-badge">HIGH-ROI</span>
         <h3>E-commerce & Checkouts</h3>
         <p>
-          Infraestrutura de varejo escalável com checkouts otimizados de um clique. 
-          Foco total em manter o cliente no fluxo até a confirmação do pedido.
+          <span class="desktop-copy">
+            Infraestrutura de varejo escalável com checkouts otimizados de um
+            clique. Foco total em manter o cliente no fluxo até a confirmação do
+            pedido.
+          </span>
+          <span class="mobile-copy">
+            Checkouts rápidos, menos abandono e mais continuidade até o pedido.
+          </span>
         </p>
       </article>
 
@@ -37,8 +57,15 @@
         <span class="card-badge data-badge">SYSTEM-DRIVEN</span>
         <h3>WebApps & Operação</h3>
         <p>
-          Sistemas sob medida para gerir fluxos de dados, organizar leads e 
-          automatizar tomadas de decisão que antes dependiam de esforço humano.
+          <span class="desktop-copy">
+            Sistemas sob medida para gerir fluxos de dados, organizar leads e
+            automatizar tomadas de decisão que antes dependiam de esforço
+            humano.
+          </span>
+          <span class="mobile-copy">
+            Sistemas que organizam dados, leads e decisões sem depender de
+            esforço manual.
+          </span>
         </p>
       </article>
 
@@ -48,8 +75,14 @@
         <span class="card-badge auto-badge">AUTOMATED</span>
         <h3>Dashboards & Automação</h3>
         <p>
-          Visibilidade em tempo real do seu funil. Conectamos todas as 
-          pontas do seu marketing ao seu comercial sem perda de lead.
+          <span class="desktop-copy">
+            Visibilidade em tempo real do seu funil. Conectamos todas as pontas
+            do seu marketing ao seu comercial sem perda de lead.
+          </span>
+          <span class="mobile-copy">
+            Dados em tempo real conectando marketing e comercial sem perda de
+            lead.
+          </span>
         </p>
       </article>
     </div>
@@ -60,6 +93,8 @@
   .solution-section {
     padding: 10rem 0;
     position: relative;
+    content-visibility: auto;
+    contain-intrinsic-size: 960px;
   }
 
   .solution-head {
@@ -92,8 +127,8 @@
   .feature-tag {
     font-family: var(--font-mono, monospace);
     font-size: 0.75rem;
-    color: var(--text-4);
-    opacity: 0.5;
+    color: var(--text-3);
+    opacity: 1;
     margin-bottom: 1.5rem;
     display: block;
   }
@@ -109,11 +144,27 @@
     border-radius: 4px;
     letter-spacing: 0.1em;
   }
-  
-  .sale-badge { background: #d9ff3f; color: #000; box-shadow: 0 0 15px rgba(217, 255, 63, 0.3); }
-  .tech-badge { background: #33d6ff; color: #000; box-shadow: 0 0 15px rgba(51, 214, 255, 0.3); }
-  .data-badge { background: rgba(255, 255, 255, 0.05); color: #fff; border: 1px solid rgba(255, 255, 255, 0.1); }
-  .auto-badge { background: var(--pink); color: #fff; box-shadow: 0 0 15px rgba(255, 31, 143, 0.3); }
+
+  .sale-badge {
+    background: #d9ff3f;
+    color: #000;
+    box-shadow: 0 0 15px rgba(217, 255, 63, 0.3);
+  }
+  .tech-badge {
+    background: #33d6ff;
+    color: #000;
+    box-shadow: 0 0 15px rgba(51, 214, 255, 0.3);
+  }
+  .data-badge {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .auto-badge {
+    background: var(--pink);
+    color: #fff;
+    box-shadow: 0 0 15px rgba(255, 31, 143, 0.3);
+  }
 
   .feature-card h3 {
     font-size: 1.6rem;
@@ -132,23 +183,72 @@
 
   .card-glow {
     position: absolute;
-    top: 0; left: 0;
-    width: 60px; height: 60px;
-    background: radial-gradient(circle at center, rgba(51, 214, 255, 0.1), transparent 70%);
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(
+      circle at center,
+      rgba(51, 214, 255, 0.1),
+      transparent 70%
+    );
     pointer-events: none;
     opacity: 0;
     transition: opacity 400ms ease;
   }
 
-  .feature-card:hover .card-glow { opacity: 1; }
+  .feature-card:hover .card-glow {
+    opacity: 1;
+  }
+
+  .mobile-copy {
+    display: none;
+  }
 
   @media (max-width: 980px) {
-    .solution-grid { grid-template-columns: 1fr; }
+    .solution-grid {
+      grid-template-columns: 1fr;
+    }
   }
 
   @media (max-width: 640px) {
-    .feature-card { padding: 1.5rem; }
-    .card-badge { top: 1.5rem; right: 1.5rem; }
-    .feature-card h3 { font-size: 1.4rem; }
+    .solution-section {
+      padding: 4rem 0;
+    }
+
+    .solution-head {
+      margin-bottom: 1.5rem;
+    }
+
+    .solution-head .section-label {
+      margin-bottom: 0.65rem;
+    }
+
+    .solution-grid {
+      gap: 0.9rem;
+    }
+
+    .feature-card {
+      padding: 1.15rem;
+    }
+    .card-badge {
+      position: static;
+      display: inline-flex;
+      margin-bottom: 0.8rem;
+    }
+    .feature-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.65rem;
+    }
+    .feature-card p {
+      font-size: 0.94rem;
+      line-height: 1.48;
+    }
+    .desktop-copy {
+      display: none;
+    }
+    .mobile-copy {
+      display: inline;
+    }
   }
 </style>

@@ -8,8 +8,14 @@ const web3formsAccessKey = import.meta.env.WEB3FORMS_ACCESS_KEY ?? "";
       <p class="section-label">Solicite sua análise</p>
       <h2>Descubra por que seu site informa, mas não opera vendas.</h2>
       <p>
-        Preencha o formulário e receba uma avaliação inicial da sua estrutura
-        digital. Sem diagnóstico genérico. Sem conversa de agência perfumada.
+        <span class="desktop-copy">
+          Preencha o formulário e receba uma avaliação inicial da sua estrutura
+          digital. Sem diagnóstico genérico. Sem conversa de agência perfumada.
+        </span>
+        <span class="mobile-copy">
+          Preencha em menos de um minuto e receba um diagnóstico inicial da sua
+          estrutura.
+        </span>
       </p>
     </div>
 
@@ -26,20 +32,25 @@ const web3formsAccessKey = import.meta.env.WEB3FORMS_ACCESS_KEY ?? "";
       <!-- anti-spam -->
       <input type="checkbox" name="botcheck" style="display: none;" />
 
-      <input type="hidden" name="utm_source"   id="utm_source" />
+      <input type="hidden" name="utm_source" id="utm_source" />
       <input type="hidden" name="utm_campaign" id="utm_campaign" />
-      <input type="hidden" name="utm_content"  id="utm_content" />
-      <input type="hidden" name="referrer"     id="referrer" />
-      <input type="hidden" name="timestamp"    id="timestamp" />
+      <input type="hidden" name="utm_content" id="utm_content" />
+      <input type="hidden" name="referrer" id="referrer" />
+      <input type="hidden" name="timestamp" id="timestamp" />
 
       <div class="field">
         <label for="nome">Nome</label>
-        <input id="nome" name="nome" required />
+        <input id="nome" name="nome" required placeholder="Seu nome" />
       </div>
 
       <div class="field">
         <label for="empresa">Empresa</label>
-        <input id="empresa" name="empresa" required />
+        <input
+          id="empresa"
+          name="empresa"
+          required
+          placeholder="Nome da empresa"
+        />
       </div>
 
       <div class="field">
@@ -55,21 +66,35 @@ const web3formsAccessKey = import.meta.env.WEB3FORMS_ACCESS_KEY ?? "";
 
       <div class="field">
         <label for="site">Site</label>
-        <input id="site" name="site" type="url" />
+        <input
+          id="site"
+          name="site"
+          type="url"
+          placeholder="https://seusite.com"
+        />
       </div>
 
       <div class="field">
         <label for="whatsapp">WhatsApp</label>
-        <input id="whatsapp" name="whatsapp" required />
+        <input
+          id="whatsapp"
+          name="whatsapp"
+          required
+          placeholder="(62) 99999-9999"
+        />
       </div>
 
       <div class="field field-full">
         <label for="objetivo">Objetivo</label>
-        <textarea id="objetivo" name="objetivo"></textarea>
+        <textarea
+          id="objetivo"
+          name="objetivo"
+          placeholder="O que precisa destravar hoje?"></textarea>
       </div>
 
       <button type="submit" class="btn btn-primary btn-full btn-glow">
-        Receber análise gratuita
+        <span class="desktop-copy">Receber análise gratuita</span>
+        <span class="mobile-copy">Receber análise</span>
       </button>
     </form>
   </div>
@@ -79,11 +104,13 @@ const web3formsAccessKey = import.meta.env.WEB3FORMS_ACCESS_KEY ?? "";
   const form = document.getElementById("form");
   const params = new URLSearchParams(window.location.search);
 
-  document.getElementById("utm_source").value   = params.get("utm_source") || "";
-  document.getElementById("utm_campaign").value = params.get("utm_campaign") || "";
-  document.getElementById("utm_content").value  = params.get("utm_content") || "";
-  document.getElementById("referrer").value     = document.referrer;
-  document.getElementById("timestamp").value    = new Date().toISOString();
+  document.getElementById("utm_source").value = params.get("utm_source") || "";
+  document.getElementById("utm_campaign").value =
+    params.get("utm_campaign") || "";
+  document.getElementById("utm_content").value =
+    params.get("utm_content") || "";
+  document.getElementById("referrer").value = document.referrer;
+  document.getElementById("timestamp").value = new Date().toISOString();
 
   form?.addEventListener("submit", async function (e) {
     e.preventDefault();
@@ -92,9 +119,11 @@ const web3formsAccessKey = import.meta.env.WEB3FORMS_ACCESS_KEY ?? "";
     const response = await fetch(form.action, { method: "POST", body: data });
 
     if (response.ok) {
-      form.innerHTML = "<p style='color:#d9ff3f'>Recebido. Vamos analisar seu site.</p>";
+      form.innerHTML =
+        "<p style='color:#d9ff3f'>Recebido. Vamos analisar seu site.</p>";
     } else {
-      form.innerHTML = "<p style='color:#ff1f8f'>Erro ao enviar. Tente novamente.</p>";
+      form.innerHTML =
+        "<p style='color:#ff1f8f'>Erro ao enviar. Tente novamente.</p>";
     }
   });
 </script>
@@ -102,6 +131,8 @@ const web3formsAccessKey = import.meta.env.WEB3FORMS_ACCESS_KEY ?? "";
 <style>
   .cta-section {
     padding-bottom: 7rem;
+    content-visibility: auto;
+    contain-intrinsic-size: 860px;
   }
 
   .cta-panel {
@@ -124,6 +155,10 @@ const web3formsAccessKey = import.meta.env.WEB3FORMS_ACCESS_KEY ?? "";
 
   .cta-copy h2 {
     max-width: 11ch;
+  }
+
+  .mobile-copy {
+    display: none;
   }
 
   /* Form */
@@ -184,23 +219,60 @@ const web3formsAccessKey = import.meta.env.WEB3FORMS_ACCESS_KEY ?? "";
 
   /* ─── Responsive ─── */
   @media (max-width: 980px) {
-    .cta-panel   { grid-template-columns: 1fr; }
-    .lead-form   { grid-template-columns: 1fr; }
+    .cta-panel {
+      grid-template-columns: 1fr;
+    }
+    .lead-form {
+      grid-template-columns: 1fr;
+    }
   }
 
   @media (max-width: 640px) {
+    .cta-section {
+      padding-bottom: 5.4rem;
+    }
+
+    .cta-panel {
+      gap: 1.15rem;
+      padding: 1rem;
+    }
+
+    .cta-copy h2 {
+      max-width: none;
+      margin-bottom: 0.75rem;
+    }
+
+    .cta-copy p {
+      font-size: 0.95rem;
+      line-height: 1.52;
+      margin-bottom: 0;
+    }
+
+    .desktop-copy {
+      display: none;
+    }
+
+    .mobile-copy {
+      display: inline;
+    }
+
     input,
     select,
     textarea {
       min-height: 54px;
-      padding: 0.95rem 1rem;
+      padding: 0.9rem 0.95rem;
       border-radius: var(--radius-sm);
-      background: rgba(10, 16, 28, 0.78);
+      background: rgba(7, 12, 22, 0.88);
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
     }
 
-    textarea { min-height: 132px; }
+    textarea {
+      min-height: 116px;
+    }
 
-    label { font-size: 0.88rem; }
+    label {
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+    }
   }
 </style>

@@ -20,10 +20,21 @@ import founderImg from "../assets/mello.webp";
       <div class="founder-copy">
         <p class="founder-kicker">Arquitetura operacional</p>
         <h2>NEØ MELLØ</h2>
-        <p class="founder-role">Programador Full Stack | Gestor de Dados</p>
+        <p class="founder-role">
+          <span class="desktop-copy"
+            >Programador Full Stack | Gestor de Dados</span
+          >
+          <span class="mobile-copy">Full Stack | Dados</span>
+        </p>
         <p class="founder-text">
-          Expert em Marketing Digital e Blockchain. Arquiteto de sistemas que
-          conectam estratégias, tecnologias e resultados reais.
+          <span class="desktop-copy">
+            Expert em Marketing Digital e Blockchain. Arquiteto de sistemas que
+            conectam estratégias, tecnologias e resultados reais.
+          </span>
+          <span class="mobile-copy">
+            Arquiteto de sistemas que conectam estratégia, tecnologia e
+            resultado real.
+          </span>
         </p>
       </div>
     </article>
@@ -34,6 +45,8 @@ import founderImg from "../assets/mello.webp";
   .founder-section {
     position: relative;
     padding: 1.1rem 0 0;
+    content-visibility: auto;
+    contain-intrinsic-size: 260px;
   }
 
   .founder-card {
@@ -100,6 +113,10 @@ import founderImg from "../assets/mello.webp";
     min-width: 0;
   }
 
+  .mobile-copy {
+    display: none;
+  }
+
   .founder-kicker {
     margin: 0 0 0.28rem;
     color: #91f2ff;
@@ -140,7 +157,9 @@ import founderImg from "../assets/mello.webp";
   }
 
   @media (max-width: 640px) {
-    .founder-section { padding-top: 0.9rem; }
+    .founder-section {
+      padding-top: 0.9rem;
+    }
 
     .founder-card {
       grid-template-columns: 72px minmax(0, 1fr);
@@ -149,14 +168,31 @@ import founderImg from "../assets/mello.webp";
       border-radius: var(--radius);
     }
 
-    .founder-image   { border-radius: var(--radius-sm); }
-    .founder-kicker  { font-size: 0.6rem; letter-spacing: 0.12em; }
-    .founder-copy h2 { font-size: 1.05rem; }
-    .founder-role    { font-size: 0.8rem; }
+    .founder-image {
+      border-radius: var(--radius-sm);
+    }
+    .founder-kicker {
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+    }
+    .founder-copy h2 {
+      font-size: 1.05rem;
+    }
+    .founder-role {
+      font-size: 0.8rem;
+    }
 
     .founder-text {
       font-size: 0.78rem;
       line-height: 1.5;
+    }
+
+    .desktop-copy {
+      display: none;
+    }
+
+    .mobile-copy {
+      display: inline;
     }
   }
 </style>
