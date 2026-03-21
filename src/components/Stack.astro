@@ -131,7 +131,7 @@ const techItems = [
             <div class="barcode-row">
               <div class="barcode-visual">
                 <div class="barcode-bars-wrap">
-                  {Array.from({length: 42}).map((_, j) => (
+                  {Array.from({length: 42}).map(() => (
                     <div class="bar" style={`height: ${Math.random() > 0.3 ? 100 : 60}%; width: ${Math.random() > 0.7 ? 2 : 1}px;`}></div>
                   ))}
                 </div>

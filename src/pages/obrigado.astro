@@ -2,8 +2,14 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="Recebido | FlowOFF">
-  <section class="section">
+<BaseLayout title="Recebido | NEØ FlowOFF">
+  <script is:inline slot="head">
+    if (typeof fbq === 'function') {
+      fbq('track', 'Lead');
+    }
+  </script>
+  
+  <section class="section" style="padding-top: 120px; min-height: 80vh; display: flex; align-items: center;">
     <div class="container" style="text-align:center;">
       <h1>Recebido.</h1>
       <p>
