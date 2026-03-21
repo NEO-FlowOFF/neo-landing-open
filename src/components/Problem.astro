@@ -1,18 +1,48 @@
 ---
 const items = [
-  { severity: "CRÍTICO", impact: 92, text: "Captura de dados sem inteligência", accent: "#ff1f8f" },
-  { severity: "CRÍTICO", impact: 88, text: "Fluxo comercial desorganizado",      accent: "#ff1f8f" },
-  { severity: "ALERTA",  impact: 74, text: "Confusão entre curiosidade e intenção", accent: "#d9ff3f" },
-  { severity: "CRÍTICO", impact: 85, text: "Isolamento de automações e dashboards",    accent: "#ff1f8f" },
-  { severity: "ALERTA",  impact: 71, text: "Baixa conversão de visita em processo",   accent: "#d9ff3f" },
+  {
+    severity: "CRÍTICO",
+    impact: 92,
+    text: "Captura de dados sem inteligência",
+    accent: "#ff1f8f",
+  },
+  {
+    severity: "CRÍTICO",
+    impact: 88,
+    text: "Fluxo comercial desorganizado",
+    accent: "#ff1f8f",
+  },
+  {
+    severity: "ALERTA",
+    impact: 74,
+    text: "Confusão entre curiosidade e intenção",
+    accent: "#d9ff3f",
+  },
+  {
+    severity: "CRÍTICO",
+    impact: 85,
+    text: "Isolamento de automações e dashboards",
+    accent: "#ff1f8f",
+  },
+  {
+    severity: "ALERTA",
+    impact: 71,
+    text: "Baixa conversão de visita em processo",
+    accent: "#d9ff3f",
+  },
 ];
 ---
 
 <section id="diagnostico" class="section diag-section">
   <div class="container">
     <div class="diag-header-outer">
-       <p class="section-label">High-Tech Audit</p>
-       <h2 class="tech-title">A arquitetura atual <span class="glitch-txt">subtrai</span> eficiência operacional.</h2>
+      <p class="section-label">Diagnóstico do seu sistema</p>
+      <h2 class="tech-title">
+        A arquitetura atual do seu sistema <span class="technical-tag"
+          >atrapalha</span
+        >
+        a eficiência operacional e o crescimento.
+      </h2>
     </div>
 
     <div class="diagnostic-terminal" id="diag-terminal">
@@ -21,70 +51,82 @@ const items = [
       <div class="hud-corner top-right"></div>
       <div class="hud-corner bottom-left"></div>
       <div class="hud-corner bottom-right"></div>
-      
+
       <div class="terminal-header">
         <div class="terminal-status">
           <span class="status-pulse"></span>
-          <span class="status-text">PROTOCOLO NΞØ-SEC ATIVO</span>
+          <span class="status-text">NΞØ PROTOCOLO // ATIVO</span>
         </div>
         <div class="terminal-meta">
-          <span class="meta-item">CORE: <b class="cyan-txt">V3.8</b></span>
-          <span class="meta-item">LOC: <b class="cyan-txt">23.5505° S, 46.6333° W</b></span>
+          <span class="meta-item">VERSÃO: <b class="cyan-txt">V3.8</b></span>
+          <span class="meta-item"
+            >LOC: <b class="cyan-txt" id="user-loc">GYN, BRASIL</b></span
+          >
         </div>
         <div class="terminal-tag">AUDIT_STREAK: 99.8%</div>
       </div>
 
       <div class="terminal-log">
         <div class="log-scroll">
-          SCANNING_SYSTEM_RESOURCES... TRACING_CONVERSION_LEAKS... INITIALIZING_NΞØ_PROTOCOL_08... 
-          UPLOADING_PERFORMANCE_METRICS... CORE_TEMP_STABLE... NODE_ACTIVE_01... SEARCHING_VULNERABILITIES...
+          SCANEANDO SEU SISTEMA... TRACKEANDO CONVERSAS PERDIDAS...
+          INICIANDO_NΞØ_PROTOCOL_08... UPLOADING_PERFORMANCE_METRICS...
+          CORE_TEMP_STABLE... NODE_ACTIVE_01... BUSCANDO VULNERABILIDADES...
         </div>
       </div>
 
       <div class="diag-items-wrap" id="diag-list">
         <div class="diag-scanner-line"></div>
-        
-        {items.map((item, i) => (
-          <div 
-            class="diag-item-box" 
-            style={`--i:${i}; --accent:${item.accent}`}
-            data-impact={item.impact}
-          >
-            <div class="diag-item-inner">
-               <div class="item-head">
+
+        {
+          items.map((item, i) => (
+            <div
+              class="diag-item-box"
+              style={`--i:${i}; --accent:${item.accent}`}
+              data-impact={item.impact}
+            >
+              <div class="diag-item-inner">
+                <div class="item-head">
                   <div class="item-id">
-                     <span class={`level-badge ${item.severity.toLowerCase()}`}>{item.severity}</span>
-                     <span class="ref-code">REF.{1024 + i * 11}</span>
+                    <span class={`level-badge ${item.severity.toLowerCase()}`}>
+                      {item.severity}
+                    </span>
+                    <span class="ref-code">REF.{1024 + i * 11}</span>
                   </div>
                   <div class="item-stats">
-                     <span class="impact-num">0</span><span class="impact-pct">%</span>
-                     <span class="impact-lbl">DESTRUIÇÃO DE VALOR</span>
+                    <>
+                      <span class="impact-num">0</span>
+                      <span class="impact-pct">%</span>
+                    </>
+                    <span class="impact-lbl"> GAP DE DESTRUIÇÃO DE VALOR</span>
                   </div>
-               </div>
-               
-               <h3 class="item-title">{item.text}</h3>
-               
-               <div class="bar-system">
+                </div>
+
+                <h3 class="item-title">{item.text}</h3>
+
+                <div class="bar-system">
                   <div class="bar-rail">
-                     <div class="bar-fill">
-                        <div class="bar-glow"></div>
-                        <div class="bar-head"></div>
-                     </div>
+                    <div class="bar-fill">
+                      <div class="bar-glow" />
+                      <div class="bar-head" />
+                    </div>
                   </div>
-                  <div class="bar-meta">ANALYSING_DATA_FLOW... STATUS: CRITICAL</div>
-               </div>
+                  <div class="bar-meta">
+                    ANALYSING_DATA_FLOW... STATUS: CRITICAL
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
-      
+
       <div class="terminal-footer">
         <div class="alert-msg">
           <span class="alert-icon">!</span>
-          5 FALHAS ESTRUTURAIS DETECTADAS NO ECOSSISTEMA ATUAL
+          5 FALHAS ESTRUTURAIS DETECTADAS NO SEU ECOSSISTEMA ATUAL
         </div>
         <div class="terminal-stats">
-          UPTIME: 99.99% | BOOT: 12ms | SECTOR: ALPHA-4
+          SCAN: 99.99% | BOOT: 12ms | NODE: ALPHA-4
         </div>
       </div>
     </div>
@@ -136,8 +178,26 @@ const items = [
           observer.disconnect();
         }
       },
-      { threshold: 0.15 }
+      { threshold: 0.15 },
     );
+    // Dynamic Geolocation via IP (Silent)
+    const locEl = document.getElementById("user-loc");
+    if (locEl) {
+      locEl.innerText = "LOCALIZANDO...";
+      fetch("https://ipapi.co/json/")
+        .then((res) => res.json())
+        .then((data) => {
+          if (data && data.city && data.country_name) {
+            locEl.innerText = `${data.city.toUpperCase()}, ${data.country_name.toUpperCase()}`;
+          } else {
+            locEl.innerText = "GYN, BRASIL"; // Fallback
+          }
+        })
+        .catch(() => {
+          locEl.innerText = "GYN, BRASIL"; // Fallback on block/error
+        });
+    }
+
     observer.observe(list);
   })();
 </script>
@@ -145,7 +205,11 @@ const items = [
 <style>
   .diag-section {
     padding: 10rem 0;
-    background: radial-gradient(circle at 50% -10%, rgba(51, 214, 255, 0.05), transparent 40%);
+    background: radial-gradient(
+      circle at 50% -10%,
+      rgba(51, 214, 255, 0.05),
+      transparent 40%
+    );
   }
 
   .tech-title {
@@ -164,7 +228,7 @@ const items = [
     border: 1px solid rgba(51, 214, 255, 0.2);
     border-radius: 16px;
     padding: 2.5rem;
-    box-shadow: 
+    box-shadow:
       0 0 100px rgba(0, 0, 0, 0.8),
       inset 0 0 40px rgba(51, 214, 255, 0.03);
     overflow: hidden;
@@ -178,10 +242,30 @@ const items = [
     border: 2px solid rgba(51, 214, 255, 0.4);
     pointer-events: none;
   }
-  .top-left     { top: 12px; left: 12px; border-right: 0; border-bottom: 0; }
-  .top-right    { top: 12px; right: 12px; border-left: 0; border-bottom: 0; }
-  .bottom-left  { bottom: 12px; left: 12px; border-right: 0; border-top: 0; }
-  .bottom-right { bottom: 12px; right: 12px; border-left: 0; border-top: 0; }
+  .top-left {
+    top: 12px;
+    left: 12px;
+    border-right: 0;
+    border-bottom: 0;
+  }
+  .top-right {
+    top: 12px;
+    right: 12px;
+    border-left: 0;
+    border-bottom: 0;
+  }
+  .bottom-left {
+    bottom: 12px;
+    left: 12px;
+    border-right: 0;
+    border-top: 0;
+  }
+  .bottom-right {
+    bottom: 12px;
+    right: 12px;
+    border-left: 0;
+    border-top: 0;
+  }
 
   .terminal-header {
     display: flex;
@@ -222,8 +306,14 @@ const items = [
     color: var(--text-4);
   }
 
-  .cyan-txt { color: #33d6ff; font-weight: 700; }
-  .terminal-tag { font-size: 0.65rem; color: var(--text-4); }
+  .cyan-txt {
+    color: #33d6ff;
+    font-weight: 700;
+  }
+  .terminal-tag {
+    font-size: 0.65rem;
+    color: var(--text-4);
+  }
 
   .terminal-log {
     background: rgba(0, 0, 0, 0.4);
@@ -276,7 +366,11 @@ const items = [
     margin-bottom: 1.2rem;
   }
 
-  .item-id { display: flex; align-items: center; gap: 1rem; }
+  .item-id {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
 
   .level-badge {
     padding: 0.3rem 0.6rem;
@@ -286,15 +380,44 @@ const items = [
     border-radius: 4px;
     text-transform: uppercase;
   }
-  .level-badge.crítico { background: var(--pink); color: #fff; box-shadow: 0 0 20px rgba(255, 31, 143, 0.4); }
-  .level-badge.alerta  { background: #d9ff3f; color: #000; box-shadow: 0 0 20px rgba(217, 255, 63, 0.4); }
+  .level-badge.crítico {
+    background: var(--pink);
+    color: #fff;
+    box-shadow: 0 0 20px rgba(255, 31, 143, 0.4);
+  }
+  .level-badge.alerta {
+    background: #d9ff3f;
+    color: #000;
+    box-shadow: 0 0 20px rgba(217, 255, 63, 0.4);
+  }
 
-  .ref-code { font-family: var(--font-mono, monospace); font-size: 0.7rem; color: var(--text-4); }
+  .ref-code {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.7rem;
+    color: var(--text-4);
+  }
 
-  .item-stats { text-align: right; }
-  .impact-num { font-size: 1.8rem; font-weight: 900; color: #fff; font-family: var(--font-mono, monospace); }
-  .impact-pct { font-size: 1rem; color: var(--text-3); font-weight: 700; }
-  .impact-lbl { display: block; font-size: 0.6rem; color: var(--text-4); font-weight: 800; letter-spacing: 0.05em; }
+  .item-stats {
+    text-align: right;
+  }
+  .impact-num {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #fff;
+    font-family: var(--font-mono, monospace);
+  }
+  .impact-pct {
+    font-size: 1rem;
+    color: var(--text-3);
+    font-weight: 700;
+  }
+  .impact-lbl {
+    display: block;
+    font-size: 0.6rem;
+    color: var(--text-4);
+    font-weight: 800;
+    letter-spacing: 0.05em;
+  }
 
   .item-title {
     font-size: 1.35rem;
@@ -303,10 +426,79 @@ const items = [
     letter-spacing: -0.01em;
   }
 
-  .bar-system { margin-bottom: 0.5rem; }
-  .bar-rail { height: 8px; background: rgba(255, 255, 255, 0.04); border-radius: 4px; overflow: hidden; position: relative; }
-  .bar-fill { height: 100%; width: 0%; background: var(--accent); border-radius: 4px; position: relative; transition: width 2s cubic-bezier(0.16, 1, 0.3, 1); }
-  
+  .tech-title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 3rem;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #fff;
+  }
+
+  /* High-Tech Highlight Classes */
+  .technical-tag {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.9em;
+    background: rgba(255, 31, 143, 0.1);
+    border: 1px dashed rgba(255, 31, 143, 0.4);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    color: var(--pink);
+    text-transform: uppercase;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 0.2rem;
+  }
+
+  .scan-highlight {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.4),
+      transparent
+    );
+    background-size: 200% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    animation: text-scan-line 3s linear infinite;
+  }
+
+  .glow-pink {
+    text-shadow:
+      0 0 10px rgba(255, 31, 143, 0.5),
+      0 0 20px rgba(255, 31, 143, 0.3);
+  }
+
+  @keyframes text-scan-line {
+    0% {
+      background-position: -100% 0;
+    }
+    100% {
+      background-position: 100% 0;
+    }
+  }
+
+  .bar-system {
+    margin-bottom: 0.5rem;
+  }
+  .bar-rail {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+  .bar-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--accent);
+    border-radius: 4px;
+    position: relative;
+    transition: width 2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
   .bar-glow {
     position: absolute;
     inset: 0;
@@ -317,7 +509,9 @@ const items = [
 
   .bar-head {
     position: absolute;
-    top: 0; right: 0; bottom: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
     width: 20px;
     background: linear-gradient(90deg, transparent, #fff);
     opacity: 0.5;
@@ -333,10 +527,16 @@ const items = [
 
   .diag-scanner-line {
     position: absolute;
-    top: -100px; left: 0;
+    top: -100px;
+    left: 0;
     width: 100%;
     height: 120px;
-    background: linear-gradient(180deg, transparent, rgba(51, 214, 255, 0.15), transparent);
+    background: linear-gradient(
+      180deg,
+      transparent,
+      rgba(51, 214, 255, 0.15),
+      transparent
+    );
     border-bottom: 2px solid rgba(51, 214, 255, 0.6);
     box-shadow: 0 10px 40px rgba(51, 214, 255, 0.2);
     z-index: 5;
@@ -354,22 +554,79 @@ const items = [
     font-family: var(--font-mono, monospace);
   }
 
-  .alert-msg { color: var(--pink); font-size: 0.75rem; font-weight: 900; display: flex; align-items: center; gap: 0.8rem; }
-  .alert-icon { display: grid; place-items: center; width: 18px; height: 18px; background: var(--pink); color: #fff; border-radius: 50%; font-size: 0.7rem; }
-  .terminal-stats { font-size: 0.65rem; color: var(--text-4); }
+  .alert-msg {
+    color: var(--pink);
+    font-size: 0.75rem;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .alert-icon {
+    display: grid;
+    place-items: center;
+    width: 18px;
+    height: 18px;
+    background: var(--pink);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 0.7rem;
+  }
+  .terminal-stats {
+    font-size: 0.65rem;
+    color: var(--text-4);
+  }
 
-  @keyframes log-scroll { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
-  @keyframes diag-scan { 0% { top: -120px; } 100% { top: 100%; } }
-  @keyframes diag-pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.3); opacity: 0.5; } }
+  @keyframes log-scroll {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+  @keyframes diag-scan {
+    0% {
+      top: -120px;
+    }
+    100% {
+      top: 100%;
+    }
+  }
+  @keyframes diag-pulse {
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.3);
+      opacity: 0.5;
+    }
+  }
 
   @media (max-width: 980px) {
-    .terminal-header { flex-direction: column; gap: 1rem; align-items: flex-start; }
-    .terminal-footer { flex-direction: column; gap: 1.25rem; align-items: flex-start; }
+    .terminal-header {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .terminal-footer {
+      flex-direction: column;
+      gap: 1.25rem;
+      align-items: flex-start;
+    }
   }
 
   @media (max-width: 640px) {
-    .diagnostic-terminal { padding: 1.5rem; }
-    .item-stats { display: none; }
-    .item-title { font-size: 1.15rem; }
+    .diagnostic-terminal {
+      padding: 1.5rem;
+    }
+    .item-stats {
+      display: none;
+    }
+    .item-title {
+      font-size: 1.15rem;
+    }
   }
 </style>

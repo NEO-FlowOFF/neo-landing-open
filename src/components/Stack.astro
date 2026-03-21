@@ -1,156 +1,641 @@
 ---
-const stack = [
+import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
+import logo from '../assets/neoflowoff_logo.png';
+
+const techItems = [
   {
-    name: "Astro Engine",
-    role: "Performance & SEO",
-    desc: "Arquitetura Island que elimina JS desnecessário, garantindo carregamento instantâneo e nota máxima no Google.",
-    icon: "https://img.icons8.com/?size=100&id=lckHFUP7nJhG&format=png&color=000000"
+    id: "astro",
+    name: "Astro",
+    version: "V6.0.8",
+    role: "TECHNOLOGY",
+    icon: "simple-icons:astro",
+    desc: "Essa tecnologia permite entregar velocidade máxima com custo zero de JavaScript.",
+    specs: ["Arquitetura única", "Performance máxima"],
+    barcode: "AST-06-PRM",
+    color: "#ff1f8f",
+    accentBg: "#ff1f8f",
+    since: "01.2024",
+    expires: "∞",
+    number: "NO.00060800"
   },
   {
-    name: "Vercel Edge",
-    role: "Ultra-low Latency",
-    desc: "Distribuição global via Vercel Edge Network. O seu checkout é servido do nó mais próximo do seu cliente.",
-    icon: "https://img.icons8.com/?size=100&id=57DjtX67p5bF&format=png&color=000000"
+    id: "vercel",
+    name: "Vercel",
+    version: "Edge_v2",
+    role: "HOSTING",
+    icon: "simple-icons:vercel",
+    desc: "Infraestrutura global de borda que elimina a latência e escala sem limites.",
+    specs: ["Aceitação global", "Performance Google 100%"],
+    barcode: "VRC-EG-DLV",
+    color: "#0a0a0a",
+    accentBg: "#111111",
+    since: "01.2024",
+    expires: "∞",
+    number: "NO.00020000"
   },
   {
-    name: "CAPI Intelligence",
-    role: "Data Accuracy",
-    desc: "Integração server-side com Meta Conversion API. Inteligência de dados que reduz o custo por lead e venda.",
-    icon: "https://img.icons8.com/?size=100&id=wA5rN96FVDtq&format=png&color=000000"
+    id: "capi",
+    name: "Meta\nCAPI",
+    version: "API_v3",
+    role: "Conversion",
+    icon: "simple-icons:meta",
+    desc: "Poucos desenvolvedores te oferecerão essa precisão absoluta no rastreio de dados comerciais sem depender de cookies.",
+    specs: ["Desempenho ADS", "Redução de CAC"],
+    barcode: "FB-CAPI-OPT",
+    color: "#0668E1",
+    accentBg: "#0668E1",
+    since: "03.2024",
+    expires: "∞",
+    number: "NO.00030300"
   },
   {
-    name: "TypeScript",
-    role: "Reliability",
-    desc: "Código fortemente tipado que elimina erros críticos em produção e garante escalabilidade total.",
-    icon: "https://img.icons8.com/?size=100&id=nCj4PvnCO0tZ&format=png&color=000000"
+    id: "ts",
+    name: "Type\nScript",
+    version: "TS_5.4",
+    role: "Logic",
+    icon: "simple-icons:typescript",
+    desc: "Sabemos que esse é um assunto chato, mas o que precisa saber é que ele garante que checkouts sejam inquebráveis, caso venda algo online.",
+    specs: ["EXIJA TP E NÃO PHP", "MUITO MAIS SEGURO"],
+    barcode: "TS-SEC-SYS",
+    color: "#3178c6",
+    accentBg: "#3178c6",
+    since: "01.2024",
+    expires: "∞",
+    number: "NO.00054000"
   }
 ];
 ---
 
-<section id="stack" class="section stack-section">
-  <div class="container">
-    <div class="stack-layout">
-      <div class="stack-intro">
-        <p class="section-label">Performance Engine</p>
-        <h2 class="tech-title">O motor por trás <br/>da sua <span class="cyan-txt">escala rápida.</span></h2>
-        <p class="stack-lead">
-          Não é sorte. É engenharia. Usamos a stack mais moderna do mercado para 
-          garantir que cada milissegundo de carregamento se transforme em taxa de conversão.
-        </p>
-      </div>
+<section id="stack" class="section bento-stack">
+  <!-- Precision Shutter Transitions -->
+  <div class="tech-divider tech-divider-top">
+    <div class="divider-line"></div>
+    <div class="divider-meta"><span>NEØFlowOFF // ESTÁVEL</span><span>ENGINE_v6.0</span></div>
+  </div>
+  <div class="tech-divider tech-divider-bottom">
+    <div class="divider-line"></div>
+    <div class="divider-meta"><span>SERVIDOR: ON-CHAIN</span><span>NEØFlowOFF // READY</span></div>
+  </div>
 
-      <div class="stack-grid-simple">
-        {stack.map((item) => (
-          <div class="stack-item-clean">
-            <div class="stack-icon-wrap">
-               <img src={item.icon} alt={item.name} class="stack-icon" loading="lazy" />
-            </div>
-            <div class="stack-info">
-               <span class="stack-role">{item.role}</span>
-               <h3>{item.name}</h3>
-               <p>{item.desc}</p>
+  <!-- Background Reveal Logo -->
+  <div class="bento-bg-logo">
+    <Image src={logo} alt="NEO-FlowOFF" class="reveal-logo" />
+  </div>
+
+  <div class="container stack-container">
+    <div class="bento-header">
+      <span class="ios-badge">NESTA PÁGINA CONTÉM:::</span>
+      <h2>Tecnologia usada <span class="pink-txt">para crescimento.</span></h2>
+    </div>
+
+    <!-- Ticket Card Display -->
+    <div class="ticket-display-area" id="bento-display">
+      {techItems.map((tech, i) => (
+        <div class={`ticket-card ${i === 0 ? 'active' : ''}`} id={`bento-${tech.id}`}>
+
+          <!-- SLOT 1: Label + SYSTEM ID (cream bg) -->
+          <div class="ticket-slot slot-header">
+            <span class="slot-label">FRAMEWORK</span>
+            <span class="slot-value">{tech.role.toUpperCase()}</span>
+          </div>
+
+          <!-- SLOT 2: Big Name (colored bg) -->
+          <div class="ticket-slot slot-name" style={`background: ${tech.accentBg};`}>
+            <h3 class="ticket-title">{tech.name.toUpperCase()}</h3>
+          </div>
+
+          <!-- SLOT 3: Mission + Specs (colored, darker) -->
+          <div class="ticket-slot slot-mission" style={`background: ${tech.accentBg}; filter: brightness(0.85);`}>
+            <p class="mission-text">{tech.desc}</p>
+            <div class="spec-pills">
+              {tech.specs.map(s => <span class="pill">● {s.toUpperCase()}</span>)}
             </div>
           </div>
-        ))}
-      </div>
+
+          <!-- SLOT 4: Meta dates (cream bg) -->
+          <div class="ticket-slot slot-meta">
+            <div class="meta-field">
+              <span class="meta-label">DATA_INICIO</span>
+              <span class="meta-value">{tech.since}</span>
+            </div>
+            <div class="meta-field">
+              <span class="meta-label">DATA_FIM</span>
+              <span class="meta-value">{tech.expires}</span>
+            </div>
+          </div>
+
+          <!-- SLOT 5: Barcode + Icon Row -->
+          <div class="ticket-slot slot-barcode">
+            <div class="barcode-number">{tech.number}</div>
+            <div class="barcode-row">
+              <div class="barcode-visual">
+                <div class="barcode-bars-wrap">
+                  {Array.from({length: 42}).map((_, j) => (
+                    <div class="bar" style={`height: ${Math.random() > 0.3 ? 100 : 60}%; width: ${Math.random() > 0.7 ? 2 : 1}px;`}></div>
+                  ))}
+                </div>
+                <span class="barcode-code">{tech.barcode}</span>
+              </div>
+              <div class="tech-icon-block">
+                <Icon name={tech.icon} class="ticket-icon" style={`color: ${tech.color};`} />
+              </div>
+            </div>
+          </div>
+
+        </div>
+      ))}
+    </div>
+
+    <!-- Bottom Tab Bar -->
+    <div class="ios-tab-bar-wrap">
+       <div class="menu-guide-badge">navegue abaixo</div>
+       <nav class="ios-tab-bar bento-nav">
+         {techItems.map(tech => (
+            <button class={`tab-item ${tech.id === 'astro' ? 'active' : ''}`} data-bento-tech={tech.id}>
+              <span class="tab-text">{tech.name.replace('\n', ' ').toUpperCase()}</span>
+            </button>
+         ))}
+       </nav>
     </div>
   </div>
 </section>
 
+<script>
+  const bentoTabs = document.querySelectorAll('[data-bento-tech]');
+  const bentoGrids = document.querySelectorAll('.ticket-card');
+
+  bentoTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const techId = tab.getAttribute('data-bento-tech');
+      
+      bentoTabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      bentoGrids.forEach(grid => {
+        grid.classList.remove('active');
+        if (grid.id === `bento-${techId}`) grid.classList.add('active');
+      });
+    });
+  });
+</script>
+
 <style>
-  .stack-section {
-    padding: 8rem 0;
-    background: rgba(255, 255, 255, 0.01);
-    border-top: 1px solid rgba(255, 255, 255, 0.03);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  .bento-stack {
+    background: #f5f4f0;
+    padding: 12rem 0;
+    position: relative;
+    overflow: hidden;
   }
 
-  .stack-layout {
+  /* REFINED DIVIDERS */
+  .tech-divider {
+    position: absolute;
+    left: 0; right: 0;
+    height: 40px;
+    z-index: 20;
+    pointer-events: none;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .tech-divider-top { top: 0; }
+  .tech-divider-bottom { bottom: 0; }
+
+  .divider-line {
+    position: absolute;
+    left: 0; right: 0;
+    height: 1px;
+    background: #ff1f8f;
+    box-shadow: 0 0 10px rgba(255, 31, 143, 0.3);
+  }
+
+  .tech-divider-top .divider-line { bottom: 0; }
+  .tech-divider-bottom .divider-line { top: 0; }
+
+  .divider-meta {
+    position: absolute;
+    width: 100%;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.5rem;
+    color: #ff1f8f;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .tech-divider-top .divider-meta { top: 10px; }
+  .tech-divider-bottom .divider-meta { bottom: 10px; }
+
+  /* BG REVEAL LOGO */
+  .bento-bg-logo {
+    position: absolute;
+    top: 90%;
+    left: 90%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 900px;
+    opacity: 6;
+    z-index: 1;
+    pointer-events: none;
+    filter: none;
+  }
+
+  .reveal-logo { width: 100%; height: auto; object-fit: contain; }
+  .stack-container { position: relative; z-index: 5; }
+
+  /* HEADER */
+  .bento-header { text-align: center; margin-bottom: 4rem; }
+  .bento-header h2 { font-size: 2.2rem; font-weight: 950; color: #111; letter-spacing: -0.04em; margin-top: 1rem; }
+  .pink-txt { color: #ff1f8f; }
+
+  .ios-badge {
+    background: #000;
+    color: #fff;
+    padding: 0.35rem 0.8rem;
+    border-radius: 4px;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.55rem;
+    font-weight: 800;
+  }
+
+  /* ===================== TICKET CARD ===================== */
+  .ticket-display-area {
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto 3.5rem;
+    position: relative;
+    min-height: 680px;
+  }
+
+  .ticket-card {
+    position: absolute;
+    inset: 0;
     display: flex;
     flex-direction: column;
-    gap: 4rem;
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow:
+      0 30px 80px rgba(0,0,0,0.18),
+      0 8px 24px rgba(0,0,0,0.10);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px) scale(0.97);
+    transition: all 480ms cubic-bezier(0.19, 1, 0.22, 1);
   }
 
-  .stack-intro {
-    max-width: 600px;
+  .ticket-card.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
   }
 
-  .tech-title { font-weight: 900; line-height: 1.1; margin-bottom: 1.5rem; }
-  .cyan-txt { color: #33d6ff; }
-
-  .stack-lead {
-    font-size: 1.2rem;
-    color: var(--text-3);
-    line-height: 1.6;
+  /* Each slot is a horizontal band — like a physical ticket */
+  .ticket-slot {
+    padding: 1.4rem 1.8rem;
+    background: #f0ede6;
+    position: relative;
   }
 
-  .stack-grid-simple {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 2rem;
+  /* Perforation between slots */
+  .ticket-slot + .ticket-slot::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -8px;
+    right: -8px;
+    height: 1px;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 6px,
+      rgba(0,0,0,0.15) 6px,
+      rgba(0,0,0,0.15) 10px
+    );
+    z-index: 10;
   }
 
-  .stack-item-clean {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    padding: 2rem;
-    transition: all 400ms var(--spring);
+  /* Notch cuts on sides (left + right circles like real ticket) */
+  .ticket-slot + .ticket-slot::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 0; right: 0;
+    height: 20px;
+    background:
+      radial-gradient(circle at -1px 50%, #f5f4f0 10px, transparent 10px),
+      radial-gradient(circle at calc(100% + 1px) 50%, #f5f4f0 10px, transparent 10px);
+    z-index: 11;
+    pointer-events: none;
+  }
+
+  /* SLOT 1: Header with Icon */
+  .slot-header {
+    background: #f0ede6;
+    padding: 1.2rem 1.8rem;
+  }
+
+  .header-main {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .slot-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(255, 31, 143, 0.2));
+  }
+
+  .header-text {
     display: flex;
     flex-direction: column;
+    gap: 0.1rem;
+  }
+
+  .slot-label {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    font-weight: 900;
+    color: #888;
+  }
+
+  .slot-value {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 900;
+    color: #222;
+  }
+
+  /* SLOT 2: Name — big colored bg */
+  .slot-name {
+    padding: 2.5rem 2rem 2rem;
+    background: #ff1f8f; /* overridden inline */
+  }
+
+  .ticket-title {
+    font-size: 4.5rem;
+    font-weight: 950;
+    line-height: 0.85;
+    letter-spacing: -0.06em;
+    color: #fff;
+    margin: 0;
+    white-space: pre-line;
+  }
+
+  /* SLOT 3: Mission */
+  .slot-mission {
+    padding: 1.6rem 2rem;
+  }
+
+  .mission-text {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.92);
+    line-height: 1.35;
+    font-weight: 600;
+    margin: 0 0 1rem;
+  }
+
+  .spec-pills {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .pill {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.65rem;
+    font-weight: 900;
+    color: rgba(255,255,255,0.8);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* SLOT 4: Meta dates */
+  .slot-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f0ede6;
+    padding: 1.2rem 2rem;
+  }
+
+  .meta-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .meta-label {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.45rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #888;
+    font-weight: 900;
+  }
+
+  .meta-value {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.85rem;
+    font-weight: 900;
+    color: #111;
+    letter-spacing: 0.05em;
+  }
+
+  /* SLOT 5: Barcode + QR */
+  .slot-barcode {
+    background: #f0ede6;
+    padding: 1.4rem 2rem 1.8rem;
+  }
+
+  .barcode-number {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.6rem;
+    font-weight: 900;
+    color: #555;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.8rem;
+  }
+
+  .barcode-row {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+  }
+
+  .barcode-visual {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .barcode-bars-wrap {
+    display: flex;
+    align-items: flex-end;
+    gap: 1.5px;
+    height: 52px;
+  }
+
+  .bar {
+    background: #111;
+    border-radius: 1px;
+    min-width: 1px;
+    flex-shrink: 0;
+  }
+
+  .barcode-row {
+    display: flex;
+    align-items: center;
     gap: 1.5rem;
   }
 
-  .stack-item-clean:hover {
-    transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.04);
-    border-color: rgba(51, 214, 255, 0.15);
+  .barcode-code {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.5rem;
+    letter-spacing: 0.3em;
+    font-weight: 800;
+    color: #444;
+    text-align: center;
   }
 
-  .stack-icon-wrap {
-    width: 60px;
-    height: 60px;
-    background: #fff; /* White bg for these colorful icons to pop */
-    border-radius: 12px;
+  .tech-icon-block {
+    width: 62px;
+    height: 62px;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    margin-left: auto;
   }
 
-  .stack-icon {
+  .ticket-icon {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
   }
 
-  .stack-role {
-    display: block;
-    font-size: 0.6rem;
-    font-weight: 800;
-    color: #33d6ff;
-    text-transform: uppercase;
-    letter-spacing: 0.15rem;
-    margin-bottom: 0.5rem;
+  .qr-svg {
+    width: 100%;
+    height: 100%;
   }
 
-  .stack-info h3 {
-    font-size: 1.3rem;
-    font-weight: 800;
+  /* ===================== TAB BAR ===================== */
+  .ios-tab-bar-wrap {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    padding-top: 2rem;
+  }
+
+  .menu-guide-badge {
+    position: absolute;
+    top: -10px;
+    background: #ff1f8f;
     color: #fff;
-    margin-bottom: 0.75rem;
+    font-size: 0.6rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    border-radius: 100px;
+    letter-spacing: 0.05em;
+    box-shadow: 0 4px 12px rgba(255, 31, 143, 0.4);
+    animation: 
+      bounce 2s infinite,
+      badge-fade 6s forwards; /* 6s for a smooth window around the 5s mark */
+    z-index: 10;
+    opacity: 0;
   }
 
-  .stack-info p {
-    font-size: 0.95rem;
-    color: var(--text-3);
-    line-height: 1.5;
-    margin: 0;
+  /* Animation for appearance at 2s and vanish at 5s */
+  @keyframes badge-fade {
+    0%, 33.3% { opacity: 0; pointer-events: none; } /* 0s to 2s */
+    41.6% { opacity: 1; pointer-events: all; } /* 2.5s -> fully visible */
+    83.3% { opacity: 1; pointer-events: all; } /* 5s -> start fade out */
+    100% { opacity: 0; pointer-events: none; } /* 6s -> gone */
   }
 
-  @media (max-width: 640px) {
-    .stack-section { padding: 5rem 0; }
-    .tech-title { font-size: 2.5rem; }
+  .menu-guide-badge::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #ff1f8f;
+  }
+
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-5px); }
+    60% { transform: translateY(-3px); }
+  }
+
+  .ios-tab-bar {
+    display: flex;
+    gap: 0.2rem;
+    padding: 0.4rem;
+    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.003);
+    backdrop-filter: blur(30px) saturate(100%);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 
+      0 12px 32px rgba(0,0,0,0.08),
+      inset 0 0 0 1px rgba(255,255,255,0.3);
+    position: relative;
+    z-index: 10;
+  }
+
+  .tab-item {
+    border: none;
+    background: transparent;
+    padding: 0.001rem 1.4rem;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.19; /* Translucent when not selected */
+  }
+
+  .tab-item span {
+    font-size: 0.75rem;
+    font-weight: 850;
+    color: #fd009c;
+    letter-spacing: 0.05em;
+    transition: color 0.3s;
+  }
+
+  .tab-item:hover { opacity: 0.8; }
+
+  .tab-item.active {
+    background: #fd009c;
+    opacity: 1;
+    box-shadow: 
+      0 4px 12px rgba(0,0,0,0.2),
+      inset 0 1px 1px rgba(255,255,255,0.2); /* Acqua/Glass subtle highlight */
+  }
+
+  .tab-item.active span { color: #fff; }
+
+  /* ===================== RESPONSIVE ===================== */
+  @media (max-width: 600px) {
+    .ticket-display-area {
+      max-width: 340px;
+    }
+    .ticket-title { font-size: 3.5rem; }
+    .tab-item { padding: 0.5rem 0.8rem; }
+    .tab-item span { font-size: 0.65rem; }
   }
 </style>
