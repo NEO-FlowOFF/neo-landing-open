@@ -248,6 +248,62 @@ p {
 
 .btn-full { width: 100%; }
 
+/* ── Glow CTA Utility ── */
+.btn-glow {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  background: transparent !important;
+  color: #fff !important;
+  isolation: isolate;
+  /* Fix for Safari overflow:hidden + border-radius */
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  mask-image: radial-gradient(white, black);
+}
+
+.btn-glow::before {
+  content: "";
+  position: absolute;
+  z-index: -2;
+  left: -50%;
+  top: -50%;
+  width: 200%;
+  height: 200%;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: 50% 50%, 50% 50%;
+  background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+  background-image: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    rgba(51, 214, 255, 0.9) 15%,
+    transparent 30%
+  );
+  animation: rotate-glow 3.5s linear infinite;
+}
+
+.btn-glow::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 2px;
+  top: 2px;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+  background: linear-gradient(180deg, #101827 0%, #080c16 100%);
+  border-radius: inherit;
+}
+
+@keyframes rotate-glow {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+.btn-glow:hover::before {
+  animation-duration: 1.5s;
+}
+
 /* ═══════════════════════════════════════════════════════════════
    TEXT & INLINE UTILITIES
    ═══════════════════════════════════════════════════════════════ */

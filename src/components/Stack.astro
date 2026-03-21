@@ -1,0 +1,156 @@
+---
+const stack = [
+  {
+    name: "Astro Engine",
+    role: "Performance & SEO",
+    desc: "Arquitetura Island que elimina JS desnecessário, garantindo carregamento instantâneo e nota máxima no Google.",
+    icon: "https://img.icons8.com/?size=100&id=lckHFUP7nJhG&format=png&color=000000"
+  },
+  {
+    name: "Vercel Edge",
+    role: "Ultra-low Latency",
+    desc: "Distribuição global via Vercel Edge Network. O seu checkout é servido do nó mais próximo do seu cliente.",
+    icon: "https://img.icons8.com/?size=100&id=57DjtX67p5bF&format=png&color=000000"
+  },
+  {
+    name: "CAPI Intelligence",
+    role: "Data Accuracy",
+    desc: "Integração server-side com Meta Conversion API. Inteligência de dados que reduz o custo por lead e venda.",
+    icon: "https://img.icons8.com/?size=100&id=wA5rN96FVDtq&format=png&color=000000"
+  },
+  {
+    name: "TypeScript",
+    role: "Reliability",
+    desc: "Código fortemente tipado que elimina erros críticos em produção e garante escalabilidade total.",
+    icon: "https://img.icons8.com/?size=100&id=nCj4PvnCO0tZ&format=png&color=000000"
+  }
+];
+---
+
+<section id="stack" class="section stack-section">
+  <div class="container">
+    <div class="stack-layout">
+      <div class="stack-intro">
+        <p class="section-label">Performance Engine</p>
+        <h2 class="tech-title">O motor por trás <br/>da sua <span class="cyan-txt">escala rápida.</span></h2>
+        <p class="stack-lead">
+          Não é sorte. É engenharia. Usamos a stack mais moderna do mercado para 
+          garantir que cada milissegundo de carregamento se transforme em taxa de conversão.
+        </p>
+      </div>
+
+      <div class="stack-grid-simple">
+        {stack.map((item) => (
+          <div class="stack-item-clean">
+            <div class="stack-icon-wrap">
+               <img src={item.icon} alt={item.name} class="stack-icon" loading="lazy" />
+            </div>
+            <div class="stack-info">
+               <span class="stack-role">{item.role}</span>
+               <h3>{item.name}</h3>
+               <p>{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .stack-section {
+    padding: 8rem 0;
+    background: rgba(255, 255, 255, 0.01);
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  }
+
+  .stack-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  .stack-intro {
+    max-width: 600px;
+  }
+
+  .tech-title { font-weight: 900; line-height: 1.1; margin-bottom: 1.5rem; }
+  .cyan-txt { color: #33d6ff; }
+
+  .stack-lead {
+    font-size: 1.2rem;
+    color: var(--text-3);
+    line-height: 1.6;
+  }
+
+  .stack-grid-simple {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2rem;
+  }
+
+  .stack-item-clean {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: all 400ms var(--spring);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .stack-item-clean:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(51, 214, 255, 0.15);
+  }
+
+  .stack-icon-wrap {
+    width: 60px;
+    height: 60px;
+    background: #fff; /* White bg for these colorful icons to pop */
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .stack-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .stack-role {
+    display: block;
+    font-size: 0.6rem;
+    font-weight: 800;
+    color: #33d6ff;
+    text-transform: uppercase;
+    letter-spacing: 0.15rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .stack-info h3 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 0.75rem;
+  }
+
+  .stack-info p {
+    font-size: 0.95rem;
+    color: var(--text-3);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    .stack-section { padding: 5rem 0; }
+    .tech-title { font-size: 2.5rem; }
+  }
+</style>

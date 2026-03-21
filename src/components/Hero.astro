@@ -13,24 +13,28 @@ type Slide = ImgSlide | TextSlide;
 
 const slides: Slide[] = [
   { type: "img", src: imgFitness, alt: "Fitness webapp" },
-  {
+      {
     type: "text",
     tag: "Landing Page",
-    body: "Landing pages orientadas à conversão",
+    body: `Uma landing page <em>comum</em> informa.<br/>Uma estratégica condiciona <strong>percepção.</strong><br/><br/>Ela:<br/> ‣ Reduz fricção cognitiva<br/> ‣ Antecipa objeções antes de surgirem<br/> ‣ Direciona microdecisões invisíveis<br/> ‣ Cria sensação de inevitabilidade na ação<br/><br/>O usuário não “decide comprar”.<br/>Ele apenas segue um caminho que já foi desenhado.`,
   },
   { type: "img", src: imgPunk, alt: "Punk BLVCK webapp" },
-  { type: "text", tag: "WebApp", body: "WebApps e dashboards comerciais" },
+  {
+    type: "text",
+    tag: "WebApp",
+    body: `Um WebApp <em>bem estruturado</em> não exibe informação.<br/>Ele condiciona <strong>comportamento operacional.</strong><br/><br/>Ele:<br/> ‣ Organiza dados em decisões acionáveis<br/> ‣ Reduz ambiguidade na operação<br/> ‣ Elimina dependência de interpretação humana<br/> ‣ Conecta eventos em tempo real com respostas imediatas<br/><br/>Você não analisa o negócio.<br/>O sistema responde por ele.`,
+  },
   { type: "img", src: imgFlowpay, alt: "Flowpay dashboard" },
   {
     type: "text",
     tag: "Captação",
-    body: "Captação, leitura e gestão de leads",
+    body: `Captação conectada à <strong>gestão inteligente de dados</strong><br/><br/>Com:<br/> ‣ Landing pages que coletam dados relevantes<br/> ‣ Estruturação automática no CRM<br/> ‣ Classificação por comportamento e origem<br/> ‣ Organização em pipelines reais<br/> ‣ Atualização contínua de status<br/> ‣ Integração com automações e WebApps<br/><br/>Cada lead entra identificado.<br/><strong>Não como número.</strong>`,
   },
   { type: "img", src: imgFactory, alt: "NS Factory webapp" },
   {
     type: "text",
     tag: "Automação",
-    body: "Automações conectadas ao processo de vendas",
+    body: `Automações conectadas ao seu <strong>funil real</strong>, não isoladas<br/><br/>Com:<br/> ‣ Resposta automática em segundos<br/> ‣ Distribuição inteligente de leads<br/> ‣ Sequências de follow-up por comportamento<br/> ‣ Atualização automática de status no pipeline<br/> ‣ Integração com pagamentos e conversão<br/> ‣ Gatilhos por evento, não por agenda<br/><br/>Cada lead entra em um sistema.<br/><strong>Não em uma fila.</strong>`,
   },
 ];
 ---
@@ -50,19 +54,24 @@ const slides: Slide[] = [
         sizes="96px"
       />
 
-      <div class="eyebrow">● EXPERIMENTE UM WEBAPP</div>
+      <div class="hero-hud">
+        <span class="hud-item"><span class="hud-dot"></span> STATUS: OPERACIONAL</span>
+        <span class="hud-item">LATENCY: 0.02ms</span>
+        <span class="hud-item">COORD: 23°S 46°W</span>
+      </div>
+
+      <div class="eyebrow"><span class="tech-bracket">[</span> EXPERIMENTE UM WEBAPP <span class="tech-bracket">]</span></div>
 
       <h1>
         A maioria dos sites
-        <span class="pink-script">informa.</span>
+        <span class="pink-script">informa.</span><br/>
         Poucos
         <span class="acid">operam vendas.</span>
       </h1>
 
       <p class="hero-lead">
         Sua empresa não precisa de mais uma vitrine digital. Precisa de uma
-        estrutura que capture demanda, organize dados, revele intenção e ajude o
-        comercial a agir no momento certo.
+        estrutura que capture demanda, organize dados e converta intenção em lucro real.
       </p>
 
       <div class="hero-actions">
@@ -71,7 +80,7 @@ const slides: Slide[] = [
             <span class="cta-acid-dot"></span>
             análise gratuita
           </div>
-          <a href="#form" class="btn btn-primary hero-btn-primary">
+          <a href="#form" class="btn btn-primary hero-btn-primary btn-glow">
             Solicitar análise
             <svg
               class="hero-btn-icon"
@@ -127,22 +136,27 @@ const slides: Slide[] = [
                     />
                   ) : (
                     <div class="gondola-text-card">
-                      <span class="gondola-tag">{slide.tag}</span>
-                      <p class="gondola-body">{slide.body}</p>
-                      <svg
-                        class="gondola-arrow"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        aria-hidden="true"
-                      >
-                        <path d="M7 17L17 7M17 7H7M17 7v10" />
-                      </svg>
+                      <div class="gondola-badge-shell">
+                        <span class="gondola-tag">{slide.tag}</span>
+                        <div class="gondola-badge-line"></div>
+                      </div>
+                      <p class="gondola-body" set:html={slide.body} />
+                      <div class="gondola-footer-acc">
+                        <svg
+                          class="gondola-arrow"
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          aria-hidden="true"
+                        >
+                          <path d="M7 17L17 7M17 7H7M17 7v10" />
+                        </svg>
+                      </div>
                     </div>
                   )}
                 </li>
@@ -168,8 +182,6 @@ const slides: Slide[] = [
     const cards = track.querySelectorAll(".gondola-card");
     const total = cards.length;
     let current = 0;
-    let timer = null;
-    let paused = false;
     let cachedCardWidth = 0;
     let isTicking = false;
 
@@ -185,13 +197,13 @@ const slides: Slide[] = [
       });
     };
 
-    const next = () => {
-      if (!paused) goTo(current + 1);
-    };
-
-    const startLoop = () => {
-      clearInterval(timer);
-      timer = setInterval(next, 2800);
+    const peek = () => {
+      setTimeout(() => {
+        track.scrollTo({ left: 50, behavior: "smooth" });
+        setTimeout(() => {
+          track.scrollTo({ left: 0, behavior: "smooth" });
+        }, 500);
+      }, 1000);
     };
 
     const updateSync = () => {
@@ -214,32 +226,11 @@ const slides: Slide[] = [
       }
     };
 
-    track.addEventListener(
-      "touchstart",
-      () => {
-        paused = true;
-        clearInterval(timer);
-      },
-      { passive: true },
-    );
-
-    track.addEventListener(
-      "touchend",
-      () => {
-        setTimeout(() => {
-          syncOnScroll();
-          paused = false;
-          startLoop();
-        }, 400);
-      },
-      { passive: true },
-    );
-
     track.addEventListener("scroll", syncOnScroll, { passive: true });
 
     cacheWidth();
     goTo(0);
-    startLoop();
+    peek();
 
     window.addEventListener(
       "resize",
@@ -252,7 +243,6 @@ const slides: Slide[] = [
     document.addEventListener("astro:after-swap", () => {
       cacheWidth();
       goTo(0);
-      startLoop();
     });
   })();
 </script>
@@ -265,14 +255,46 @@ const slides: Slide[] = [
     Negative margins pull adjacent content back in so the actual glyph
     feels flush — no crop, no background hack needed.
   */
+  .hero-hud {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--text-4);
+    letter-spacing: 0.1em;
+  }
+
+  .hud-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .hud-dot {
+    width: 6px;
+    height: 6px;
+    background: #33d6ff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #33d6ff;
+    animation: diag-pulse 2s infinite;
+  }
+
+  .tech-bracket {
+    color: #33d6ff;
+    opacity: 0.6;
+    font-weight: 400;
+  }
+
   .hero-logo-sm {
     display: block;
     width: 88px;
     height: auto;
     aspect-ratio: 1 / 1;
     object-fit: contain;
-    margin-top: -16px;
-    margin-bottom: calc(0.75rem - 16px);
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
     filter: drop-shadow(0 0 14px rgba(255, 31, 143, 0.22))
       drop-shadow(0 0 24px rgba(51, 214, 255, 0.14));
   }
@@ -414,54 +436,108 @@ const slides: Slide[] = [
     border-radius: var(--radius-sm);
   }
 
-  /* text card */
+  /* text card premium */
   .gondola-text-card {
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    padding: 1rem 1.05rem;
-    background:
-      linear-gradient(
-        145deg,
-        rgba(51, 214, 255, 0.1) 0%,
-        rgba(255, 31, 143, 0.06) 100%
+    padding: 1.1rem 1.15rem;
+    background: linear-gradient(
+        165deg,
+        rgba(255, 255, 255, 0.05) 0%,
+        rgba(255, 255, 255, 0.01) 100%
       ),
-      rgba(6, 10, 18, 0.92);
-    border: 1px solid rgba(51, 214, 255, 0.12);
+      rgba(6, 10, 18, 0.94);
+    border: 1px solid rgba(159, 241, 255, 0.09);
     border-radius: var(--radius);
-    backdrop-filter: blur(18px) saturate(1.2);
+    backdrop-filter: blur(28px) saturate(1.3);
     box-shadow:
-      0 12px 32px rgba(0, 0, 0, 0.28),
-      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      0 16px 48px rgba(0, 0, 0, 0.35),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+    transition:
+      transform 400ms var(--spring),
+      border-color 400ms ease;
+    cursor: default;
+  }
+
+  .gondola-text-card:hover {
+    border-color: rgba(159, 241, 255, 0.22);
+    transform: translateY(-2px);
+  }
+
+  /* Badge System */
+  .gondola-badge-shell {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.3rem 0.75rem;
+    border-radius: 999px;
+    background: rgba(51, 214, 255, 0.04);
+    border: 1px solid rgba(159, 241, 255, 0.12);
+    margin-bottom: 1.1rem;
+    align-self: flex-start;
   }
 
   .gondola-tag {
-    display: inline-block;
-    padding: 0.22rem 0.6rem;
-    border-radius: 999px;
-    background: rgba(51, 214, 255, 0.1);
-    border: 1px solid rgba(51, 214, 255, 0.2);
-    color: #7deaff;
-    font-size: 0.62rem;
+    color: #33d6ff;
+    font-size: 0.64rem;
     font-weight: 800;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
+    text-shadow: 0 0 8px rgba(51, 214, 255, 0.35);
+  }
+
+  .gondola-badge-line {
+    width: 28px;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(51, 214, 255, 0.4), transparent);
   }
 
   .gondola-body {
     margin: 0;
-    font-size: 0.9rem;
-    font-weight: 700;
+    font-size: 0.84rem;
+    font-weight: 600;
     color: #e8f4ff;
-    line-height: 1.38;
-    letter-spacing: -0.02em;
+    line-height: 1.52;
+    letter-spacing: -0.01em;
+    flex-grow: 1;
+    white-space: normal;
+  }
+
+  /* Bullet styling inside set:html */
+  .gondola-body :global(strong) {
+    color: #fff;
+    font-weight: 800;
+  }
+
+  .gondola-body :global(em) {
+    color: #7deaff;
+    font-style: normal;
+    font-weight: 700;
+  }
+
+  .gondola-body :global(br) {
+    margin-bottom: 0.4rem;
+    display: block;
+    content: "";
+  }
+
+  .gondola-footer-acc {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.5rem;
+    opacity: 0.35;
+    transition: opacity 300ms ease;
+  }
+
+  .gondola-text-card:hover .gondola-footer-acc {
+    opacity: 0.8;
   }
 
   .gondola-arrow {
-    align-self: flex-end;
-    color: rgba(51, 214, 255, 0.5);
+    color: #33d6ff;
   }
 
   /* ── Dots ── */
@@ -479,13 +555,13 @@ const slides: Slide[] = [
     background: rgba(255, 255, 255, 0.18);
     transition:
       background 200ms ease,
-      width 200ms var(--spring);
+      width 400ms var(--spring);
   }
 
   .gondola-dot.is-active {
     width: 18px;
     background: #33d6ff;
-    box-shadow: 0 0 8px rgba(51, 214, 255, 0.55);
+    box-shadow: 0 0 10px rgba(51, 214, 255, 0.5);
   }
 
   /* ── Mobile tweaks ── */
@@ -494,7 +570,11 @@ const slides: Slide[] = [
       flex: 0 0 calc(72% - 0.3rem);
     }
     .gondola-body {
-      font-size: 0.84rem;
+      font-size: 0.8rem;
+      line-height: 1.48;
+    }
+    .gondola-text-card {
+      padding: 0.95rem 1rem;
     }
   }
 </style>

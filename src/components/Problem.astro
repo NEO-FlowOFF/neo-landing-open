@@ -1,60 +1,92 @@
 ---
 const items = [
-  { severity: "CRÍTICO", impact: 92, text: "Não captura dados com inteligência", accent: "#ff1f8f" },
-  { severity: "CRÍTICO", impact: 88, text: "Não organiza o fluxo comercial",      accent: "#ff1f8f" },
-  { severity: "ALERTA",  impact: 74, text: "Não diferencia curiosidade de intenção real", accent: "#f5a623" },
-  { severity: "CRÍTICO", impact: 85, text: "Não conversa com automações e dashboards",    accent: "#ff1f8f" },
-  { severity: "ALERTA",  impact: 71, text: "Não transforma visita em processo",   accent: "#f5a623" },
+  { severity: "CRÍTICO", impact: 92, text: "Captura de dados sem inteligência", accent: "#ff1f8f" },
+  { severity: "CRÍTICO", impact: 88, text: "Fluxo comercial desorganizado",      accent: "#ff1f8f" },
+  { severity: "ALERTA",  impact: 74, text: "Confusão entre curiosidade e intenção", accent: "#d9ff3f" },
+  { severity: "CRÍTICO", impact: 85, text: "Isolamento de automações e dashboards",    accent: "#ff1f8f" },
+  { severity: "ALERTA",  impact: 71, text: "Baixa conversão de visita em processo",   accent: "#d9ff3f" },
 ];
 ---
 
 <section id="diagnostico" class="section diag-section">
   <div class="container">
-    <div class="diag-card">
+    <div class="diag-header-outer">
+       <p class="section-label">High-Tech Audit</p>
+       <h2 class="tech-title">A arquitetura atual <span class="glitch-txt">subtrai</span> eficiência operacional.</h2>
+    </div>
 
-      <div class="diag-header">
-        <div class="diag-live">
-          <span class="diag-dot" aria-hidden="true"></span>
-          DIAGNÓSTICO ATIVO
+    <div class="diagnostic-terminal" id="diag-terminal">
+      <!-- HUD DECORATIONS -->
+      <div class="hud-corner top-left"></div>
+      <div class="hud-corner top-right"></div>
+      <div class="hud-corner bottom-left"></div>
+      <div class="hud-corner bottom-right"></div>
+      
+      <div class="terminal-header">
+        <div class="terminal-status">
+          <span class="status-pulse"></span>
+          <span class="status-text">PROTOCOLO NΞØ-SEC ATIVO</span>
         </div>
-        <span class="diag-domain">flowoff.audit</span>
+        <div class="terminal-meta">
+          <span class="meta-item">CORE: <b class="cyan-txt">V3.8</b></span>
+          <span class="meta-item">LOC: <b class="cyan-txt">23.5505° S, 46.6333° W</b></span>
+        </div>
+        <div class="terminal-tag">AUDIT_STREAK: 99.8%</div>
       </div>
 
-      <div class="diag-copy">
-        <p class="section-label">Diagnóstico</p>
-        <h2>O problema raramente é falta de tráfego.</h2>
-        <p>
-          Na maior parte dos casos, o site foi construído para existir, não para
-          operar. Ele até recebe visitas, mas não filtra intenção, não estrutura
-          contexto comercial e não ajuda sua equipe a decidir o que fazer com
-          cada oportunidade.
-        </p>
+      <div class="terminal-log">
+        <div class="log-scroll">
+          SCANNING_SYSTEM_RESOURCES... TRACING_CONVERSION_LEAKS... INITIALIZING_NΞØ_PROTOCOL_08... 
+          UPLOADING_PERFORMANCE_METRICS... CORE_TEMP_STABLE... NODE_ACTIVE_01... SEARCHING_VULNERABILITIES...
+        </div>
       </div>
 
-      <ul class="diag-list" id="diag-list">
+      <div class="diag-items-wrap" id="diag-list">
+        <div class="diag-scanner-line"></div>
+        
         {items.map((item, i) => (
-          <li
-            class="diag-item"
-            style={`--i:${i};--accent:${item.accent}`}
+          <div 
+            class="diag-item-box" 
+            style={`--i:${i}; --accent:${item.accent}`}
             data-impact={item.impact}
           >
-            <div class="diag-row">
-              <span class="diag-badge">{item.severity}</span>
-              <span class="diag-pct"><b class="diag-num">0</b>%</span>
+            <div class="diag-item-inner">
+               <div class="item-head">
+                  <div class="item-id">
+                     <span class={`level-badge ${item.severity.toLowerCase()}`}>{item.severity}</span>
+                     <span class="ref-code">REF.{1024 + i * 11}</span>
+                  </div>
+                  <div class="item-stats">
+                     <span class="impact-num">0</span><span class="impact-pct">%</span>
+                     <span class="impact-lbl">DESTRUIÇÃO DE VALOR</span>
+                  </div>
+               </div>
+               
+               <h3 class="item-title">{item.text}</h3>
+               
+               <div class="bar-system">
+                  <div class="bar-rail">
+                     <div class="bar-fill">
+                        <div class="bar-glow"></div>
+                        <div class="bar-head"></div>
+                     </div>
+                  </div>
+                  <div class="bar-meta">ANALYSING_DATA_FLOW... STATUS: CRITICAL</div>
+               </div>
             </div>
-            <p class="diag-text">{item.text}</p>
-            <div class="diag-track">
-              <div class="diag-fill"></div>
-            </div>
-          </li>
+          </div>
         ))}
-      </ul>
-
-      <div class="diag-footer">
-        <span>5 falhas estruturais identificadas</span>
-        <span class="diag-hint">→ solução disponível</span>
       </div>
-
+      
+      <div class="terminal-footer">
+        <div class="alert-msg">
+          <span class="alert-icon">!</span>
+          5 FALHAS ESTRUTURAIS DETECTADAS NO ECOSSISTEMA ATUAL
+        </div>
+        <div class="terminal-stats">
+          UPTIME: 99.99% | BOOT: 12ms | SECTOR: ALPHA-4
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -64,7 +96,7 @@ const items = [
     const list = document.getElementById("diag-list");
     if (!list) return;
 
-    const items = list.querySelectorAll(".diag-item");
+    const items = list.querySelectorAll(".diag-item-box");
     let ran = false;
 
     function animate() {
@@ -73,34 +105,34 @@ const items = [
 
       items.forEach((item, idx) => {
         setTimeout(() => {
-          item.classList.add("is-visible");
+          item.classList.add("is-active");
 
           const target = parseInt(item.dataset.impact, 10);
-          const fill = item.querySelector(".diag-fill");
-          const num = item.querySelector(".diag-num");
+          const fill = item.querySelector(".bar-fill");
+          const num = item.querySelector(".impact-num");
 
           if (fill) fill.style.width = target + "%";
           if (!num) return;
 
-          const duration = 900;
+          const duration = 1500;
           let startTime = null;
 
           function step(ts) {
             if (!startTime) startTime = ts;
             const p = Math.min((ts - startTime) / duration, 1);
-            const ease = 1 - Math.pow(1 - p, 3);
+            const ease = 1 - Math.pow(1 - p, 3); // Cubic ease out
             num.textContent = Math.round(ease * target);
             if (p < 1) requestAnimationFrame(step);
           }
           requestAnimationFrame(step);
-        }, idx * 130);
+        }, idx * 200);
       });
     }
 
     var observer = new IntersectionObserver(
-      function (entries) {
+      (entries) => {
         if (entries[0].isIntersecting) {
-          animate();
+          setTimeout(animate, 500);
           observer.disconnect();
         }
       },
@@ -111,201 +143,233 @@ const items = [
 </script>
 
 <style>
-  .diag-card {
+  .diag-section {
+    padding: 10rem 0;
+    background: radial-gradient(circle at 50% -10%, rgba(51, 214, 255, 0.05), transparent 40%);
+  }
+
+  .tech-title {
+    margin-top: 0.5rem;
+    font-weight: 900;
+  }
+
+  .glitch-txt {
+    color: var(--pink);
+    text-shadow: 2px 0 #33d6ff;
+  }
+
+  .diagnostic-terminal {
     position: relative;
-    border-radius: var(--radius-lg);
-    background:
-      linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%),
-      rgba(6, 10, 18, 0.9);
-    border: 1px solid rgba(159, 241, 255, 0.08);
-    backdrop-filter: blur(24px) saturate(1.18);
-    box-shadow:
-      0 24px 56px rgba(0, 0, 0, 0.3),
-      inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+    background: rgba(6, 9, 15, 0.98);
+    border: 1px solid rgba(51, 214, 255, 0.2);
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 
+      0 0 100px rgba(0, 0, 0, 0.8),
+      inset 0 0 40px rgba(51, 214, 255, 0.03);
     overflow: hidden;
   }
 
-  /* scan line */
-  .diag-card::before {
-    content: "";
+  /* HUD */
+  .hud-corner {
     position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent 0%, rgba(51,214,255,0.55) 50%, transparent 100%);
-    animation: diag-scan 5s ease-in-out infinite;
+    width: 32px;
+    height: 32px;
+    border: 2px solid rgba(51, 214, 255, 0.4);
     pointer-events: none;
-    z-index: 1;
   }
+  .top-left     { top: 12px; left: 12px; border-right: 0; border-bottom: 0; }
+  .top-right    { top: 12px; right: 12px; border-left: 0; border-bottom: 0; }
+  .bottom-left  { bottom: 12px; left: 12px; border-right: 0; border-top: 0; }
+  .bottom-right { bottom: 12px; right: 12px; border-left: 0; border-top: 0; }
 
-  @keyframes diag-scan {
-    0%   { transform: translateY(0px);   opacity: 0; }
-    4%   { opacity: 1; }
-    90%  { opacity: 0.2; }
-    100% { transform: translateY(700px); opacity: 0; }
-  }
-
-  /* ── Header ── */
-  .diag-header {
+  .terminal-header {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: 0.85rem 1.15rem 0.8rem;
-    border-bottom: 1px solid rgba(159, 241, 255, 0.06);
+    align-items: center;
+    border-bottom: 1px solid rgba(51, 214, 255, 0.15);
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-family: var(--font-mono, monospace);
   }
 
-  .diag-live {
+  .terminal-status {
     display: flex;
     align-items: center;
-    gap: 0.48rem;
-    font-size: 0.7rem;
-    font-weight: 800;
-    letter-spacing: 0.13em;
-    color: #33d6ff;
-    text-transform: uppercase;
+    gap: 0.8rem;
   }
 
-  .diag-dot {
-    flex: 0 0 auto;
-    width: 7px;
-    height: 7px;
-    border-radius: 999px;
+  .status-pulse {
+    width: 8px;
+    height: 8px;
     background: #33d6ff;
-    box-shadow: 0 0 8px rgba(51,214,255,0.85);
-    animation: diag-pulse 1.9s ease-in-out infinite;
+    border-radius: 50%;
+    box-shadow: 0 0 15px #33d6ff;
+    animation: diag-pulse 2s infinite;
   }
 
-  @keyframes diag-pulse {
-    0%, 100% { opacity: 1;   box-shadow: 0 0 8px  rgba(51,214,255,0.85); }
-    50%       { opacity: 0.35; box-shadow: 0 0 3px  rgba(51,214,255,0.25); }
+  .status-text {
+    font-size: 0.75rem;
+    font-weight: 900;
+    color: #33d6ff;
+    letter-spacing: 0.15em;
   }
 
-  .diag-domain {
-    font-size: 0.68rem;
-    color: rgba(159, 241, 255, 0.3);
-    font-family: monospace;
-    letter-spacing: 0.04em;
-  }
-
-  /* ── Copy ── */
-  .diag-copy {
-    padding: 1.1rem 1.15rem 1rem;
-    border-bottom: 1px solid rgba(159, 241, 255, 0.05);
-  }
-
-  .diag-copy h2 { margin-bottom: 0.55rem; }
-
-  .diag-copy p:last-child {
-    margin: 0;
-    color: var(--text-3);
-    font-size: 0.9rem;
-    line-height: 1.64;
-  }
-
-  /* ── List ── */
-  .diag-list {
-    list-style: none;
-    padding: 0.9rem 1.15rem;
-    margin: 0;
-    display: grid;
-    gap: 0.6rem;
-  }
-
-  /* ── Item ── */
-  .diag-item {
-    padding: 0.85rem 1rem;
-    border-radius: var(--radius-sm);
-    background: rgba(255,255,255,0.022);
-    border: 1px solid rgba(159,241,255,0.05);
-    border-left: 2px solid var(--accent);
-    opacity: 0;
-    transform: translateX(-14px);
-    transition:
-      opacity 380ms var(--ease-out),
-      transform 420ms var(--spring);
-  }
-
-  .diag-item.is-visible {
-    opacity: 1;
-    transform: translateX(0);
-  }
-
-  .diag-row {
+  .terminal-meta {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 0.4rem;
-  }
-
-  .diag-badge {
-    font-size: 0.64rem;
-    font-weight: 800;
-    letter-spacing: 0.11em;
-    color: var(--accent);
-    text-transform: uppercase;
-  }
-
-  .diag-pct {
-    font-size: 0.7rem;
-    font-weight: 600;
-    color: rgba(255,255,255,0.4);
-    font-variant-numeric: tabular-nums;
-    font-family: monospace;
-  }
-
-  .diag-pct b {
-    font-weight: 800;
-    color: var(--accent);
-  }
-
-  .diag-text {
-    margin: 0 0 0.62rem;
-    font-size: 0.88rem;
-    color: var(--text-2);
-    line-height: 1.45;
-  }
-
-  .diag-track {
-    height: 3px;
-    border-radius: 999px;
-    background: rgba(255,255,255,0.07);
-    overflow: hidden;
-  }
-
-  .diag-fill {
-    height: 100%;
-    width: 0;
-    border-radius: 999px;
-    background: var(--accent);
-    box-shadow: 0 0 10px var(--accent);
-    transition: width 900ms cubic-bezier(0.2, 0, 0, 1);
-  }
-
-  /* ── Footer ── */
-  .diag-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.72rem 1.15rem;
-    border-top: 1px solid rgba(159, 241, 255, 0.05);
-    font-size: 0.76rem;
+    gap: 1.5rem;
+    font-size: 0.65rem;
     color: var(--text-4);
   }
 
-  .diag-hint {
-    color: var(--acid);
-    font-weight: 700;
-    font-size: 0.74rem;
-    letter-spacing: 0.02em;
+  .cyan-txt { color: #33d6ff; font-weight: 700; }
+  .terminal-tag { font-size: 0.65rem; color: var(--text-4); }
+
+  .terminal-log {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(51, 214, 255, 0.1);
+    padding: 0.6rem 0;
+    margin-bottom: 2.5rem;
+    overflow: hidden;
   }
 
-  /* ── Mobile ── */
-  @media (max-width: 640px) {
-    .diag-header { padding: 0.72rem 0.9rem; }
-    .diag-copy   { padding: 0.9rem 0.9rem 0.8rem; }
-    .diag-list   { padding: 0.75rem 0.9rem; gap: 0.5rem; }
-    .diag-footer { padding: 0.62rem 0.9rem; }
+  .log-scroll {
+    white-space: nowrap;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.6rem;
+    color: rgba(51, 214, 255, 0.4);
+    letter-spacing: 0.2em;
+    animation: log-scroll 40s linear infinite;
+  }
 
-    .diag-item  { padding: 0.75rem 0.85rem; }
-    .diag-text  { font-size: 0.84rem; }
+  .diag-items-wrap {
+    display: grid;
+    gap: 1.25rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .diag-item-box {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .diag-item-box.is-active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .diag-item-inner {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 1.5rem 1.8rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .item-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.2rem;
+  }
+
+  .item-id { display: flex; align-items: center; gap: 1rem; }
+
+  .level-badge {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.65rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+  .level-badge.crítico { background: var(--pink); color: #fff; box-shadow: 0 0 20px rgba(255, 31, 143, 0.4); }
+  .level-badge.alerta  { background: #d9ff3f; color: #000; box-shadow: 0 0 20px rgba(217, 255, 63, 0.4); }
+
+  .ref-code { font-family: var(--font-mono, monospace); font-size: 0.7rem; color: var(--text-4); }
+
+  .item-stats { text-align: right; }
+  .impact-num { font-size: 1.8rem; font-weight: 900; color: #fff; font-family: var(--font-mono, monospace); }
+  .impact-pct { font-size: 1rem; color: var(--text-3); font-weight: 700; }
+  .impact-lbl { display: block; font-size: 0.6rem; color: var(--text-4); font-weight: 800; letter-spacing: 0.05em; }
+
+  .item-title {
+    font-size: 1.35rem;
+    margin-bottom: 1.8rem;
+    color: #fff;
+    letter-spacing: -0.01em;
+  }
+
+  .bar-system { margin-bottom: 0.5rem; }
+  .bar-rail { height: 8px; background: rgba(255, 255, 255, 0.04); border-radius: 4px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; width: 0%; background: var(--accent); border-radius: 4px; position: relative; transition: width 2s cubic-bezier(0.16, 1, 0.3, 1); }
+  
+  .bar-glow {
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    filter: blur(12px);
+    opacity: 0.8;
+  }
+
+  .bar-head {
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
+    width: 20px;
+    background: linear-gradient(90deg, transparent, #fff);
+    opacity: 0.5;
+  }
+
+  .bar-meta {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.55rem;
+    color: var(--text-4);
+    margin-top: 0.8rem;
+    letter-spacing: 0.1em;
+  }
+
+  .diag-scanner-line {
+    position: absolute;
+    top: -100px; left: 0;
+    width: 100%;
+    height: 120px;
+    background: linear-gradient(180deg, transparent, rgba(51, 214, 255, 0.15), transparent);
+    border-bottom: 2px solid rgba(51, 214, 255, 0.6);
+    box-shadow: 0 10px 40px rgba(51, 214, 255, 0.2);
+    z-index: 5;
+    pointer-events: none;
+    animation: diag-scan 5s linear infinite;
+  }
+
+  .terminal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(51, 214, 255, 0.15);
+    font-family: var(--font-mono, monospace);
+  }
+
+  .alert-msg { color: var(--pink); font-size: 0.75rem; font-weight: 900; display: flex; align-items: center; gap: 0.8rem; }
+  .alert-icon { display: grid; place-items: center; width: 18px; height: 18px; background: var(--pink); color: #fff; border-radius: 50%; font-size: 0.7rem; }
+  .terminal-stats { font-size: 0.65rem; color: var(--text-4); }
+
+  @keyframes log-scroll { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
+  @keyframes diag-scan { 0% { top: -120px; } 100% { top: 100%; } }
+  @keyframes diag-pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.3); opacity: 0.5; } }
+
+  @media (max-width: 980px) {
+    .terminal-header { flex-direction: column; gap: 1rem; align-items: flex-start; }
+    .terminal-footer { flex-direction: column; gap: 1.25rem; align-items: flex-start; }
+  }
+
+  @media (max-width: 640px) {
+    .diagnostic-terminal { padding: 1.5rem; }
+    .item-stats { display: none; }
+    .item-title { font-size: 1.15rem; }
   }
 </style>
