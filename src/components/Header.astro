@@ -1,9 +1,6 @@
 ---
-const pathname = Astro.url.pathname;
-const base = pathname === "/" ? "" : "/";
-
 const navItems = [
-  { href: `${base}#solution`, label: "Solução" },
+  { href: "/#solution", label: "Solução" },
   { href: "/vejacomo", label: "Veja como" },
 ];
 ---
@@ -19,7 +16,7 @@ const navItems = [
       {navItems.map((item) => (
         <a href={item.href} class="site-header-link" data-nav-link>{item.label}</a>
       ))}
-      <a href={`${base}#contato`} class="btn btn-primary site-header-cta btn-glow">
+      <a href="/#contato" class="btn btn-primary site-header-cta btn-glow">
         Solicitar análise
       </a>
     </nav>
@@ -503,8 +500,13 @@ const navItems = [
       backdrop-filter: blur(26px) saturate(1.4);
     }
 
-    /* oculta links de texto — padrão iOS app bar */
-    .site-header-link { display: none; }
+    /* Mostra links no mobile — scroll lateral suave */
+    .site-header-link { 
+      display: inline-flex;
+      font-size: 0.75rem;
+      padding: 0 0.6rem;
+      min-height: 32px;
+    }
 
     .site-header-cta {
       min-height: 38px;

@@ -1027,6 +1027,39 @@ html.modal-open body {
     height: 260px;
   }
 
+  /* Veja Como CTA */
+  .view-system-cta {
+    margin: 4rem 1.5rem 2rem;
+    padding: 3rem 2rem;
+    background: rgba(255, 31, 143, 0.03);
+    border: 1px solid rgba(255, 31, 143, 0.1);
+    border-radius: 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .view-system-cta::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(255, 31, 143, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .view-system-cta h2 {
+    font-size: 2.2rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    letter-spacing: -0.03em;
+  }
+  .view-system-cta p {
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 2.5rem;
+    font-size: 1.1rem;
+  }
+
   /* Legal */
   .legal-content {
     padding: 1.25rem;
@@ -1054,5 +1087,149 @@ html.modal-open body {
     grid-column: span 12;
     min-height: 190px;
   }
+}
 
+/* ═══════════════════════════════════════════════════════════════
+   GLOBAL MODAL SYSTEM (iOS-Like)
+   ═══════════════════════════════════════════════════════════════ */
+.high-tech-modal {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: auto;
+  max-width: 800px;
+  width: 90%;
+  color: #fff;
+  outline: none;
+  overflow: visible;
+  display: none; /* Force hidden by default */
+}
+
+.high-tech-modal[open] {
+  display: flex !important;
+}
+
+.high-tech-modal::backdrop {
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(14px);
+  animation: modal-fade-in 0.3s ease-out;
+}
+
+.modal-window {
+  background: #090e18;
+  border: 1px solid rgba(255, 31, 143, 0.15);
+  border-radius: 32px;
+  padding: 3rem;
+  position: relative;
+  box-shadow: 
+    0 30px 100px rgba(0,0,0,0.8), 
+    0 0 50px rgba(255, 31, 143, 0.05);
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  animation: modal-zoom-in 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-handle {
+  display: none;
+  width: 40px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  margin: 0.75rem auto 0;
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.modal-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.6rem;
+  display: grid;
+  place-items: center;
+  transition: all 0.2s;
+  z-index: 999;
+  pointer-events: auto;
+}
+
+.modal-header {
+  margin-bottom: 2rem;
+}
+
+.modal-label {
+  font-size: 0.7rem;
+  font-family: var(--font-mono, monospace);
+  color: #ff1f8f;
+  letter-spacing: 0.2em;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.modal-header h3 {
+  font-size: 2rem;
+  font-weight: 900;
+  margin: 0;
+}
+
+.modal-scroll {
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+@keyframes modal-zoom-in {
+  from { transform: scale(0.95) translateY(20px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+@keyframes modal-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ── Mobile iOS Bottom Sheet ── */
+@media (max-width: 640px) {
+  .high-tech-modal[open] {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    margin: 0;
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .modal-window {
+    width: 100%;
+    max-height: 94vh;
+    border-radius: 32px 32px 0 0;
+    padding: 3.5rem 1.5rem 2rem;
+    border-bottom: none;
+    animation: modal-sheet-up 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .modal-handle { display: block; }
+
+  @keyframes modal-sheet-up {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+
+  .modal-close {
+    top: 1.25rem;
+    right: 1.25rem;
+    width: 36px;
+    height: 36px;
+    font-size: 1.3rem;
+  }
 }

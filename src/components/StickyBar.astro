@@ -2,7 +2,7 @@
 const raw = import.meta.env.WATTSAPP_NUMBER ?? "";
 const number = raw.replace(/\D/g, "");
 const waHref = number
-  ? `https://wa.me/55${number}?text=Ol%C3%A1!%20Vi%20o%20site%20da%20FlowOFF%20e%20quero%20receber%20uma%20an%C3%A1lise%20gratuita.`
+  ? `https://wa.me/55${number}?text=Olá!%20Vi%20o%20site%20da%20NEØ%20FlowOFF%20e%20quero%20receber%20uma%20análise%20gratuita.`
   : "#";
 ---
 
@@ -22,7 +22,7 @@ const waHref = number
     </a>
   )}
 
-  <a href="#form" class="sticky-cta" id="sticky-scroll-cta">
+  <a href="#contato" class="sticky-cta" id="sticky-scroll-cta">
     Solicitar análise gratuita
   </a>
 </div>
@@ -31,7 +31,6 @@ const waHref = number
   (function () {
     const bar = document.getElementById("sticky-bar");
     const form = document.getElementById("form");
-    const scrollBtn = document.getElementById("sticky-scroll-cta");
     
     let formTop = 0;
     let formHeight = 0;
@@ -83,14 +82,7 @@ const waHref = number
       onScroll();
     }, { passive: true });
 
-    if (scrollBtn && form) {
-      scrollBtn.addEventListener("click", function (e) {
-        e.preventDefault();
-        form.scrollIntoView({ behavior: "smooth", block: "start" });
-        const first = form.querySelector("input:not([type=hidden])");
-        if (first) setTimeout(() => { first.focus(); }, 400);
-      });
-    }
+    // Scroll logic was replaced by global AnalysisModal trigger
     
     document.addEventListener("astro:after-swap", () => {
       cacheFormPosition();

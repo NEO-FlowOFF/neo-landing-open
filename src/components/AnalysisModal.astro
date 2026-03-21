@@ -1,0 +1,95 @@
+---
+import AnalysisForm from "./AnalysisForm.astro";
+---
+
+<dialog id="modal-analysis" class="high-tech-modal">
+  <div class="modal-backdrop"></div>
+  <div class="modal-window">
+    <div class="modal-handle"></div> <!-- iOS Sheet Handle -->
+    <button class="modal-close" data-close-all aria-label="Fechar modal">&times;</button>
+    <div class="modal-header">
+      <span class="modal-label">NΞØ PROTOCOLO // DIAGNÓSTICO</span>
+      <h3>Solicite sua análise</h3>
+    </div>
+    <div class="modal-body-meta">
+      <p>
+        Receba uma avaliação técnica da sua estrutura digital. Sem
+        diagnósticos genéricos.
+      </p>
+    </div>
+    <div class="modal-scroll">
+      <AnalysisForm />
+    </div>
+  </div>
+</dialog>
+
+<script is:inline>
+  (function () {
+    const analysisModal = document.getElementById("modal-analysis");
+
+    const openModal = (modal) => {
+      if (modal) {
+        modal.showModal();
+        document.documentElement.classList.add("modal-open");
+      }
+    };
+
+    const closeModal = (modal) => {
+      if (modal) {
+        modal.close();
+        document.documentElement.classList.remove("modal-open");
+      }
+    };
+
+    // Global Interceptor: Intercept links pointing to specific anchors
+    document.addEventListener("click", (e) => {
+      const target = e.target.closest("a");
+      if (!target) return;
+
+      const href = target.getAttribute("href");
+      const analysisAnchors = ["#contato", "#analysis", "#form", "#formulario"];
+      
+      // If it ends with one of these anchors (works for /#form too)
+      if (analysisAnchors.some(anchor => href && (href === anchor || href.endsWith(anchor)))) {
+        // Only prevent default if we are on the page where the modal exists 
+        // (which is everywhere now thanks to BaseLayout)
+        if (analysisModal) {
+          e.preventDefault();
+          openModal(analysisModal);
+        }
+      }
+    });
+
+    // Handle generic trigger buttons on the page
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-open-modal]");
+      if (btn && btn.getAttribute("data-open-modal") === "modal-analysis") {
+        openModal(analysisModal);
+      }
+    });
+
+    // Close buttons
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-close-all]");
+      if (btn) {
+        const modal = btn.closest("dialog");
+        closeModal(modal);
+      }
+    });
+
+    // Close on backdrop click (native dialog behavior enhancement)
+    document.addEventListener("click", (e) => {
+      if (e.target.tagName === "DIALOG" && e.target.id === "modal-analysis") {
+        closeModal(e.target);
+      }
+    });
+  })();
+</script>
+
+<style>
+  /* 
+     These are shared in global.css for consistency, 
+     but added here as a safety fallback or if they are scoped.
+     Since we want global styles, I'll ensure they are in global.css
+  */
+</style>

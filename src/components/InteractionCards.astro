@@ -1,6 +1,5 @@
 ---
 import ProcessContent from "./ProcessContent.astro";
-import AnalysisForm from "./AnalysisForm.astro";
 ---
 
 <section class="interaction-section">
@@ -49,7 +48,7 @@ import AnalysisForm from "./AnalysisForm.astro";
     <div class="modal-backdrop"></div>
     <div class="modal-window">
       <div class="modal-handle"></div> <!-- iOS Sheet Handle -->
-      <button class="modal-close" data-close-all>&times;</button>
+      <button class="modal-close" data-close-all aria-label="Fechar modal">&times;</button>
       <div class="modal-header">
         <span class="modal-label">NΞØ PROTOCOLO // OPERAÇÃO</span>
         <h3>Como trabalhamos</h3>
@@ -59,33 +58,10 @@ import AnalysisForm from "./AnalysisForm.astro";
       </div>
     </div>
   </dialog>
-
-  <!-- MODAL: ANALYSIS -->
-  <dialog id="modal-analysis" class="high-tech-modal">
-    <div class="modal-backdrop"></div>
-    <div class="modal-window">
-      <div class="modal-handle"></div> <!-- iOS Sheet Handle -->
-      <button class="modal-close" data-close-all>&times;</button>
-      <div class="modal-header">
-        <span class="modal-label">NΞØ PROTOCOLO // DIAGNÓSTICO</span>
-        <h3>Solicite sua análise</h3>
-      </div>
-      <div class="modal-body-meta">
-        <p>
-          Receba uma avaliação técnica da sua estrutura digital. Sem
-          diagnósticos genéricos.
-        </p>
-      </div>
-      <div class="modal-scroll">
-        <AnalysisForm />
-      </div>
-    </div>
-  </dialog>
 </section>
 
 <script is:inline>
   (function () {
-    const analysisModal = document.getElementById("modal-analysis");
     const processModal = document.getElementById("modal-process");
 
     const openModal = (modal) => {
@@ -102,45 +78,28 @@ import AnalysisForm from "./AnalysisForm.astro";
       }
     };
 
-    // Generic triggers (the cards)
+    // Card triggers
     document.querySelectorAll("[data-open-modal]").forEach((btn) => {
       btn.addEventListener("click", () => {
         const targetId = btn.getAttribute("data-open-modal");
-        openModal(document.getElementById(targetId));
+        if (targetId === "modal-process") {
+          openModal(processModal);
+        }
+        // Analysis modal is handled globally by AnalysisModal.astro
       });
     });
 
-    // GLOBAL TRIGGERS: Intercept any link pointing to #contato or having specific classes
+    // Close buttons (specific to this component's modal if needed, but handled globally too)
     document.addEventListener("click", (e) => {
-      const target = e.target.closest("a");
-      if (!target) return;
-
-      const href = target.getAttribute("href");
-      const analysisAnchors = ["#contato", "#analysis", "#form", "#formulario"];
+      const btn = e.target.closest("[data-close-all]");
+      if (btn && btn.closest("dialog") === processModal) {
+        closeModal(processModal);
+      }
       
-      // Check if it's a contact/analysis link
-      if (analysisAnchors.some(anchor => href === anchor)) {
-        e.preventDefault();
-        openModal(analysisModal);
+      // Backdrop click
+      if (e.target.tagName === "DIALOG" && e.target === processModal) {
+        closeModal(processModal);
       }
-
-      // Optional: if there's a process link
-      if (href === "#processo") {
-        e.preventDefault();
-        openModal(processModal);
-      }
-    });
-
-    // Close buttons
-    document.querySelectorAll("[data-close-all]").forEach((btn) => {
-      btn.addEventListener("click", () => closeModal(btn.closest("dialog")));
-    });
-
-    // Close on backdrop click
-    document.querySelectorAll("dialog").forEach((modal) => {
-      modal.addEventListener("click", (e) => {
-        if (e.target === modal) closeModal(modal);
-      });
     });
   })();
 </script>
