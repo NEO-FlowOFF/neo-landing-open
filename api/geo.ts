@@ -28,6 +28,18 @@ function preferredLanguage(header: string | null) {
   return first?.trim() || null;
 }
 
+function decodeDisplayValue(value: string | null) {
+  if (!value) return null;
+
+  const normalized = value.replace(/\+/g, " ").trim();
+
+  try {
+    return decodeURIComponent(normalized);
+  } catch {
+    return normalized;
+  }
+}
+
 function normalizeClientIp(value: string | null) {
   if (!value) return null;
 
@@ -79,7 +91,7 @@ export async function GET(request: Request) {
 
   if (cloudflareCity && cloudflareCountry) {
     return json({
-      city: cloudflareCity,
+      city: decodeDisplayValue(cloudflareCity),
       country: regionNameFromCode(cloudflareCountry),
       timezone: cloudflareTimezone,
       language,
@@ -94,7 +106,7 @@ export async function GET(request: Request) {
 
   if (vercelCity && vercelCountry) {
     return json({
-      city: vercelCity,
+      city: decodeDisplayValue(vercelCity),
       country: regionNameFromCode(vercelCountry),
       timezone: vercelTimezone,
       language,
@@ -108,7 +120,7 @@ export async function GET(request: Request) {
 
   if ((cloudflareCity || vercelCity) && countryName) {
     return json({
-      city: cloudflareCity || vercelCity,
+      city: decodeDisplayValue(cloudflareCity || vercelCity),
       country: countryName,
       timezone: cloudflareTimezone || vercelTimezone,
       language,
@@ -144,8 +156,8 @@ export async function GET(request: Request) {
     const data = await response.json();
 
     return json({
-      city: data?.cityName ?? null,
-      country: data?.countryName ?? null,
+      city: decodeDisplayValue(data?.cityName ?? null),
+      country: decodeDisplayValue(data?.countryName ?? null),
       timezone: data?.timeZones?.[0] ?? null,
       language,
       source: "fallback.freeipapi.ip",

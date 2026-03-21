@@ -256,6 +256,18 @@ const items = [
       return code.replace("_", "-").toUpperCase();
     }
 
+    function toDisplayText(value) {
+      if (!value) return "";
+
+      const normalized = String(value).replace(/\+/g, " ").trim();
+
+      try {
+        return decodeURIComponent(normalized);
+      } catch {
+        return normalized;
+      }
+    }
+
     function detectEntry() {
       const params = new URLSearchParams(window.location.search);
       const utmSource = params.get("utm_source");
@@ -369,7 +381,7 @@ const items = [
           startClock(data?.timezone);
 
           if (data && data.city && data.country) {
-            const location = `${data.city.toUpperCase()}, ${data.country.toUpperCase()}`;
+            const location = `${toDisplayText(data.city).toUpperCase()}, ${toDisplayText(data.country).toUpperCase()}`;
             locEl.innerText = location;
             if (ctxLocationEl) ctxLocationEl.innerText = location;
           } else {
