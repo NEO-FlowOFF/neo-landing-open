@@ -70,7 +70,6 @@ const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url).toString();
     <Schema description={description} />
 
     <!-- Meta Pixel Code -->
-    <!-- NΞØ Protocol: Unified Tracking (Pixel + CAPI) 🍏🛡️🚀 -->
     <script is:inline>
       // 1. Inicialização Padrão do Pixel
       !(function (f, b, e, v, n, t, s) {
@@ -100,7 +99,7 @@ const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url).toString();
       fbq("init", "1646739783423680");
 
       // 2. NΞØ-Bridge Configuration 🛰️
-      const NEO_NODE_URL = "https://neo-node-01-production.up.railway.app";
+      const NEO_NODE_URL = "https://sites.neoflowoff.agency";
 
       window.NeoBridge = {
         get_meta_cookies() {
@@ -129,7 +128,7 @@ const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url).toString();
             user_data: {
               ...cookies,
               client_user_agent: navigator.userAgent,
-              fbp: cookies.fbp, // Duplicação explícita para o Match do Facebook
+              fbp: cookies.fbp,
               fbc: cookies.fbc,
               ...userData,
             },
@@ -137,7 +136,6 @@ const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url).toString();
           };
 
           try {
-            // SINAL 1: CAPI (Via Nó do Railway no Servidor) 🛰️
             fetch(`${NEO_NODE_URL}/api/event`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
@@ -155,7 +153,6 @@ const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url).toString();
         },
       };
 
-      // 3. Execução do Primeiro Sinal (PageView de Elite) 🍏🛡️🚀
       NeoBridge.track("PageView");
     </script>
 
