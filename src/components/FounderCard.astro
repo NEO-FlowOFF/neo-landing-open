@@ -5,7 +5,7 @@ import founderImg from "../assets/mello.webp";
 
 <section class="founder-section" aria-label="Perfil do arquiteto">
   <div class="container">
-    <article class="founder-card">
+    <article class="founder-card app-surface">
       <div class="founder-media">
         <Image
           class="founder-image"
@@ -57,19 +57,9 @@ import founderImg from "../assets/mello.webp";
     gap: 0.95rem;
     align-items: center;
     padding: 1rem;
-    border-radius: var(--radius-lg);
-    background:
-      linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.05),
-        rgba(255, 255, 255, 0.015)
-      ),
-      rgba(7, 12, 20, 0.72);
-    border: 1px solid var(--border-subtle);
     box-shadow:
-      0 16px 42px rgba(0, 0, 0, 0.24),
+      var(--surface-shadow),
       inset 0 0 0 1px rgba(255, 255, 255, 0.02);
-    backdrop-filter: blur(18px) saturate(1.08);
     overflow: hidden;
   }
 

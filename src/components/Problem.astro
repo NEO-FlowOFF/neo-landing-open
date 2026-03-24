@@ -63,7 +63,7 @@ const items = [
       </h2>
     </div>
 
-    <div class="diagnostic-terminal" id="diag-terminal">
+    <div class="diagnostic-terminal app-surface-strong" id="diag-terminal">
       <div class="terminal-header">
         <div class="terminal-status">
           <span class="status-pulse"></span>
@@ -436,12 +436,10 @@ const items = [
 
   .diagnostic-terminal {
     position: relative;
-    background: rgba(6, 9, 15, 0.98);
-    border: 1px solid rgba(51, 214, 255, 0.2);
     border-radius: 20px;
     padding: 2.5rem;
     box-shadow:
-      0 0 100px rgba(0, 0, 0, 0.8),
+      var(--surface-shadow-strong),
       inset 0 0 40px rgba(51, 214, 255, 0.03);
     overflow: hidden;
   }

@@ -10,7 +10,7 @@ const pills = [
 
 <section class="section proof-section" id="proof-section">
   <div class="container">
-    <div class="proof-card">
+    <div class="proof-card app-surface-strong">
       <div class="proof-header">
         <p
           class="section-label proof-label"
@@ -119,18 +119,8 @@ const pills = [
   /* ── Card unificado ── */
   .proof-card {
     position: relative;
-    border-radius: var(--radius-lg);
-    background:
-      linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.05) 0%,
-        rgba(255, 255, 255, 0.01) 100%
-      ),
-      rgba(6, 10, 18, 0.9);
-    border: 1px solid rgba(255, 31, 143, 0.1);
-    backdrop-filter: blur(24px) saturate(1.18);
     box-shadow:
-      0 24px 56px rgba(0, 0, 0, 0.28),
+      var(--surface-shadow-strong),
       inset 0 0 0 1px rgba(255, 255, 255, 0.02),
       0 0 48px rgba(255, 31, 143, 0.04);
     overflow: hidden;
