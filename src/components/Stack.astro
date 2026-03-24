@@ -5,64 +5,68 @@ import logo from '../assets/neoflowoff_logo.png';
 
 const techItems = [
   {
-    id: "astro",
-    name: "Astro",
-    version: "V6.0.8",
-    role: "TECHNOLOGY",
-    icon: "simple-icons:astro",
-    desc: "Essa tecnologia permite entregar velocidade máxima com custo zero de JavaScript.",
-    specs: ["Arquitetura única", "Performance máxima"],
-    barcode: "AST-06-PRM",
+    id: "delivery",
+    name: "Entrega\nEnxuta",
+    role: "Velocidade",
+    icon: "lucide:zap",
+    desc: "A primeira conversão é permanecer. Esta camada reduz atrito no carregamento, segura atenção e impede que a sessão morra antes da promessa ser entendida.",
+    specs: ["Menos abandono inicial", "Mais atenção útil"],
+    barcode: "LAY-DEL-001",
     color: "#ff1f8f",
     accentBg: "#ff1f8f",
-    since: "01.2024",
-    expires: "∞",
-    number: "NO.00060800"
+    leftLabel: "SUSTENTA",
+    leftValue: "tráfego pago, orgânico e social",
+    rightLabel: "EVITA",
+    rightValue: "latência, peso e dispersão",
+    number: "CAP.0001"
   },
   {
-    id: "vercel",
-    name: "Vercel",
-    version: "Edge_v2",
-    role: "HOSTING",
-    icon: "simple-icons:vercel",
-    desc: "Infraestrutura global de borda que elimina a latência e escala sem limites.",
-    specs: ["Aceitação global", "Performance Google 100%"],
-    barcode: "VRC-EG-DLV",
-    color: "#0a0a0a",
+    id: "context",
+    name: "Contexto\nDistribuído",
+    role: "Presença",
+    icon: "lucide:orbit",
+    desc: "A estrutura responde com consistência a diferentes origens, geografias e entradas. O visitante não vê infraestrutura. Ele sente fluidez e coerência.",
+    specs: ["Resposta por origem", "Experiência consistente"],
+    barcode: "LAY-CTX-002",
+    color: "#0b0b0b",
     accentBg: "#111111",
-    since: "01.2024",
-    expires: "∞",
-    number: "NO.00020000"
+    leftLabel: "SUSTENTA",
+    leftValue: "campanhas, borda e continuidade",
+    rightLabel: "EVITA",
+    rightValue: "ruptura entre sessões e canais",
+    number: "CAP.0002"
   },
   {
-    id: "capi",
-    name: "Meta\nCAPI",
-    version: "API_v3",
-    role: "Conversion",
-    icon: "simple-icons:meta",
-    desc: "Poucos desenvolvedores te oferecerão essa precisão absoluta no rastreio de dados comerciais sem depender de cookies.",
-    specs: ["Desempenho ADS", "Redução de CAC"],
-    barcode: "FB-CAPI-OPT",
+    id: "attribution",
+    name: "Atribuição\nÍntegra",
+    role: "Leitura",
+    icon: "lucide:waypoints",
+    desc: "Sem leitura íntegra, o marketing compra ruído e o comercial responde no escuro. Esta camada preserva contexto suficiente para decidir com mais precisão.",
+    specs: ["Leitura server-side", "Contexto mais íntegro"],
+    barcode: "LAY-ATT-003",
     color: "#0668E1",
     accentBg: "#0668E1",
-    since: "03.2024",
-    expires: "∞",
-    number: "NO.00030300"
+    leftLabel: "SUSTENTA",
+    leftValue: "mídia, CRM e priorização",
+    rightLabel: "EVITA",
+    rightValue: "atribuição cega e CAC inflado",
+    number: "CAP.0003"
   },
   {
-    id: "ts",
-    name: "Type\nScript",
-    version: "TS_5.4",
-    role: "Logic",
-    icon: "simple-icons:typescript",
-    desc: "Sabemos que esse é um assunto chato, mas o que precisa saber é que ele garante que checkouts sejam inquebráveis, caso venda algo online.",
-    specs: ["EXIJA TP E NÃO PHP", "MUITO MAIS SEGURO"],
-    barcode: "TS-SEC-SYS",
+    id: "reliability",
+    name: "Operação\nConfiável",
+    role: "Resiliência",
+    icon: "lucide:shield-check",
+    desc: "Formulários, integrações e automações precisam sobreviver quando o tráfego deixa de ser teste e começa a carregar receita real.",
+    specs: ["Menos quebra silenciosa", "Mais continuidade comercial"],
+    barcode: "LAY-REL-004",
     color: "#3178c6",
     accentBg: "#3178c6",
-    since: "01.2024",
-    expires: "∞",
-    number: "NO.00054000"
+    leftLabel: "SUSTENTA",
+    leftValue: "captura, integração e follow-up",
+    rightLabel: "EVITA",
+    rightValue: "lead perdido por fragilidade técnica",
+    number: "CAP.0004"
   }
 ];
 ---
@@ -71,11 +75,11 @@ const techItems = [
   <!-- Precision Shutter Transitions -->
   <div class="tech-divider tech-divider-top">
     <div class="divider-line"></div>
-    <div class="divider-meta"><span>NEØFlowOFF // ESTÁVEL</span><span>ENGINE_v6.0</span></div>
+    <div class="divider-meta"><span>CAPTURA • CONTEXTO • RESPOSTA</span><span>INFRAESTRUTURA ATIVA</span></div>
   </div>
   <div class="tech-divider tech-divider-bottom">
     <div class="divider-line"></div>
-    <div class="divider-meta"><span>SERVIDOR: ON-CHAIN</span><span>NEØFlowOFF // READY</span></div>
+    <div class="divider-meta"><span>MENOS FERRAMENTA, MAIS FUNÇÃO</span><span>AQUISIÇÃO SUSTENTADA</span></div>
   </div>
 
   <!-- Background Reveal Logo -->
@@ -91,10 +95,16 @@ const techItems = [
 
   <div class="container stack-container">
     <div class="bento-header">
-      <span class="ios-badge">NESTA PÁGINA CONTÉM:::</span>
-      <h2 aria-label="Tecnologia usada para crescimento.">
-        Tecnologia usada <span class="pink-txt">para crescimento.</span>
+      <span class="ios-badge">INFRAESTRUTURA DE AQUISIÇÃO</span>
+      <h2 aria-label="O visitante vê interface. O que converte é a infraestrutura por trás.">
+        O visitante vê interface.
+        <span class="pink-txt">O que converte é a infraestrutura por trás.</span>
       </h2>
+      <p class="stack-lead">
+        Ferramenta é detalhe. O que importa é a capacidade construída: velocidade,
+        consistência, leitura e confiabilidade para sustentar aquisição sem
+        desperdício estrutural.
+      </p>
     </div>
 
     <!-- Ticket Card Display -->
@@ -104,7 +114,7 @@ const techItems = [
 
           <!-- SLOT 1: Label + SYSTEM ID (cream bg) -->
           <div class="ticket-slot slot-header">
-            <span class="slot-label">FRAMEWORK</span>
+            <span class="slot-label">CAMADA</span>
             <span class="slot-value">{tech.role.toUpperCase()}</span>
           </div>
 
@@ -124,12 +134,12 @@ const techItems = [
           <!-- SLOT 4: Meta dates (cream bg) -->
           <div class="ticket-slot slot-meta">
             <div class="meta-field">
-              <span class="meta-label">DATA_INICIO</span>
-              <span class="meta-value">{tech.since}</span>
+              <span class="meta-label">{tech.leftLabel}</span>
+              <span class="meta-value">{tech.leftValue}</span>
             </div>
             <div class="meta-field">
-              <span class="meta-label">DATA_FIM</span>
-              <span class="meta-value">{tech.expires}</span>
+              <span class="meta-label">{tech.rightLabel}</span>
+              <span class="meta-value">{tech.rightValue}</span>
             </div>
           </div>
 
@@ -157,10 +167,10 @@ const techItems = [
 
     <!-- Bottom Tab Bar -->
     <div class="ios-tab-bar-wrap">
-       <div class="menu-guide-badge">navegue abaixo</div>
+       <div class="menu-guide-badge">camadas abaixo</div>
        <nav class="ios-tab-bar bento-nav">
          {techItems.map(tech => (
-            <button class={`tab-item ${tech.id === 'astro' ? 'active' : ''}`} data-bento-tech={tech.id}>
+            <button class={`tab-item ${tech.id === 'delivery' ? 'active' : ''}`} data-bento-tech={tech.id}>
               <span class="tab-text">{tech.name.replace('\n', ' ').toUpperCase()}</span>
             </button>
          ))}
@@ -259,6 +269,14 @@ const techItems = [
   .bento-header { text-align: center; margin-bottom: 4rem; }
   .bento-header h2 { font-size: 2.2rem; font-weight: 950; color: #111; letter-spacing: -0.04em; margin-top: 1rem; }
   .pink-txt { color: #ff1f8f; }
+
+  .stack-lead {
+    max-width: 54ch;
+    margin: 1rem auto 0;
+    color: rgba(17, 17, 17, 0.68);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
 
   .ios-badge {
     background: #000;
@@ -440,6 +458,7 @@ const techItems = [
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
+    max-width: 44%;
   }
 
   .meta-label {
@@ -453,10 +472,12 @@ const techItems = [
 
   .meta-value {
     font-family: var(--font-mono, monospace);
-    font-size: 0.85rem;
+    font-size: 0.72rem;
     font-weight: 900;
     color: #111;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.04em;
+    line-height: 1.5;
+    text-transform: uppercase;
   }
 
   /* SLOT 5: Barcode + QR */
@@ -643,6 +664,8 @@ const techItems = [
       max-width: 340px;
     }
     .ticket-title { font-size: 3.5rem; }
+    .stack-lead { font-size: 0.94rem; }
+    .meta-value { font-size: 0.64rem; }
     .tab-item { padding: 0.5rem 0.8rem; }
     .tab-item span { font-size: 0.65rem; }
   }

@@ -5,38 +5,46 @@ import ProcessContent from "./ProcessContent.astro";
 <section class="interaction-section">
   <div class="container">
     <div class="interaction-grid">
-      <!-- CARD 1: COMO TRABALHAMOS -->
+      <!-- CARD 1: ENTENDER A ARQUITETURA -->
       <button class="trigger-card" data-open-modal="modal-process">
         <div class="card-glow"></div>
         <div class="card-header">
-          <span class="card-badge">PROC.LOOP v3.2</span>
-          <span class="card-status"><span class="pulse"></span> ON-LINE</span>
+          <span class="card-badge">DECISÃO 01</span>
+          <span class="card-status">para entender</span>
         </div>
         <div class="card-body">
-          <p class="section-label">Como trabalhamos</p>
-          <h2 class="card-title" aria-label="Arquitetura de Conversão">
-            Arquitetura de <span class="text-pink">Conversão</span>
+          <p class="section-label">Entender a arquitetura</p>
+          <h2 class="card-title" aria-label="Ver como a estrutura opera">
+            Ver como a <span class="text-pink">estrutura opera</span>
           </h2>
+          <p class="card-summary">
+            Abra a lógica por trás da captura, da leitura de contexto e da
+            resposta comercial para entender onde a conversão realmente nasce.
+          </p>
           <div class="card-footer">
-            <span class="action-cmd">SAIBA MAIS _</span>
+            <span class="action-cmd">ABRIR VISÃO DA ARQUITETURA</span>
           </div>
         </div>
       </button>
 
-      <!-- CARD 2: SOLICITE SUA ANÁLISE -->
+      <!-- CARD 2: PEDIR DIAGNÓSTICO -->
       <button class="trigger-card" data-open-modal="modal-analysis">
         <div class="card-glow"></div>
         <div class="card-header">
-          <span class="card-badge">AUDIT_FLOW v1.0</span>
-          <span class="card-status"><span class="pulse"></span> ON-CHAIN</span>
+          <span class="card-badge">DECISÃO 02</span>
+          <span class="card-status">para agir</span>
         </div>
         <div class="card-body">
-          <p class="section-label">Solicite análise</p>
-          <h2 class="card-title" aria-label="Check-up de Performance">
-            Check-up de <span class="text-pink">Performance</span>
+          <p class="section-label">Pedir diagnóstico</p>
+          <h2 class="card-title" aria-label="Receber uma leitura inicial">
+            Receber uma <span class="text-pink">leitura inicial</span>
           </h2>
+          <p class="card-summary">
+            Envie o contexto da sua operação e receba uma leitura objetiva dos
+            gargalos mais prováveis entre tráfego, captura e continuidade.
+          </p>
           <div class="card-footer">
-            <span class="action-cmd">INICIAR DIAGNÓSTICO _</span>
+            <span class="action-cmd">ABRIR DIAGNÓSTICO INICIAL</span>
           </div>
         </div>
       </button>
@@ -53,8 +61,8 @@ import ProcessContent from "./ProcessContent.astro";
         >&times;</button
       >
       <div class="modal-header">
-        <span class="modal-label">NΞØ PROTOCOLO // OPERAÇÃO</span>
-        <h3>Como trabalhamos</h3>
+        <span class="modal-label">VISÃO DA ARQUITETURA</span>
+        <h3>Entender como a estrutura opera</h3>
       </div>
       <div class="modal-scroll">
         <ProcessContent />
@@ -164,34 +172,6 @@ import ProcessContent from "./ProcessContent.astro";
     opacity: 1;
   }
 
-  /* Readline Scanner Effect */
-  .card-scanner {
-    position: absolute;
-    top: -100px;
-    left: 0;
-    width: 100%;
-    height: 40px;
-    background: linear-gradient(
-      180deg,
-      transparent,
-      rgba(255, 31, 143, 0.15),
-      transparent
-    );
-    border-bottom: 1px solid rgba(255, 31, 143, 0.4);
-    pointer-events: none;
-    z-index: 1;
-    animation: card-scan 4s linear infinite;
-  }
-
-  @keyframes card-scan {
-    0% {
-      top: -40px;
-    }
-    100% {
-      top: 100%;
-    }
-  }
-
   .card-header {
     display: flex;
     justify-content: space-between;
@@ -213,30 +193,8 @@ import ProcessContent from "./ProcessContent.astro";
     font-size: 0.6rem;
     font-weight: 800;
     color: rgba(255, 255, 255, 0.74);
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
-
-  .pulse {
-    width: 6px;
-    height: 6px;
-    background: #d9ff3f;
-    border-radius: 50%;
-    box-shadow: 0 0 8px #d9ff3f;
-    animation: status-pulse 1.5s infinite;
-  }
-
-  @keyframes status-pulse {
-    0%,
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 0.4;
-      transform: scale(1.2);
-    }
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
   }
 
   .card-title {
@@ -248,16 +206,24 @@ import ProcessContent from "./ProcessContent.astro";
     letter-spacing: -0.02em;
   }
 
+  .card-summary {
+    margin: 0;
+    max-width: 34ch;
+    color: var(--text-3);
+    font-size: 0.98rem;
+    line-height: 1.65;
+  }
+
   .card-footer {
     margin-top: 2rem;
   }
 
   .action-cmd {
     font-family: var(--font-mono, monospace);
-    font-size: 0.75rem;
+    font-size: 0.68rem;
     color: #ff1f8f;
     font-weight: 700;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
   }
 
   /* ── MODAL SYSTEM ── */

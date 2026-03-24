@@ -7,19 +7,21 @@ import Stack from "../components/Stack.astro";
 import InteractionCards from "../components/InteractionCards.astro";
 import Proof from "../components/Proof.astro";
 import FounderCard from "../components/FounderCard.astro";
+import CTA from "../components/CTA.astro";
 ---
 
 <BaseLayout
-  title="NEØ FlowOFF | Seu site informa ou opera vendas?"
-  description="Criamos landing pages, webapps, dashboards e automações que transformam visitas em oportunidades comerciais."
+  title="NEØ FlowOFF | Seu site informa ou decide?"
+  description="Projetamos arquiteturas de aquisição que capturam intenção, organizam contexto e transformam presença digital em operação comercial."
 >
   <main>
     <Hero />
+    <Problem />
     <Solution />
     <Stack />
-    <Problem />
-    <InteractionCards />
     <Proof />
+    <InteractionCards />
+    <CTA />
     <FounderCard />
   </main>
 </BaseLayout>

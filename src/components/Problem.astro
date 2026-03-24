@@ -3,31 +3,46 @@ const items = [
   {
     severity: "CRÍTICO",
     impact: 92,
-    text: "Captura de dados sem inteligência",
+    text: "Captura sem contexto comercial",
+    detail:
+      "Formulários e pontos de entrada coletam contato, mas não preservam origem, intenção ou prioridade.",
+    basis: "impacto estimado em perda de leitura e resposta",
     accent: "#ff1f8f",
   },
   {
     severity: "CRÍTICO",
     impact: 88,
-    text: "Fluxo comercial desorganizado",
+    text: "Fluxo comercial reage sem prioridade",
+    detail:
+      "A operação recebe volume, mas não recebe ordem. Sem roteamento, score ou cadência, o tempo trabalha contra a conversão.",
+    basis: "impacto estimado em atraso e dispersão operacional",
     accent: "#ff1f8f",
   },
   {
     severity: "ALERTA",
     impact: 74,
-    text: "Confusão entre curiosidade e intenção",
+    text: "Curiosidade e intenção entram no mesmo balde",
+    detail:
+      "Campanhas, páginas e atendimento tratam sinais diferentes como se tivessem o mesmo peso comercial.",
+    basis: "impacto estimado em desperdício de atenção e mídia",
     accent: "#d9ff3f",
   },
   {
     severity: "CRÍTICO",
     impact: 85,
-    text: "Isolamento de automações e dashboards",
+    text: "Dashboard isolado de decisão real",
+    detail:
+      "A automação até existe, mas separada do comercial, do CRM e do que realmente define a próxima ação.",
+    basis: "impacto estimado em quebra de continuidade do sistema",
     accent: "#ff1f8f",
   },
   {
     severity: "ALERTA",
     impact: 71,
-    text: "Baixa conversão de visita em processo",
+    text: "Visita não vira processo",
+    detail:
+      "O tráfego chega, navega e some porque a estrutura não conduz o visitante para uma próxima etapa objetiva.",
+    basis: "impacto estimado em perda de progressão comercial",
     accent: "#d9ff3f",
   },
 ];
@@ -49,54 +64,43 @@ const items = [
     </div>
 
     <div class="diagnostic-terminal" id="diag-terminal">
-      <!-- HUD DECORATIONS -->
-      <div class="hud-corner top-left"></div>
-      <div class="hud-corner top-right"></div>
-      <div class="hud-corner bottom-left"></div>
-      <div class="hud-corner bottom-right"></div>
-
       <div class="terminal-header">
         <div class="terminal-status">
           <span class="status-pulse"></span>
-          <span class="status-text">NΞØ PROTOCOLO // ATIVO</span>
+          <span class="status-text">LEITURA CONTEXTUAL DISPONÍVEL</span>
         </div>
         <div class="terminal-meta">
-          <span class="meta-item">VERSÃO: <b class="cyan-txt">V3.8</b></span>
           <span class="meta-item"
-            >LOC: <b class="cyan-txt" id="user-loc">GYN, BRASIL</b></span
+            >LOCAL: <b class="cyan-txt" id="user-loc">coletando</b></span
+          >
+          <span class="meta-item"
+            >ENTRADA: <b class="cyan-txt" id="ctx-entry-inline">coletando</b></span
           >
         </div>
-        <div class="terminal-tag">AUDIT_STREAK: 99.8%</div>
-      </div>
-
-      <div class="terminal-log">
-        <div class="log-scroll">
-          SCANEANDO SEU SISTEMA... TRACKEANDO CONVERSAS PERDIDAS...
-          INICIANDO_NΞØ_PROTOCOL_08... UPLOADING_PERFORMANCE_METRICS...
-          CORE_TEMP_STABLE... NODE_ACTIVE_01... BUSCANDO VULNERABILIDADES...
-        </div>
+        <div class="terminal-tag">dados desta sessão</div>
       </div>
 
       <div
         class="proof-panel"
-        aria-label="Prova viva de contexto em tempo real"
+        aria-label="Sinais reais da sessão atual"
       >
         <div class="proof-head">
-          <span class="proof-kicker">PROVA VIVA</span>
+          <span class="proof-kicker">SINAL REAL</span>
           <p class="proof-copy">
-            Esta interface não simula contexto. Ela lê a borda, interpreta o
-            sinal e mantém fallback operacional.
+            O que aparece abaixo vem do navegador, da borda ou do fallback da
+            própria requisição. Sem ficção de painel. Só contexto útil para
+            decidir melhor.
           </p>
         </div>
 
         <div class="proof-grid">
           <div class="proof-card">
             <span class="proof-label">CONTEXTO DETECTADO</span>
-            <strong class="proof-value" id="ctx-location">GYN, BRASIL</strong>
+            <strong class="proof-value" id="ctx-location">coletando</strong>
           </div>
           <div class="proof-card">
-            <span class="proof-label">ORIGEM DO SINAL</span>
-            <strong class="proof-value" id="ctx-source">EDGE</strong>
+            <span class="proof-label">FONTE DE CONTEXTO</span>
+            <strong class="proof-value" id="ctx-source">coletando</strong>
           </div>
           <div class="proof-card">
             <span class="proof-label">LATÊNCIA PERCEBIDA</span>
@@ -122,8 +126,6 @@ const items = [
       </div>
 
       <div class="diag-items-wrap" id="diag-list">
-        <div class="diag-scanner-line"></div>
-
         {
           items.map((item, i) => (
             <div
@@ -144,11 +146,12 @@ const items = [
                       <span class="impact-num">0</span>
                       <span class="impact-pct">%</span>
                     </>
-                    <span class="impact-lbl"> GAP DE DESTRUIÇÃO DE VALOR</span>
+                    <span class="impact-lbl"> IMPACTO OPERACIONAL ESTIMADO</span>
                   </div>
                 </div>
 
                 <h3 class="item-title">{item.text}</h3>
+                <p class="item-detail">{item.detail}</p>
 
                 <div class="bar-system">
                   <div class="bar-rail">
@@ -158,7 +161,7 @@ const items = [
                     </div>
                   </div>
                   <div class="bar-meta">
-                    ANALYSING_DATA_FLOW... STATUS: CRITICAL
+                    {item.basis}
                   </div>
                 </div>
               </div>
@@ -170,10 +173,10 @@ const items = [
       <div class="terminal-footer">
         <div class="alert-msg">
           <span class="alert-icon">!</span>
-          5 FALHAS ESTRUTURAIS DETECTADAS NO SEU ECOSSISTEMA ATUAL
+          5 padrões recorrentes de perda de valor no ecossistema comercial
         </div>
         <div class="terminal-stats">
-          SCAN: 99.99% | BOOT: 12ms | NODE: ALPHA-4
+          leitura contextual + diagnóstico estrutural
         </div>
       </div>
     </div>
@@ -236,19 +239,20 @@ const items = [
     const ctxTimeEl = document.getElementById("ctx-time");
     const ctxLanguageEl = document.getElementById("ctx-language");
     const ctxEntryEl = document.getElementById("ctx-entry");
+    const ctxEntryInlineEl = document.getElementById("ctx-entry-inline");
     let clockTimer;
 
     function toLabel(source) {
       const sourceMap = {
-        "edge.cloudflare": "EDGE CLOUDFLARE",
-        "edge.vercel": "EDGE VERCEL",
-        "edge.partial": "EDGE PARCIAL",
-        "fallback.freeipapi.ip": "FALLBACK IP EXPLICITO",
-        "fallback.default": "PADRAO LOCAL",
-        "dev.browser": "DEV DIRETO",
+        "edge.cloudflare": "edge cloudflare",
+        "edge.vercel": "edge vercel",
+        "edge.partial": "edge parcial",
+        "fallback.freeipapi.ip": "fallback ip",
+        "fallback.default": "fallback local",
+        "dev.browser": "dev browser",
       };
 
-      return sourceMap[source] || "SINAL INDEFINIDO";
+      return sourceMap[source] || "não definido";
     }
 
     function toLanguageLabel(code) {
@@ -271,7 +275,7 @@ const items = [
     function detectEntry() {
       const params = new URLSearchParams(window.location.search);
       const utmSource = params.get("utm_source");
-      if (utmSource) return `UTM ${utmSource}`.toUpperCase();
+      if (utmSource) return `utm ${utmSource}`.toUpperCase();
 
       if (!document.referrer) return "ACESSO DIRETO";
 
@@ -355,9 +359,11 @@ const items = [
     }
 
     if (locEl) {
-      locEl.innerText = "LOCALIZANDO...";
-      if (ctxLocationEl) ctxLocationEl.innerText = "LOCALIZANDO...";
-      if (ctxEntryEl) ctxEntryEl.innerText = detectEntry();
+      const entry = detectEntry();
+      locEl.innerText = "coletando";
+      if (ctxLocationEl) ctxLocationEl.innerText = "coletando";
+      if (ctxEntryEl) ctxEntryEl.innerText = entry;
+      if (ctxEntryInlineEl) ctxEntryInlineEl.innerText = entry;
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 4000);
       const start = performance.now();
@@ -385,16 +391,16 @@ const items = [
             locEl.innerText = location;
             if (ctxLocationEl) ctxLocationEl.innerText = location;
           } else {
-            locEl.innerText = "GYN, BRASIL"; // Fallback
-            if (ctxLocationEl) ctxLocationEl.innerText = "GYN, BRASIL";
+            locEl.innerText = "NÃO DISPONÍVEL";
+            if (ctxLocationEl) ctxLocationEl.innerText = "NÃO DISPONÍVEL";
           }
         })
         .catch(() => {
           clearTimeout(timeoutId);
           const latency = Math.max(1, Math.round(performance.now() - start));
-          locEl.innerText = "GYN, BRASIL"; // Fallback on block/error
-          if (ctxLocationEl) ctxLocationEl.innerText = "GYN, BRASIL";
-          if (ctxSourceEl) ctxSourceEl.innerText = "FAILSAFE LOCAL";
+          locEl.innerText = "NÃO DISPONÍVEL";
+          if (ctxLocationEl) ctxLocationEl.innerText = "NÃO DISPONÍVEL";
+          if (ctxSourceEl) ctxSourceEl.innerText = "fallback local";
           if (ctxLatencyEl) ctxLatencyEl.innerText = `${latency} ms`;
           if (ctxModeEl) ctxModeEl.innerText = "SAME ORIGIN";
           if (ctxLanguageEl) {
@@ -432,45 +438,12 @@ const items = [
     position: relative;
     background: rgba(6, 9, 15, 0.98);
     border: 1px solid rgba(51, 214, 255, 0.2);
-    border-radius: 16px;
+    border-radius: 20px;
     padding: 2.5rem;
     box-shadow:
       0 0 100px rgba(0, 0, 0, 0.8),
       inset 0 0 40px rgba(51, 214, 255, 0.03);
     overflow: hidden;
-  }
-
-  /* HUD */
-  .hud-corner {
-    position: absolute;
-    width: 32px;
-    height: 32px;
-    border: 2px solid rgba(51, 214, 255, 0.4);
-    pointer-events: none;
-  }
-  .top-left {
-    top: 12px;
-    left: 12px;
-    border-right: 0;
-    border-bottom: 0;
-  }
-  .top-right {
-    top: 12px;
-    right: 12px;
-    border-left: 0;
-    border-bottom: 0;
-  }
-  .bottom-left {
-    bottom: 12px;
-    left: 12px;
-    border-right: 0;
-    border-top: 0;
-  }
-  .bottom-right {
-    bottom: 12px;
-    right: 12px;
-    border-left: 0;
-    border-top: 0;
   }
 
   .terminal-header {
@@ -519,23 +492,6 @@ const items = [
   .terminal-tag {
     font-size: 0.65rem;
     color: var(--text-4);
-  }
-
-  .terminal-log {
-    background: rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(51, 214, 255, 0.1);
-    padding: 0.6rem 0;
-    margin-bottom: 1.35rem;
-    overflow: hidden;
-  }
-
-  .log-scroll {
-    white-space: nowrap;
-    font-family: var(--font-mono, monospace);
-    font-size: 0.6rem;
-    color: rgba(51, 214, 255, 0.62);
-    letter-spacing: 0.2em;
-    animation: log-scroll 40s linear infinite;
   }
 
   .diag-items-wrap {
@@ -698,9 +654,17 @@ const items = [
 
   .item-title {
     font-size: 1.35rem;
-    margin-bottom: 1.8rem;
+    margin-bottom: 0.7rem;
     color: #fff;
     letter-spacing: -0.01em;
+  }
+
+  .item-detail {
+    margin: 0 0 1.3rem;
+    color: var(--text-3);
+    font-size: 0.96rem;
+    line-height: 1.65;
+    max-width: 62ch;
   }
 
   .tech-title {
@@ -800,25 +764,7 @@ const items = [
     color: var(--text-4);
     margin-top: 0.8rem;
     letter-spacing: 0.1em;
-  }
-
-  .diag-scanner-line {
-    position: absolute;
-    top: -100px;
-    left: 0;
-    width: 100%;
-    height: 120px;
-    background: linear-gradient(
-      180deg,
-      transparent,
-      rgba(51, 214, 255, 0.15),
-      transparent
-    );
-    border-bottom: 2px solid rgba(51, 214, 255, 0.6);
-    box-shadow: 0 10px 40px rgba(51, 214, 255, 0.2);
-    z-index: 5;
-    pointer-events: none;
-    animation: diag-scan 5s linear infinite;
+    text-transform: uppercase;
   }
 
   .terminal-footer {
@@ -854,22 +800,6 @@ const items = [
     color: var(--text-4);
   }
 
-  @keyframes log-scroll {
-    from {
-      transform: translateX(100%);
-    }
-    to {
-      transform: translateX(-100%);
-    }
-  }
-  @keyframes diag-scan {
-    0% {
-      top: -120px;
-    }
-    100% {
-      top: 100%;
-    }
-  }
   @keyframes diag-pulse {
     0%,
     100% {

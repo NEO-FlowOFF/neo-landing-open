@@ -1,18 +1,19 @@
 <section id="solution" class="section solution-section">
   <div class="container solution-shell">
     <div class="solution-head">
-      <p class="section-label">O que entregamos</p>
+      <p class="section-label">Arquitetura operacional</p>
       <h2
         class="tech-title"
-        aria-label="Transformamos ativos digitais em máquinas de lucro."
+        aria-label="Não entregamos peças isoladas. Entregamos um sistema de aquisição."
       >
-        Transformamos ativos digitais em <span class="cyan-txt"
-          >máquinas de lucro.</span
+        Não entregamos peças isoladas.
+        <span class="cyan-txt">Entregamos um sistema de aquisição.</span
         >
       </h2>
       <p class="section-lead">
-        Seu site não deve apenas existir. Ele deve operar o seu comercial 24/7
-        sem falhas.
+        Cada camada precisa cumprir uma função clara: atrair, capturar,
+        decidir e reter. Quando isso não existe, o digital vira cenário. Quando
+        existe, vira operação.
       </p>
     </div>
 
@@ -20,16 +21,16 @@
       <article class="feature-card cyber-vibe">
         <div class="card-glow"></div>
         <span class="feature-tag">01</span>
-        <div class="card-badge sale-badge">DIRECT-RESPONSE</div>
-        <h3>Landing Pages</h3>
+        <div class="card-badge sale-badge">ATRAÇÃO</div>
+        <h3>Camada de Atenção</h3>
         <p>
           <span class="desktop-copy">
-            Arquitetura de persuasão desenhada para reduzir fricção, antecipar
-            objeções e transformar curiosidade em intenção real de compra.
+            Páginas e narrativas desenhadas para filtrar ruído, enquadrar a
+            promessa certa e transformar clique curioso em atenção qualificada.
           </span>
           <span class="mobile-copy">
-            Páginas desenhadas para reduzir fricção e transformar curiosidade em
-            intenção real.
+            Narrativa e interface para transformar curiosidade em atenção
+            qualificada.
           </span>
         </p>
       </article>
@@ -37,16 +38,16 @@
       <article class="feature-card cyber-vibe">
         <div class="card-glow"></div>
         <span class="feature-tag">02</span>
-        <span class="card-badge tech-badge">HIGH-ROI</span>
-        <h3>E-commerce & Checkouts</h3>
+        <span class="card-badge tech-badge">CAPTURA</span>
+        <h3>Camada de Conversão</h3>
         <p>
           <span class="desktop-copy">
-            Infraestrutura de varejo escalável com checkouts otimizados de um
-            clique. Foco total em manter o cliente no fluxo até a confirmação do
-            pedido.
+            Formulários, checkouts e pontos de entrada que preservam contexto,
+            reduzem fricção e impedem que intenção comercial morra no meio do
+            caminho.
           </span>
           <span class="mobile-copy">
-            Checkouts rápidos, menos abandono e mais continuidade até o pedido.
+            Captura com menos fricção e menos abandono entre interesse e ação.
           </span>
         </p>
       </article>
@@ -54,17 +55,16 @@
       <article class="feature-card cyber-vibe">
         <div class="card-glow"></div>
         <span class="feature-tag">03</span>
-        <span class="card-badge data-badge">SYSTEM-DRIVEN</span>
-        <h3>WebApps & Operação</h3>
+        <span class="card-badge data-badge">DECISÃO</span>
+        <h3>Camada de Inteligência</h3>
         <p>
           <span class="desktop-copy">
-            Sistemas sob medida para gerir fluxos de dados, organizar leads e
-            automatizar tomadas de decisão que antes dependiam de esforço
-            humano.
+            Sistemas que organizam sinais, qualificam demanda, roteiam o que
+            importa e ajudam sua operação a responder com timing, não com
+            improviso.
           </span>
           <span class="mobile-copy">
-            Sistemas que organizam dados, leads e decisões sem depender de
-            esforço manual.
+            Sistemas que transformam sinais em prioridade e decisão comercial.
           </span>
         </p>
       </article>
@@ -72,16 +72,16 @@
       <article class="feature-card cyber-vibe">
         <div class="card-glow"></div>
         <span class="feature-tag">04</span>
-        <span class="card-badge auto-badge">AUTOMATED</span>
-        <h3>Dashboards & Automação</h3>
+        <span class="card-badge auto-badge">RETENÇÃO</span>
+        <h3>Camada de Continuidade</h3>
         <p>
           <span class="desktop-copy">
-            Visibilidade em tempo real do seu funil. Conectamos todas as pontas
-            do seu marketing ao seu comercial sem perda de lead.
+            Dashboards, automações e loops de acompanhamento para que cada lead,
+            cliente ou recorrência futura continue dentro do ecossistema, e não
+            evaporando em planilhas.
           </span>
           <span class="mobile-copy">
-            Dados em tempo real conectando marketing e comercial sem perda de
-            lead.
+            Automação e visibilidade para manter valor circulando no sistema.
           </span>
         </p>
       </article>
@@ -106,6 +106,10 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
+  }
+
+  .solution-grid > * {
+    min-width: 0;
   }
 
   .feature-card {
@@ -203,6 +207,25 @@
 
   .mobile-copy {
     display: none;
+  }
+
+  @media (min-width: 981px) {
+    .solution-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+
+    .solution-grid .feature-card:nth-child(1),
+    .solution-grid .feature-card:nth-child(2),
+    .solution-grid .feature-card:nth-child(3),
+    .solution-grid .feature-card:nth-child(4) {
+      grid-column: auto;
+      min-height: unset;
+    }
+
+    .solution-grid .feature-card h3 {
+      max-width: none;
+    }
   }
 
   @media (max-width: 980px) {
