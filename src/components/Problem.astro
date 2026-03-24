@@ -56,10 +56,10 @@ const items = [
         class="tech-title"
         aria-label="A arquitetura atual do seu sistema atrapalha a eficiência operacional e o crescimento."
       >
-        A arquitetura atual do seu sistema <span class="technical-tag"
-          >atrapalha</span
-        >
-        a eficiência operacional e o crescimento.
+        A arquitetura atual do seu sistema
+        <span class="pink-script problem-pink">atrapalha.</span>
+        A eficiência operacional e o
+        <span class="acid problem-acid">crescimento.</span>
       </h2>
     </div>
 
@@ -74,16 +74,14 @@ const items = [
             >LOCAL: <b class="cyan-txt" id="user-loc">coletando</b></span
           >
           <span class="meta-item"
-            >ENTRADA: <b class="cyan-txt" id="ctx-entry-inline">coletando</b></span
+            >ENTRADA: <b class="cyan-txt" id="ctx-entry-inline">coletando</b
+            ></span
           >
         </div>
         <div class="terminal-tag">dados desta sessão</div>
       </div>
 
-      <div
-        class="proof-panel"
-        aria-label="Sinais reais da sessão atual"
-      >
+      <div class="proof-panel" aria-label="Sinais reais da sessão atual">
         <div class="proof-head">
           <span class="proof-kicker">SINAL REAL</span>
           <p class="proof-copy">
@@ -99,7 +97,7 @@ const items = [
             <strong class="proof-value" id="ctx-location">coletando</strong>
           </div>
           <div class="proof-card">
-            <span class="proof-label">FONTE DE CONTEXTO</span>
+            <span class="proof-label">IP / LOC</span>
             <strong class="proof-value" id="ctx-source">coletando</strong>
           </div>
           <div class="proof-card">
@@ -146,7 +144,10 @@ const items = [
                       <span class="impact-num">0</span>
                       <span class="impact-pct">%</span>
                     </>
-                    <span class="impact-lbl"> IMPACTO OPERACIONAL ESTIMADO</span>
+                    <span class="impact-lbl">
+                      {" "}
+                      IMPACTO OPERACIONAL ESTIMADO
+                    </span>
                   </div>
                 </div>
 
@@ -160,9 +161,7 @@ const items = [
                       <div class="bar-head" />
                     </div>
                   </div>
-                  <div class="bar-meta">
-                    {item.basis}
-                  </div>
+                  <div class="bar-meta">{item.basis}</div>
                 </div>
               </div>
             </div>
@@ -416,10 +415,12 @@ const items = [
 
 <style>
   .diag-section {
+    --diag-terminal-green: #8cff61;
+    --diag-terminal-green-rgb: 140, 255, 97;
     padding: 10rem 0;
     background: radial-gradient(
       circle at 50% -10%,
-      rgba(51, 214, 255, 0.05),
+      rgba(var(--diag-terminal-green-rgb), 0.045),
       transparent 40%
     );
   }
@@ -440,7 +441,7 @@ const items = [
     padding: 2.5rem;
     box-shadow:
       var(--surface-shadow-strong),
-      inset 0 0 40px rgba(51, 214, 255, 0.03);
+      inset 0 0 40px rgba(var(--diag-terminal-green-rgb), 0.04);
     overflow: hidden;
   }
 
@@ -448,7 +449,7 @@ const items = [
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid rgba(51, 214, 255, 0.15);
+    border-bottom: 1px solid rgba(var(--diag-terminal-green-rgb), 0.16);
     padding-bottom: 1.5rem;
     margin-bottom: 1.5rem;
     font-family: var(--font-mono, monospace);
@@ -463,16 +464,17 @@ const items = [
   .status-pulse {
     width: 8px;
     height: 8px;
-    background: #33d6ff;
+    background: var(--diag-terminal-green);
     border-radius: 50%;
-    box-shadow: 0 0 15px #33d6ff;
+    box-shadow: 0 0 12px rgba(var(--diag-terminal-green-rgb), 0.45);
     animation: diag-pulse 2s infinite;
   }
 
   .status-text {
     font-size: 0.75rem;
     font-weight: 900;
-    color: #33d6ff;
+    color: var(--diag-terminal-green);
+    text-shadow: 0 0 10px rgba(var(--diag-terminal-green-rgb), 0.14);
     letter-spacing: 0.15em;
   }
 
@@ -484,8 +486,9 @@ const items = [
   }
 
   .cyan-txt {
-    color: #33d6ff;
+    color: var(--diag-terminal-green);
     font-weight: 700;
+    text-shadow: 0 0 8px rgba(var(--diag-terminal-green-rgb), 0.12);
   }
   .terminal-tag {
     font-size: 0.65rem;
@@ -502,9 +505,13 @@ const items = [
   .proof-panel {
     margin-bottom: 2rem;
     padding: 1.2rem;
-    border: 1px solid rgba(51, 214, 255, 0.14);
+    border: 1px solid rgba(var(--diag-terminal-green-rgb), 0.16);
     background:
-      linear-gradient(135deg, rgba(51, 214, 255, 0.07), transparent 58%),
+      linear-gradient(
+        135deg,
+        rgba(var(--diag-terminal-green-rgb), 0.08),
+        transparent 58%
+      ),
       rgba(255, 255, 255, 0.025);
     border-radius: 14px;
   }
@@ -666,27 +673,18 @@ const items = [
   }
 
   .tech-title {
-    font-size: 3rem;
-    font-weight: 800;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 900;
     margin-bottom: 3rem;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
+    line-height: 0.95;
+    letter-spacing: -0.06em;
     color: #fff;
+    max-width: none;
   }
 
-  /* High-Tech Highlight Classes */
-  .technical-tag {
-    font-family: var(--font-mono, monospace);
-    font-size: 0.9em;
-    background: rgba(255, 31, 143, 0.1);
-    border: 1px dashed rgba(255, 31, 143, 0.4);
-    padding: 0.2rem 0.6rem;
-    border-radius: 4px;
-    color: var(--pink);
-    text-transform: uppercase;
-    display: inline-block;
-    vertical-align: middle;
-    margin: 0 0.2rem;
+  .problem-pink,
+  .problem-acid {
+    font-style: normal;
   }
 
   .scan-highlight {
@@ -771,7 +769,7 @@ const items = [
     align-items: center;
     margin-top: 2.5rem;
     padding-top: 1.5rem;
-    border-top: 1px solid rgba(51, 214, 255, 0.15);
+    border-top: 1px solid rgba(var(--diag-terminal-green-rgb), 0.16);
     font-family: var(--font-mono, monospace);
   }
 

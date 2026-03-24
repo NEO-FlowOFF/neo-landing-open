@@ -2,19 +2,22 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="Recebido | NEØ FlowOFF">
+<BaseLayout title="Recebido | NEØ FlowOFF" robots="noindex, nofollow">
   <script is:inline slot="head">
-    if (typeof fbq === 'function') {
-      fbq('track', 'Lead');
+    if (typeof fbq === "function") {
+      fbq("track", "Lead");
     }
   </script>
-  
-  <section class="section" style="padding-top: 120px; min-height: 80vh; display: flex; align-items: center;">
+
+  <section
+    class="section"
+    style="padding-top: 120px; min-height: 80vh; display: flex; align-items: center;"
+  >
     <div class="container" style="text-align:center;">
       <h1>Recebido.</h1>
       <p>
-        Sua solicitação foi enviada.
-        Vamos analisar sua estrutura e retornar com um diagnóstico direto.
+        Sua solicitação foi enviada. Vamos analisar sua estrutura e retornar com
+        um diagnóstico direto.
       </p>
 
       <a href="/" class="btn btn-primary">Voltar</a>

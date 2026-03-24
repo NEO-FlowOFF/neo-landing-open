@@ -7,13 +7,12 @@
         aria-label="Não entregamos peças isoladas. Entregamos um sistema de aquisição."
       >
         Não entregamos peças isoladas.
-        <span class="cyan-txt">Entregamos um sistema de aquisição.</span
-        >
+        <span class="cyan-txt">Entregamos um sistema de aquisição.</span>
       </h2>
       <p class="section-lead">
-        Cada camada precisa cumprir uma função clara: atrair, capturar,
-        decidir e reter. Quando isso não existe, o digital vira cenário. Quando
-        existe, vira operação.
+        Cada camada precisa cumprir uma função clara: atrair, capturar, decidir
+        e reter. Quando isso não existe, o digital vira cenário. Quando existe,
+        vira operação.
       </p>
     </div>
 
@@ -113,13 +112,30 @@
   }
 
   .feature-card {
+    --accent-rgb: 217, 255, 63;
+    --accent-strong: #d9ff3f, transparent 20%;
     position: relative;
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 16px;
-    padding: 2.5rem;
+    padding: 5.4rem 2.5rem 2.5rem;
     transition: all 400ms var(--spring);
     overflow: hidden;
+  }
+
+  .feature-card::before {
+    content: "";
+    position: absolute;
+    top: 1.35rem;
+    left: 1.5rem;
+    right: 1.5rem;
+    height: 1.9rem;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--acid) 0%, #f3ff8a 30%);
+    box-shadow:
+      0 0 20px rgba(217, 255, 63, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    z-index: 0;
   }
 
   .feature-card:hover {
@@ -129,45 +145,66 @@
   }
 
   .feature-tag {
+    position: absolute;
+    top: 0.03rem;
+    left: 2.1rem;
     font-family: var(--font-mono, monospace);
     font-size: 0.75rem;
-    color: var(--text-3);
+    color: #9fb5ff;
     opacity: 1;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0;
     display: block;
+    z-index: 2;
+    letter-spacing: 0.08em;
+    text-shadow: 0 0 10px rgba(159, 181, 255, 0.18);
   }
 
   .card-badge {
     position: absolute;
-    top: 2.5rem;
-    right: 2.5rem;
+    top: 4.45rem;
+    left: 1.6rem;
     font-family: var(--font-mono, monospace);
     font-size: 0.55rem;
     font-weight: 900;
-    padding: 0.25rem 0.6rem;
-    border-radius: 4px;
-    letter-spacing: 0.1em;
+    padding: 0.34rem 0.72rem;
+    border-radius: 7px;
+    letter-spacing: 0.14em;
+    z-index: 2;
+    backdrop-filter: blur(14px) saturate(1.1);
+    -webkit-backdrop-filter: blur(14px) saturate(1.1);
+    box-shadow:
+      0 10px 22px rgba(0, 0, 0, 0.22),
+      inset 0 1px 0 rgba(255, 255, 255, 0.16);
   }
 
   .sale-badge {
-    background: #d9ff3f;
-    color: #000;
-    box-shadow: 0 0 15px rgba(217, 255, 63, 0.3);
+    background: rgba(217, 255, 63, 0.14);
+    color: #efff94;
+    border: 1px solid rgba(217, 255, 63, 0.32);
+    box-shadow:
+      0 8px 20px rgba(217, 255, 63, 0.12),
+      inset 0 0 18px rgba(217, 255, 63, 0.08);
   }
   .tech-badge {
-    background: #33d6ff;
-    color: #000;
-    box-shadow: 0 0 15px rgba(51, 214, 255, 0.3);
+    background: rgba(51, 214, 255, 0.14);
+    color: #7fe7ff;
+    border: 1px solid rgba(51, 214, 255, 0.32);
+    box-shadow:
+      0 8px 20px rgba(51, 214, 255, 0.12),
+      inset 0 0 18px rgba(51, 214, 255, 0.08);
   }
   .data-badge {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.06);
     color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.14);
   }
   .auto-badge {
-    background: var(--pink);
+    background: rgba(255, 31, 143, 0.14);
     color: #fff;
-    box-shadow: 0 0 15px rgba(255, 31, 143, 0.3);
+    border: 1px solid rgba(255, 31, 143, 0.32);
+    box-shadow:
+      0 8px 20px rgba(255, 31, 143, 0.12),
+      inset 0 0 18px rgba(255, 31, 143, 0.08);
   }
 
   .feature-card h3 {
@@ -228,7 +265,7 @@
     }
   }
 
-  @media (max-width: 980px) {
+  @media (max-width: 680px) {
     .solution-grid {
       grid-template-columns: 1fr;
     }
@@ -244,20 +281,32 @@
     }
 
     .solution-head .section-label {
-      margin-bottom: 0.65rem;
+      margin-bottom: 1.65rem;
     }
 
     .solution-grid {
-      gap: 0.9rem;
+      gap: 1.29rem;
     }
 
     .feature-card {
-      padding: 1.15rem;
+      padding: 5.8rem 1.15rem 1.15rem;
+    }
+    .feature-card::before {
+      top: 1rem;
+      left: 1rem;
+      right: 7.04rem;
+      height: 1.65rem;
     }
     .card-badge {
-      position: static;
-      display: inline-flex;
-      margin-bottom: 0.8rem;
+      top: calc(2.55rem - 16px);
+      left: calc(19.75rem - 9px);
+      font-size: 1rem;
+      padding: 0.17rem 0.02rem;
+    }
+    .feature-tag {
+      top: 1.03rem;
+      left: 0.55rem;
+      font-size: 0.72rem;
     }
     .feature-card h3 {
       font-size: 1.2rem;

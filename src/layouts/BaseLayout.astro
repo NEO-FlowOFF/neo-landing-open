@@ -11,12 +11,14 @@ interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
+  robots?: string;
 }
 
 const {
   title = "NEØ FlowOFF | Sites que operam vendas",
   description = "Landing pages, webapps, dashboards e automações para transformar presença digital em aquisição de clientes.",
   ogImage = "/assets/og-flowoff.png",
+  robots = "index,follow",
 } = Astro.props;
 
 const canonicalUrl = new URL(
@@ -37,7 +39,7 @@ const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url).toString();
     />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="robots" content="index,follow" />
+    <meta name="robots" content={robots} />
     <meta name="theme-color" content="#ff1f8f" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -100,6 +102,9 @@ const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url).toString();
 
       // 2. NΞØ-Bridge Configuration 🛰️
       const NEO_NODE_URL = "https://sites.neoflowoff.agency";
+      const NEO_IS_LOCAL_PREVIEW = ["localhost", "127.0.0.1", "[::1]"].includes(
+        window.location.hostname,
+      );
 
       window.NeoBridge = {
         get_meta_cookies() {
@@ -136,19 +141,28 @@ const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url).toString();
           };
 
           try {
-            fetch(`${NEO_NODE_URL}/api/event`, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(payload),
-            });
+            if (!NEO_IS_LOCAL_PREVIEW) {
+              await fetch(`${NEO_NODE_URL}/api/event`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload),
+                keepalive: true,
+              });
+            }
 
             // SINAL 2: Pixel (Via Navegador) 🟢
             if (typeof fbq !== "undefined") {
               fbq("track", eventName, { ...customData, eventID: eventId });
             }
-            console.log(`[NΞØ] Evento ${eventName} disparado com Duplo Sinal!`);
+            if (!NEO_IS_LOCAL_PREVIEW) {
+              console.log(
+                `[NΞØ] Evento ${eventName} disparado com Duplo Sinal!`,
+              );
+            }
           } catch (e) {
-            console.error("[NΞØ] Falha técnica no rastreamento:", e);
+            if (!NEO_IS_LOCAL_PREVIEW) {
+              console.error("[NΞØ] Falha técnica no rastreamento:", e);
+            }
           }
         },
       };
