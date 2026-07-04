@@ -13,8 +13,7 @@ _Desenvolvido pela equipe do NEØ Protocol._
 
 ───────────────────────
 
-```
-
+```text
 ▓▓▓ NΞØ MELLØ
 ─────────────────────────
 Core Architect · NΞØ Protocol
@@ -25,7 +24,7 @@ silence becomes structure."
 ───────────────────────────────
 ```
 
-```
+```text
      ▄
  ▄▀▀▀▄
 ░█░▄▀█
